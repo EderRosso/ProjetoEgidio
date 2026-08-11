@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Buffon Assistência Técnica Industrial - Conserto, reparo e manutenção especializada de ferramentas pneumáticas, equipamentos de pintura airless, motores elétricos e ferramentas elétricas. Solicite orçamento sem compromisso.">
+    <meta name="keywords" content="assistência técnica industrial, conserto de máquinas, ferramentas pneumáticas, motores elétricos, pintura airless, manutenção industrial, Buffon, orçamento gratuito">
+    <meta name="author" content="Buffon Assistência Técnica">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.buffonassistencia.com.br/">
+    <meta property="og:title" content="Buffon | Assistência Técnica Industrial Especializada">
+    <meta property="og:description" content="Manutenção especializada de ferramentas pneumáticas, sistemas de pintura airless, motores e equipamentos industriais. Garantia de qualidade e atendimento rápido.">
+    <meta property="og:image" content="https://www.buffonassistencia.com.br/assets/images/og-image.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://www.buffonassistencia.com.br/">
+    <meta property="twitter:title" content="Buffon | Assistência Técnica Industrial Especializada">
+    <meta property="twitter:description" content="Manutenção especializada de ferramentas pneumáticas, sistemas de pintura airless, motores e equipamentos industriais. Garantia de qualidade e atendimento rápido.">
+    <meta property="twitter:image" content="https://www.buffonassistencia.com.br/assets/images/og-image.jpg">
+
+    <title>Buffon | Assistência Técnica de Máquinas e Equipamentos Industriais</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Favicon (Substituir o placeholder pelo arquivo favicon real) -->
+    <link rel="shortcut icon" href="[FAVICON_PLACEHOLDER]" type="image/x-icon">
+
+    <!-- CSS Link -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- -----------------------------------------
+         CABEÇALHO (NAVBAR)
+         ----------------------------------------- -->
+    <header class="header">
+        <div class="container nav-wrapper">
+            <!-- Logo Institucional -->
+            <a href="#home" class="logo" id="header-logo">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="logo-icon" style="display:inline-block; vertical-align: middle; margin-right: 4px;">
+                    <path d="M12 2l8.66 5v10L12 22l-8.66-5V7z" />
+                    <circle cx="12" cy="12" r="3" fill="var(--color-accent)" stroke="none" />
+                    <path d="M12 8v2M12 14v2M8.5 10l1.73 1M13.77 13l1.73 1M8.5 14l1.73-1M13.77 11l1.73-1" stroke="currentColor" stroke-width="1.5" />
+                </svg>
+                BUFFON<span>.</span>
+            </a>
+
+            <!-- Menu de Navegação -->
+            <nav class="nav-menu" id="nav-menu" role="navigation" aria-label="Menu principal">
+                <a href="#home" class="nav-link active" id="menu-home">Início</a>
+                <a href="#sobre" class="nav-link" id="menu-sobre">Sobre Nós</a>
+                <a href="#processo" class="nav-link" id="menu-processo">Como Funciona</a>
+                <a href="#servicos" class="nav-link" id="menu-servicos">Equipamentos</a>
+                <a href="#faq" class="nav-link" id="menu-faq">FAQ</a>
+                <a href="#depoimentos" class="nav-link" id="menu-depoimentos">Avaliações</a>
+                <a href="#contato" class="nav-link" id="menu-contato">Contato</a>
+                <!-- CTA do Menu Mobile -->
+                <a href="https://wa.me/55[NUMERO_DO_WHATSAPP]" class="btn btn-whatsapp btn-menu-cta" target="_blank" rel="noopener noreferrer" id="menu-cta-whats">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.455L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.37 9.864-9.799.002-2.63-1.023-5.101-2.885-6.965C16.59 2.016 14.133 1 11.517 1 6.082 1 1.657 5.37 1.654 10.8c-.001 1.674.444 3.308 1.29 4.747L1.9 21.03l4.747-1.876zM17.41 14.5c-.32-.16-1.89-.93-2.185-1.04-.294-.11-.51-.16-.723.16-.214.32-.83 1.04-1.02 1.25-.19.21-.38.24-.7.08-1.127-.565-1.951-1.034-2.737-2.39-.2-.34.2-.32.57-1.07.09-.18.04-.34-.02-.45-.06-.11-.51-1.22-.7-1.68-.18-.43-.36-.37-.5-.38-.13 0-.28 0-.43 0-.15 0-.39.06-.6.29-.21.23-.8.78-.8 1.9s.82 2.21.93 2.37c.11.16 1.61 2.46 3.91 3.46 1.15.5 2.06.82 2.76 1.04.58.19 1.11.16 1.53.1.47-.07 1.46-.6 1.67-1.18.21-.58.21-1.08.15-1.18-.06-.1-.23-.16-.55-.32z"/>
+                    </svg>
+                    Fale Conosco
+                </a>
+            </nav>
+
+            <!-- Botões de Ação na Direita -->
+            <div class="nav-actions"></div>
+
+            <!-- Botão Menu Mobile Hambúrguer -->
+            <button class="mobile-toggle" id="mobile-toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Abrir menu de navegação">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        
+        <!-- -----------------------------------------
+             SEÇÃO HERO
+             ----------------------------------------- -->
+        <section id="home" class="hero">
+            <div class="hero-bg"></div>
+            <div class="hero-grid-pattern"></div>
+            <div class="container hero-wrapper">
+                
+                <!-- Conteúdo de Chamada -->
+                <div class="hero-content">
+                    <div class="hero-tag">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                            <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                            <polyline points="2 17 12 22 22 17"></polyline>
+                            <polyline points="2 12 12 17 22 12"></polyline>
+                        </svg>
+                        Assistência Técnica Multimarcas & Autorizada
+                    </div>
+                    <h1 class="hero-title">Assistência técnica especializada em <span>equipamentos industriais.</span></h1>
+                    <p class="hero-description">Conserto ágil e manutenção preventiva para ferramentas pneumáticas, sistemas de pintura airless, motores elétricos e muito mais. Mantenha sua produção ativa com quem entende.</p>
+                    
+                    <div class="hero-ctas">
+                        <div class="hero-ctas-row">
+                            <a href="https://wa.me/55[NUMERO_DO_WHATSAPP]" class="btn btn-primary btn-whatsapp" target="_blank" rel="noopener noreferrer" id="hero-cta-whats">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.455L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.37 9.864-9.799.002-2.63-1.023-5.101-2.885-6.965C16.59 2.016 14.133 1 11.517 1 6.082 1 1.657 5.37 1.654 10.8c-.001 1.674.444 3.308 1.29 4.747L1.9 21.03l4.747-1.876zM17.41 14.5c-.32-.16-1.89-.93-2.185-1.04-.294-.11-.51-.16-.723.16-.214.32-.83 1.04-1.02 1.25-.19.21-.38.24-.7.08-1.127-.565-1.951-1.034-2.737-2.39-.2-.34.2-.32.57-1.07.09-.18.04-.34-.02-.45-.06-.11-.51-1.22-.7-1.68-.18-.43-.36-.37-.5-.38-.13 0-.28 0-.43 0-.15 0-.39.06-.6.29-.21.23-.8.78-.8 1.9s.82 2.21.93 2.37c.11.16 1.61 2.46 3.91 3.46 1.15.5 2.06.82 2.76 1.04.58.19 1.11.16 1.53.1.47-.07 1.46-.6 1.67-1.18.21-.58.21-1.08.15-1.18-.06-.1-.23-.16-.55-.32z"/>
+                                </svg>
+                                Fale no WhatsApp
+                            </a>
+                            <a href="#sobre" class="btn btn-secondary" id="hero-cta-more">Conhecer a Buffon</a>
+                        </div>
+                        <a href="#contato" class="btn btn-primary" id="hero-cta-budget">Solicitar Orçamento</a>
+                    </div>
+                </div>
+
+                <!-- Painel Informativo Lateral -->
+                <div class="hero-features-badge">
+                    <div class="hero-feature-item">
+                        <div class="hero-feature-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                        </div>
+                        <div class="hero-feature-text">
+                            <h4>Diagnóstico Técnico Preciso</h4>
+                            <p>Análise detalhada de falhas e desgaste físico.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="hero-feature-item">
+                        <div class="hero-feature-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <polyline points="12 6 12 12 16 14"></polyline>
+                            </svg>
+                        </div>
+                        <div class="hero-feature-text">
+                            <h4>Orçamento Sem Compromisso</h4>
+                            <p>Transparência total antes de realizar qualquer reparo.</p>
+                        </div>
+                    </div>
+
+                    <div class="hero-feature-item">
+                        <div class="hero-feature-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                            </svg>
+                        </div>
+                        <div class="hero-feature-text">
+                            <h4>Garantia em Serviços</h4>
+                            <p>Segurança pós-entrega com peças de alta qualidade.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- -----------------------------------------
+             SEÇÃO DE ESTATÍSTICAS
+             ----------------------------------------- -->
+        <section class="stats">
+            <div class="container stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number">[10+]</div>
+                    <div class="stat-label">Anos de Experiência</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">[5.000+]</div>
+                    <div class="stat-label">Equipamentos Consertados</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">[100%]</div>
+                    <div class="stat-label">Garantia de Qualidade</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">[48h]</div>
+                    <div class="stat-label">Prazo Médio de Diagnóstico</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- -----------------------------------------
+             SEÇÃO SOBRE
+             ----------------------------------------- -->
+        <section id="sobre" class="about section-padding">
+            <div class="container">
+                <div class="about-wrapper">
+                    
+                    <!-- Imagem / Visual da Empresa -->
+                    <div class="about-image-side">
+                        <div class="about-image-container">
+                            <svg viewBox="0 0 500 350" fill="none" xmlns="http://www.w3.org/2000/svg" style="background:#1e293b; width:100%; display:block;">
+                                <rect width="500" height="350" fill="#1e293b"/>
+                                <path d="M100 280 L200 120 L300 200 L400 80" stroke="var(--color-accent)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                                <circle cx="200" cy="120" r="8" fill="#ffffff" stroke="var(--color-accent)" stroke-width="3"/>
+                                <circle cx="400" cy="8" r="8" fill="#ffffff" stroke="var(--color-accent)" stroke-width="3"/>
+                                <circle cx="300" cy="200" r="8" fill="#ffffff" stroke="var(--color-accent)" stroke-width="3"/>
+                                <text x="50" y="310" fill="var(--color-text-secondary)" font-family="var(--font-primary)" font-size="12">[IMAGEM INSTITUCIONAL DA ASSISTÊNCIA TÉCNICA BUFFON]</text>
+                                <path d="M150 250 L350 250" stroke="var(--color-tertiary-dark)" stroke-width="2" stroke-dasharray="5 5"/>
+                                <rect x="30" y="30" width="100" height="100" rx="6" fill="rgba(249, 115, 22, 0.1)" stroke="rgba(249, 115, 22, 0.2)"/>
+                                <path d="M70 80 L90 80 M80 70 L80 90" stroke="var(--color-accent)" stroke-width="3" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                        <div class="about-experience-badge">
+                            <h3>[10]</h3>
+                            <p>Anos no Mercado</p>
+                        </div>
+                    </div>
+
+                    <!-- Texto Institucional -->
+                    <div class="about-content">
+                        <span class="section-subtitle">Sobre a Buffon</span>
+                        <h2 class="section-title">Parceiro estratégico para o conserto de máquinas e ferramentas</h2>
+                        <p class="about-text">A Buffon nasceu com o compromisso de suprir a demanda industrial por serviços de assistência técnica rápidos e eficientes. Com infraestrutura robusta, ferramentas de diagnóstico e profissionais capacitados, realizamos manutenções corretivas e preventivas que aumentam a vida útil do maquinário e minimizam o tempo de inatividade operacional da sua empresa.</p>
+                        
+                        <div class="about-grid">
+                            <div class="about-card">
+                                <div class="about-card-icon">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                                    </svg>
+                                </div>
+                                <h4 class="about-card-title">Segurança Técnica</h4>
+                                <p class="about-card-desc">Processos de acordo com as normas dos fabricantes e peças certificadas.</p>
+                            </div>
+
+                            <div class="about-card">
+                                <div class="about-card-icon">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path>
+                                    </svg>
+                                </div>
+                                <h4 class="about-card-title">Agilidade</h4>
+                                <p class="about-card-desc">Equipe técnica voltada a otimizar o tempo de reparo de cada ferramenta.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- -----------------------------------------
+             SEÇÃO PROCESSO (COMO FUNCIONA)
+             ----------------------------------------- -->
+        <section id="processo" class="process section-padding">
+            <div class="container">
+                <div class="section-title-wrapper">
+                    <span class="section-subtitle">Etapas Simplificadas</span>
+                    <h2 class="section-title">Como funciona a nossa assistência técnica?</h2>
+                    <p class="section-description">Do recebimento à entrega final com garantia, nosso processo preza pela agilidade e transparência.</p>
+                </div>
+
+                <div class="timeline-wrapper">
+                    <div class="timeline-line"></div>
+
+                    <!-- Passo 1 -->
+                    <div class="timeline-step">
+                        <div class="timeline-content-side">
+                            <div class="timeline-card">
+                                <span class="timeline-step-num">Passo 1</span>
+                                <h3>Envio do Equipamento</h3>
+                                <p>Você traz a sua ferramenta até a nossa sede ou nós coletamos em sua empresa [DEPENDENDO DA SUA LOCALIZAÇÃO].</p>
+                            </div>
+                        </div>
+                        <div class="timeline-node">1</div>
+                        <div class="timeline-empty-side"></div>
+                    </div>
+
+                    <!-- Passo 2 -->
+                    <div class="timeline-step">
+                        <div class="timeline-empty-side"></div>
+                        <div class="timeline-node">2</div>
+                        <div class="timeline-content-side">
+                            <div class="timeline-card">
+                                <span class="timeline-step-num">Passo 2</span>
+                                <h3>Diagnóstico e Testes</h3>
+                                <p>Nossos técnicos desmontam, limpam e realizam testes elétricos, pneumáticos ou hidráulicos para identificar a causa raiz do problema.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Passo 3 -->
+                    <div class="timeline-step">
+                        <div class="timeline-content-side">
+                            <div class="timeline-card">
+                                <span class="timeline-step-num">Passo 3</span>
+                                <h3>Orçamento Gratuito</h3>
+                                <p>Enviamos um relatório detalhado com as peças a substituir e mão de obra, sem custo adicional de orçamento.</p>
+                            </div>
+                        </div>
+                        <div class="timeline-node">3</div>
+                        <div class="timeline-empty-side"></div>
+                    </div>
+
+                    <!-- Passo 4 -->
+                    <div class="timeline-step">
+                        <div class="timeline-empty-side"></div>
+                        <div class="timeline-node">4</div>
+                        <div class="timeline-content-side">
+                            <div class="timeline-card">
+                                <span class="timeline-step-num">Passo 4</span>
+                                <h3>Reparo e Calibração</h3>
+                                <p>Após aprovação, fazemos a manutenção utilizando componentes de alta qualidade e calibramos o equipamento de acordo com as especificações exigidas.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Passo 5 -->
+                    <div class="timeline-step">
+                        <div class="timeline-content-side">
+                            <div class="timeline-card">
+                                <span class="timeline-step-num">Passo 5</span>
+                                <h3>Devolução com Garantia</h3>
+                                <p>O equipamento passa por testes de carga finais e é disponibilizado para retirada ou entrega, acompanhado da nossa política de garantia de [90 DIAS].</p>
+                            </div>
+                        </div>
+                        <div class="timeline-node">5</div>
+                        <div class="timeline-empty-side"></div>
+                    </div>
+                </div>
+
+                <!-- Aviso / Políticas de Garantia -->
+                <div class="process-footer-notice">
+                    <h4>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" y1="16" x2="12" y2="12"></line>
+                            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                        </svg>
+                        Nossa Política de Compromisso
+                    </h4>
+                    <p>Todos os serviços prestados pela Buffon contam com garantia legal mínima de 90 dias para as peças substituídas e para a mão de obra aplicada. Garantimos que sua máquina retornará ao campo de trabalho operando em máxima performance.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- -----------------------------------------
+             SEÇÃO SERVIÇOS / EQUIPAMENTOS ATENDIDOS
+             ----------------------------------------- -->
+        <section id="servicos" class="services section-padding">
+            <div class="container">
+                <div class="section-title-wrapper">
+                    <span class="section-subtitle">O Que Fazemos</span>
+                    <h2 class="section-title">Especialistas em assistência técnica industrial</h2>
+                    <p class="section-description">Oferecemos manutenção e reparo especializado em uma ampla linha de equipamentos industriais e ferramentas profissionais.</p>
+                </div>
+
+                <div class="services-grid">
+                    
+                    <!-- Serviço 1: Ferramentas Pneumáticas -->
+                    <div class="service-card">
+                        <div class="service-icon-box">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 0-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 0 7.94-7.94l-3.76 3.76z"></path>
+                            </svg>
+                        </div>
+                        <h3>Ferramentas Pneumáticas</h3>
+                        <p>Conserto de chaves de impacto, lixadeiras, esmerilhadeiras, furadeiras, rebitadores e grampeadores de alta pressão de ar.</p>
+                        <a href="https://wa.me/55[NUMERO_DO_WHATSAPP]" class="service-link" target="_blank" rel="noopener noreferrer">
+                            Solicitar Manutenção
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg>
+                        </a>
+                    </div>
+
+                    <!-- Serviço 2: Equipamentos de Pintura -->
+                    <div class="service-card">
+                        <div class="service-icon-box">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"></path>
+                                <path d="M12 18C15.3137 18 18 15.3137 18 12C18 8.68629 15.3137 6 12 6C8.68629 6 6 8.68629 6 12C6 15.3137 8.68629 18 12 18Z"></path>
+                                <path d="M12 14C13.1046 14 14 13.1046 14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14Z"></path>
+                            </svg>
+                        </div>
+                        <h3>Equipamentos de Pintura</h3>
+                        <p>Reparo especializado em máquinas de pintura Airless, pistolas de pintura industriais, compressores e tanques de pressão de fluidos.</p>
+                        <a href="https://wa.me/55[NUMERO_DO_WHATSAPP]" class="service-link" target="_blank" rel="noopener noreferrer">
+                            Solicitar Manutenção
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg>
+                        </a>
+                    </div>
+
+                    <!-- Serviço 3: Motores Elétricos -->
+                    <div class="service-card">
+                        <div class="service-icon-box">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="3"></circle>
+                                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                            </svg>
+                        </div>
+                        <h3>Motores Elétricos & Bombas</h3>
+                        <p>Bobinagem de estatores, troca de rolamentos e selo mecânico em motores trifásicos, bombas d'água e bombas centrífugas industriais.</p>
+                        <a href="https://wa.me/55[NUMERO_DO_WHATSAPP]" class="service-link" target="_blank" rel="noopener noreferrer">
+                            Solicitar Manutenção
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg>
+                        </a>
+                    </div>
+
+                    <!-- Serviço 4: Ferramentas Elétricas -->
+                    <div class="service-card">
+                        <div class="service-icon-box">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M18.36 6.64a9 9 0 1 1-12.73 0"></path>
+                                <line x1="12" y1="2" x2="12" y2="12"></line>
+                            </svg>
+                        </div>
+                        <h3>Ferramentas Elétricas</h3>
+                        <p>Conserto em geral de ferramentas profissionais como martelos demolidores, serras circulares, politrizes de piso e parafusadeiras eletrônicas.</p>
+                        <a href="https://wa.me/55[NUMERO_DO_WHATSAPP]" class="service-link" target="_blank" rel="noopener noreferrer">
+                            Solicitar Manutenção
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg>
+                        </a>
+                    </div>
+
+                </div>
+
+                <!-- Carrossel / Lista de Marcas Atendidas -->
+                <div class="brands-section text-center">
+                    <h3 class="brands-title">Manutenção Multimarcas</h3>
+                    <div class="brands-carousel-container">
+                        <div class="brands-carousel-track">
+                            <!-- Conjunto 1 -->
+                            <div class="brand-logo-item">[BOSCH]</div>
+                            <div class="brand-logo-item">[MAKITA]</div>
+                            <div class="brand-logo-item">[DEWALT]</div>
+                            <div class="brand-logo-item">[GRACO]</div>
+                            <div class="brand-logo-item">[SCHULZ]</div>
+                            <div class="brand-logo-item">[DEVILBISS]</div>
+                            <div class="brand-logo-item">[INGERSOLL RAND]</div>
+                            <!-- Conjunto 2 (Duplicado para efeito infinito) -->
+                            <div class="brand-logo-item">[BOSCH]</div>
+                            <div class="brand-logo-item">[MAKITA]</div>
+                            <div class="brand-logo-item">[DEWALT]</div>
+                            <div class="brand-logo-item">[GRACO]</div>
+                            <div class="brand-logo-item">[SCHULZ]</div>
+                            <div class="brand-logo-item">[DEVILBISS]</div>
+                            <div class="brand-logo-item">[INGERSOLL RAND]</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- -----------------------------------------
+             SEÇÃO FAQ
+             ----------------------------------------- -->
+        <section id="faq" class="faq section-padding">
+            <div class="container">
+                <div class="section-title-wrapper">
+                    <span class="section-subtitle">Dúvidas Frequentes</span>
+                    <h2 class="section-title">Perguntas Respondidas</h2>
+                    <p class="section-description">Confira as respostas para as perguntas mais comuns dos nossos clientes industriais.</p>
+                </div>
+
+                <div class="faq-wrapper">
+                    
+                    <!-- FAQ 1 -->
+                    <div class="faq-item">
+                        <button class="faq-header" aria-expanded="false" id="faq-btn-1">
+                            <span class="faq-question">A Buffon realiza atendimentos em todo o Brasil?</span>
+                            <span class="faq-icon-box">
+                                <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                </svg>
+                            </span>
+                        </button>
+                        <div class="faq-body">
+                            <div class="faq-content">
+                                <p>Realizamos a manutenção interna em nosso centro técnico de ferramentas enviadas por clientes de diversas regiões. Para atendimento em campo (manutenção corretiva in loco), nosso foco operacional principal é a região de [ESTADO/CIDADE DA BUFFON]. Entre em contato para alinhar detalhes de envio ou visitas técnicas.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FAQ 2 -->
+                    <div class="faq-item">
+                        <button class="faq-header" aria-expanded="false" id="faq-btn-2">
+                            <span class="faq-question">Qual é o prazo médio estimado para o conserto?</span>
+                            <span class="faq-icon-box">
+                                <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                </svg>
+                            </span>
+                        </button>
+                        <div class="faq-body">
+                            <div class="faq-content">
+                                <p>Nosso diagnóstico técnico inicial é realizado em até [48 HORAS]. Após aprovação do orçamento, o conserto ocorre em média de [2 A 5 DIAS ÚTEIS], variando de acordo com a complexidade do defeito e a disponibilidade de peças sobressalentes no estoque ou fabricante.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FAQ 3 -->
+                    <div class="faq-item">
+                        <button class="faq-header" aria-expanded="false" id="faq-btn-3">
+                            <span class="faq-question">O diagnóstico e orçamento inicial são gratuitos?</span>
+                            <span class="faq-icon-box">
+                                <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                </svg>
+                            </span>
+                        </button>
+                        <div class="faq-body">
+                            <div class="faq-content">
+                                <p>Sim! Não cobramos taxas adicionais para avaliar sua ferramenta ou máquina. O orçamento é inteiramente gratuito e sem qualquer compromisso.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FAQ 4 -->
+                    <div class="faq-item">
+                        <button class="faq-header" aria-expanded="false" id="faq-btn-4">
+                            <span class="faq-question">Quais são as opções de garantia oferecidas?</span>
+                            <span class="faq-icon-box">
+                                <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                </svg>
+                            </span>
+                        </button>
+                        <div class="faq-body">
+                            <div class="faq-content">
+                                <p>Oferecemos garantia de [90 DIAS] para todos os serviços realizados, incluindo peças substituídas e mão de obra técnica. A garantia cobre eventuais defeitos originados no reparo, exceto casos de mau uso do equipamento ou acidentes operacionais.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- -----------------------------------------
+             SEÇÃO DEPOIMENTOS (GOOGLE REVIEWS)
+             ----------------------------------------- -->
+        <section id="depoimentos" class="testimonials section-padding">
+            <div class="container">
+                <div class="section-title-wrapper">
+                    <span class="section-subtitle">Prova Social</span>
+                    <h2 class="section-title">O que nossos clientes dizem</h2>
+                    <p class="section-description">Opiniões reais retiradas diretamente do Google Avaliações de quem confia na assistência técnica Buffon.</p>
+                </div>
+
+                <div class="testimonials-grid">
+                    <!-- Depoimento 1 -->
+                    <div class="testimonial-card">
+                        <div class="testimonial-header">
+                            <div class="client-avatar">
+                                <span>RS</span>
+                            </div>
+                            <div class="client-info">
+                                <h4 class="client-name">[RICARDO SILVA]</h4>
+                                <span class="client-company">[Gerente de Manutenção - Metalúrgica Sul]</span>
+                            </div>
+                            <div class="google-logo-icon">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12.24 10.285V14.4h6.887c-.648 2.41-2.519 4.113-6.886 4.113-4.907 0-8.905-4.013-8.905-8.9s3.998-8.9 8.905-8.9c2.285 0 4.36.815 5.998 2.37l3.124-3.128C18.665 1.545 15.673 0 12.24 0 5.48 0 0 5.48 0 12.24s5.48 12.24 12.24 12.24c7.07 0 11.758-4.975 11.758-11.966 0-.81-.073-1.603-.22-2.229H12.24z"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="testimonial-rating">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" class="star-icon"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" class="star-icon"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" class="star-icon"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" class="star-icon"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" class="star-icon"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        </div>
+                        <p class="testimonial-text">"Excelente assistência para nossas ferramentas pneumáticas. Consertaram três chaves de impacto de 1 polegada que estavam sem força. Entrega rápida e orçamento muito detalhado. Recomendo!"</p>
+                        <span class="testimonial-date">Há 2 semanas</span>
+                    </div>
+
+                    <!-- Depoimento 2 -->
+                    <div class="testimonial-card">
+                        <div class="testimonial-header">
+                            <div class="client-avatar">
+                                <span>AM</span>
+                            </div>
+                            <div class="client-info">
+                                <h4 class="client-name">[ALESSANDRA MENEGUTTI]</h4>
+                                <span class="client-company">[Engenharia - Pintura Jet]</span>
+                            </div>
+                            <div class="google-logo-icon">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12.24 10.285V14.4h6.887c-.648 2.41-2.519 4.113-6.886 4.113-4.907 0-8.905-4.013-8.905-8.9s3.998-8.9 8.905-8.9c2.285 0 4.36.815 5.998 2.37l3.124-3.128C18.665 1.545 15.673 0 12.24 0 5.48 0 0 5.48 0 12.24s5.48 12.24 12.24 12.24c7.07 0 11.758-4.975 11.758-11.966 0-.81-.073-1.603-.22-2.229H12.24z"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="testimonial-rating">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" class="star-icon"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" class="star-icon"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" class="star-icon"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" class="star-icon"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" class="star-icon"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        </div>
+                        <p class="testimonial-text">"Nossas máquinas de pintura Airless Graco rodam sem parar graças ao atendimento preventivo da Buffon. Equipe muito séria, cumprem os prazos e fornecem nota fiscal certinha."</p>
+                        <span class="testimonial-date">Há 1 mês</span>
+                    </div>
+
+                    <!-- Depoimento 3 -->
+                    <div class="testimonial-card">
+                        <div class="testimonial-header">
+                            <div class="client-avatar">
+                                <span>MC</span>
+                            </div>
+                            <div class="client-info">
+                                <h4 class="client-name">[MAURÍCIO COSTA]</h4>
+                                <span class="client-company">[Supervisor - EletroMotores Estrela]</span>
+                            </div>
+                            <div class="google-logo-icon">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12.24 10.285V14.4h6.887c-.648 2.41-2.519 4.113-6.886 4.113-4.907 0-8.905-4.013-8.905-8.9s3.998-8.9 8.905-8.9c2.285 0 4.36.815 5.998 2.37l3.124-3.128C18.665 1.545 15.673 0 12.24 0 5.48 0 0 5.48 0 12.24s5.48 12.24 12.24 12.24c7.07 0 11.758-4.975 11.758-11.966 0-.81-.073-1.603-.22-2.229H12.24z"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="testimonial-rating">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" class="star-icon"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" class="star-icon"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" class="star-icon"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" class="star-icon"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" class="star-icon"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        </div>
+                        <p class="testimonial-text">"Levamos dois motores elétricos trifásicos de alta potência que estavam com curto. Fizeram a bobinagem completa rápida e com rolamentos novos de alta qualidade. Funcionando como novos."</p>
+                        <span class="testimonial-date">Há 3 semanas</span>
+                    </div>
+                </div>
+
+                <div class="testimonials-footer text-center">
+                    <div class="google-badge-summary">
+                        <span class="badge-title">Avaliação Média: <strong>4.9 / 5.0</strong></span>
+                        <div class="stars-summary">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="#f59e0b"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="#f59e0b"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="#f59e0b"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="#f59e0b"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="#f59e0b"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        </div>
+                        <span class="reviews-count">com base em [58] avaliações no Google</span>
+                    </div>
+                    <a href="https://search.google.com/local/reviews?placeid=[PLACE_ID_DO_GOOGLE_AQUI]" class="btn btn-secondary" target="_blank" rel="noopener noreferrer" style="margin-top: 24px;">
+                        Ver Perfil da Empresa no Google
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- -----------------------------------------
+             SEÇÃO CONTATO E MAPA
+             ----------------------------------------- -->
+        <section id="contato" class="contact section-padding">
+            <div class="container">
+                
+                <div class="section-title-wrapper">
+                    <span class="section-subtitle">Canal Direto</span>
+                    <h2 class="section-title">Fale Conosco e Solicite Orçamento</h2>
+                    <p class="section-description">Esclareça suas dúvidas técnicas ou envie fotos e detalhes do equipamento que precisa de conserto.</p>
+                </div>
+
+                <div class="contact-wrapper">
+                    
+                    <!-- Lado Esquerdo: Contatos e Mapa -->
+                    <div class="contact-info-side">
+                        <div class="contact-info-cards">
+                            
+                            <!-- Telefone/Whats -->
+                            <div class="info-card">
+                                <div class="info-card-icon">
+                                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                                    </svg>
+                                </div>
+                                <div class="info-card-content">
+                                    <h4>Telefone & WhatsApp</h4>
+                                    <p>[TELEFONE DA BUFFON]</p>
+                                    <p>[WHATSAPP DA BUFFON]</p>
+                                </div>
+                            </div>
+
+                            <!-- E-mail -->
+                            <div class="info-card">
+                                <div class="info-card-icon">
+                                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                        <polyline points="22,6 12,13 2,6"></polyline>
+                                    </svg>
+                                </div>
+                                <div class="info-card-content">
+                                    <h4>E-mail para Orçamentos</h4>
+                                    <p>[EMAIL DA BUFFON]</p>
+                                </div>
+                            </div>
+
+                            <!-- Endereço -->
+                            <div class="info-card">
+                                <div class="info-card-icon">
+                                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                        <circle cx="12" cy="10" r="3"></circle>
+                                    </svg>
+                                </div>
+                                <div class="info-card-content">
+                                    <h4>Endereço Sede</h4>
+                                    <p>[ENDEREÇO DA BUFFON - RUA, NÚMERO, BAIRRO]</p>
+                                    <p>[CIDADE - ESTADO - CEP]</p>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- Mapa Incorporado -->
+                        <div class="map-container">
+                            <!-- Placeholder de Mapa Google. Trocar a URL do src pelo embed real da localização da empresa -->
+                            <iframe 
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14397.643356075903!2d-49.27306899999999!3d-25.438308200000003!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94dce4115b1d2e19%3A0x6474b7cbfcd622e!2sCentro%2C%20Curitiba%20-%20PR!5e0!3m2!1spt-BR!2sbr!4v1691784930000!5m2!1spt-BR!2sbr" 
+                                allowfullscreen="" 
+                                loading="lazy" 
+                                referrerpolicy="no-referrer-when-downgrade"
+                                title="Mapa de Localização da Assistência Técnica Buffon">
+                            </iframe>
+                        </div>
+                    </div>
+
+                    <!-- Lado Direito: Formulário -->
+                    <div class="contact-form-card">
+                        <h3>Solicitar Diagnóstico</h3>
+                        <p>Preencha os dados básicos abaixo para iniciarmos seu pré-atendimento.</p>
+                        
+                        <!-- 
+                            Formulário Funcional via Formspree. 
+                            Como Configurar:
+                            1. Acesse https://formspree.io/
+                            2. Crie uma conta gratuita e crie um formulário
+                            3. Substitua o action abaixo por: action="https://formspree.io/f/SEU_ID_FORM"
+                            4. Defina o method="POST"
+                        -->
+                        <form id="budget-form" action="[ENDPOINT_DE_EMAIL_FORM_SPREE_AQUI]" method="POST">
+                            
+                            <div class="form-group">
+                                <label for="form-name">Seu Nome / Nome da Empresa *</label>
+                                <input type="text" id="form-name" name="name" class="form-control" placeholder="Ex: João da Silva / Metalúrgica Silva" required>
+                            </div>
+
+                            <div class="form-group-row">
+                                <div class="form-group">
+                                    <label for="form-tel">Telefone / WhatsApp *</label>
+                                    <input type="tel" id="form-tel" name="phone" class="form-control" placeholder="Ex: (51) 99999-9999" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="form-email">E-mail Corporativo *</label>
+                                    <input type="email" id="form-email" name="email" class="form-control" placeholder="Ex: contato@empresa.com.br" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="form-device">Tipo do Equipamento / Modelo</label>
+                                <select id="form-device" name="device_type" class="form-control">
+                                    <option value="pneumatica">Ferramenta Pneumática (Lixadeira, Chave de impacto)</option>
+                                    <option value="pintura">Equipamento de Pintura (Airless, Pistola)</option>
+                                    <option value="motor">Motor Elétrico ou Bomba</option>
+                                    <option value="eletrica">Ferramenta Elétrica Profissional</option>
+                                    <option value="outro">Outro Equipamento Industrial</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="form-msg">Mensagem / Descrição do Defeito *</label>
+                                <textarea id="form-msg" name="message" class="form-control" placeholder="Descreva brevemente o sintoma apresentado ou defeito da máquina." required></textarea>
+                            </div>
+
+                            <div class="submit-btn-wrapper">
+                                <button type="submit" class="btn btn-primary" id="form-submit-btn">Enviar Solicitação de Orçamento</button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- -----------------------------------------
+         RODAPÉ (FOOTER)
+         ----------------------------------------- -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                
+                <!-- Coluna 1: Marca Buffon -->
+                <div class="footer-brand">
+                    <a href="#home" class="logo">
+                        <svg width="24" height="24" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:inline-block; vertical-align: middle;">
+                            <rect x="6" y="6" width="20" height="20" rx="4" stroke="currentColor" stroke-width="3" />
+                            <circle cx="16" cy="16" r="5" fill="var(--color-accent)" />
+                        </svg>
+                        BUFFON<span>.</span>
+                    </a>
+                    <p>Referência em manutenção corretiva, preventiva e calibração de ferramentas industriais de alta performance.</p>
+                    <div class="social-links">
+                        <a href="https://facebook.com/[PAGINA_BUFFON]" class="social-icon-btn" target="_blank" rel="noopener noreferrer" aria-label="Facebook da Buffon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                            </svg>
+                        </a>
+                        <a href="https://instagram.com/[PAGINA_BUFFON]" class="social-icon-btn" target="_blank" rel="noopener noreferrer" aria-label="Instagram da Buffon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Coluna 2: Navegação Rápida -->
+                <div>
+                    <h4 class="footer-nav-title">Navegação</h4>
+                    <ul class="footer-links-list">
+                        <li><a href="#home">Início</a></li>
+                        <li><a href="#sobre">Sobre Nós</a></li>
+                        <li><a href="#processo">Como Funciona</a></li>
+                        <li><a href="#servicos">Serviços Atendidos</a></li>
+                        <li><a href="#faq">Perguntas Frequentes</a></li>
+                    </ul>
+                </div>
+
+                <!-- Coluna 3: Marcas Atendidas links rápidos -->
+                <div>
+                    <h4 class="footer-nav-title">Equipamentos</h4>
+                    <ul class="footer-links-list">
+                        <li><a href="#servicos">Pneumáticos</a></li>
+                        <li><a href="#servicos">Sistemas Airless</a></li>
+                        <li><a href="#servicos">Motores Elétricos</a></li>
+                        <li><a href="#servicos">Ferramentas de Pintura</a></li>
+                        <li><a href="#servicos">Calibração Geral</a></li>
+                    </ul>
+                </div>
+
+                <!-- Coluna 4: Contato Direto -->
+                <div>
+                    <h4 class="footer-nav-title">Fale Conosco</h4>
+                    <div class="footer-contact-item">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                            <circle cx="12" cy="10" r="3"></circle>
+                        </svg>
+                        <span>[ENDEREÇO COMPLETO DA BUFFON]</span>
+                    </div>
+                    <div class="footer-contact-item">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                        </svg>
+                        <span>[TELEFONE DA BUFFON]</span>
+                    </div>
+                    <div class="footer-contact-item">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                            <polyline points="22,6 12,13 2,6"></polyline>
+                        </svg>
+                        <span>[EMAIL DA BUFFON]</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Rodapé Inferior -->
+            <div class="footer-bottom">
+                <div class="footer-copy">
+                    &copy; <span id="footer-year">2026</span> Buffon Assistência Técnica Industrial. Todos os direitos reservados.
+                </div>
+                <div class="footer-legal-links">
+                    <a href="[LINK_POLITICA_PRIVACIDADE]">[Política de Privacidade]</a>
+                    <a href="[LINK_TERMOS_SERVICO]">[Termos de Uso]</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- -----------------------------------------
+         BOTÃO DE WHATSAPP FLUTUANTE
+         ----------------------------------------- -->
+    <a href="https://wa.me/55[NUMERO_DO_WHATSAPP]" class="whatsapp-floating" target="_blank" rel="noopener noreferrer" aria-label="Fale conosco no WhatsApp" id="floating-whatsapp-btn">
+        <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12.004 2C6.48 2 2 6.48 2 12.004c0 1.762.455 3.483 1.325 5.002L2 22l5.127-1.313c1.474.808 3.125 1.233 4.877 1.233 5.525 0 10.005-4.48 10.005-10.004C22.009 6.48 17.529 2 12.004 2zm5.405 14.502c-.262.738-1.528 1.34-2.102 1.408-.53.063-1.22.107-3.414-.783-2.8-1.139-4.576-3.99-4.717-4.178-.14-.187-1.134-1.507-1.134-2.875 0-1.368.718-2.039.974-2.3.256-.263.688-.328.895-.328.207 0 .414.004.595.013.19.01.442-.041.69.559.256.623.874 2.133.95 2.285.076.153.127.329.025.534-.102.206-.153.332-.303.508-.15.176-.316.39-.452.524-.15.15-.308.314-.133.615.175.301.782 1.286 1.677 2.083.896.797 1.652 1.042 1.953 1.192.302.15.479.127.659-.076.18-.204.78-.906.988-1.21.208-.305.417-.255.703-.15.287.106 1.82.859 2.134 1.015.314.156.524.229.6.357.076.128.076.738-.186 1.476z"/>
+        </svg>
+    </a>
+
+    <!-- JS Principal -->
+    <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# URL do Sitemap do site institucional da Buffon
+Sitemap: https://www.buffonassistencia.com.br/sitemap.xml

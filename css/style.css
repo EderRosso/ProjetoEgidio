@@ -1534,6 +1534,27 @@ textarea.form-control {
         padding: 10px 0;
     }
 
+    .hero-content {
+        text-align: center;
+    }
+
+    .hero-tag {
+        justify-content: center;
+    }
+
+    .hero-description {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .hero-ctas {
+        align-items: center;
+    }
+
+    .hero-ctas-row {
+        justify-content: center;
+    }
+
     .section-padding {
         padding: 60px 0;
     }

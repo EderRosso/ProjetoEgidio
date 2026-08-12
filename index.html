@@ -1,37 +1,58 @@
+<!-- 
+    =================================================================================
+    GUIA RÁPIDO DE MODIFICAÇÕES PARA O PROPRIETÁRIO:
+    ---------------------------------------------------------------------------------
+    Olá! Este arquivo HTML controla todo o conteúdo e a estrutura do seu site.
+    Aqui vão algumas dicas para ajudar você a fazer suas próprias alterações:
+    
+    👉 COMO ALTERAR TEXTOS: Basta trocar o texto que está fora das tags (ex: >Nosso Texto<).
+    👉 COMO CONFIGURAR LINKS: Procure por "href" (como em links do WhatsApp ou seções).
+    👉 COMO TROCAR IMAGENS: Procure por "src" (indica o caminho do arquivo de imagem).
+    
+    ⚠️ CUIDADO: Não apague os caracteres "<" e ">" nem o conteúdo dentro deles 
+    (ex: <div class="..."> ou <span>). Eles são as tags que dão estilo e organizam o site.
+    =================================================================================
+-->
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+    <!-- 👉 CONFIGURAÇÕES DE IDIOMA E TELA (NÃO RECOMENDADO ALTERAR) -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- 👉 TEXTO QUE APARECE NO GOOGLE E BUSCADORES -->
     <meta name="description" content="Buffon Assistência Técnica Industrial - Conserto, reparo e manutenção especializada de ferramentas pneumáticas, equipamentos de pintura airless, motores elétricos e ferramentas elétricas. Solicite orçamento sem compromisso.">
     <meta name="keywords" content="assistência técnica industrial, conserto de máquinas, ferramentas pneumáticas, motores elétricos, pintura airless, manutenção industrial, Buffon, orçamento gratuito">
     <meta name="author" content="Buffon Assistência Técnica">
     
-    <!-- Open Graph / Facebook -->
+    <!-- 👉 INFORMAÇÕES QUE APARECEM QUANDO VOCÊ COMPARTILHA O SITE NO WHATSAPP/FACEBOOK -->
+    <!-- ⚠️ CUIDADO: Mantenha as tags "og:..." e mude apenas o texto dentro de "content" se necessário -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://www.buffonassistencia.com.br/">
     <meta property="og:title" content="Buffon | Assistência Técnica Industrial Especializada">
     <meta property="og:description" content="Manutenção especializada de ferramentas pneumáticas, sistemas de pintura airless, motores e equipamentos industriais. Garantia de qualidade e atendimento rápido.">
     <meta property="og:image" content="https://www.buffonassistencia.com.br/assets/images/og-image.jpg">
 
-    <!-- Twitter -->
+    <!-- 👉 INFORMAÇÕES QUE APARECEM NO TWITTER (OPCIONAL) -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://www.buffonassistencia.com.br/">
     <meta property="twitter:title" content="Buffon | Assistência Técnica Industrial Especializada">
     <meta property="twitter:description" content="Manutenção especializada de ferramentas pneumáticas, sistemas de pintura airless, motores e equipamentos industriais. Garantia de qualidade e atendimento rápido.">
     <meta property="twitter:image" content="https://www.buffonassistencia.com.br/assets/images/og-image.jpg">
 
+    <!-- 👉 TÍTULO DA PÁGINA (Aparece na aba do navegador) -->
     <title>Buffon | Assistência Técnica de Máquinas e Equipamentos Industriais</title>
 
-    <!-- Google Fonts -->
+    <!-- 👉 FONTES DE TEXTO DO GOOGLE (NÃO RECOMENDADO ALTERAR) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-    <!-- Favicon (Substituir o placeholder pelo arquivo favicon real) -->
+    <!-- 👉 FAVICON: O ícone pequeno que fica na aba do navegador.
+         Substitua "[FAVICON_PLACEHOLDER]" pelo caminho da sua imagem (Ex: "assets/images/favicon.png") -->
     <link rel="shortcut icon" href="[FAVICON_PLACEHOLDER]" type="image/x-icon">
 
-    <!-- CSS Link -->
+    <!-- 👉 VÍNCULO COM O ARQUIVO DE ESTILOS (CORES E LAYOUT - NÃO ALTERAR) -->
     <link rel="stylesheet" href="css/style.css?v=1.2">
 </head>
 <body>
@@ -41,17 +62,17 @@
          ----------------------------------------- -->
     <header class="header">
         <div class="container nav-wrapper">
-            <!-- Logo Institucional -->
+            <!-- 👉 LOGO DA EMPRESA:
+                 - "src" é a imagem do ícone da logo.
+                 - "BUFFON" é o texto da logo.
+                 - O span com "." dá o ponto laranja. -->
             <a href="#home" class="logo" id="header-logo">
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="logo-icon" style="display:inline-block; vertical-align: middle; margin-right: 4px;">
-                    <path d="M12 2l8.66 5v10L12 22l-8.66-5V7z" />
-                    <circle cx="12" cy="12" r="3" fill="var(--color-accent)" stroke="none" />
-                    <path d="M12 8v2M12 14v2M8.5 10l1.73 1M13.77 13l1.73 1M8.5 14l1.73-1M13.77 11l1.73-1" stroke="currentColor" stroke-width="1.5" />
-                </svg>
+                <img src="assets/images/logo-icon.png" alt="Logo Buffon" class="logo-icon" width="38" height="38" style="border-radius: 50%; object-fit: cover; display: inline-block; vertical-align: middle; margin-right: 4px;">
                 BUFFON<span>.</span>
             </a>
 
-            <!-- Menu de Navegação -->
+            <!-- 👉 LINKS DO MENU DE NAVEGAÇÃO
+                 Para mudar os nomes das abas, altere os textos (Ex: "Início", "Sobre Nós") -->
             <nav class="nav-menu" id="nav-menu" role="navigation" aria-label="Menu principal">
                 <a href="#home" class="nav-link active" id="menu-home">Início</a>
                 <a href="#sobre" class="nav-link" id="menu-sobre">Sobre Nós</a>
@@ -60,7 +81,9 @@
                 <a href="#faq" class="nav-link" id="menu-faq">FAQ</a>
                 <a href="#depoimentos" class="nav-link" id="menu-depoimentos">Avaliações</a>
                 <a href="#contato" class="nav-link" id="menu-contato">Contato</a>
-                <!-- CTA do Menu Mobile -->
+                
+                <!-- 👉 BOTÃO DE CONTATO DO MENU (FALE CONOSCO)
+                     ⚠️ INSTRUÇÃO: Substitua "[NUMERO_DO_WHATSAPP]" pelo seu número completo com DDD (ex: 51999999999) -->
                 <a href="https://wa.me/55[NUMERO_DO_WHATSAPP]" class="btn btn-whatsapp btn-menu-cta" target="_blank" rel="noopener noreferrer" id="menu-cta-whats">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                         <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.455L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.37 9.864-9.799.002-2.63-1.023-5.101-2.885-6.965C16.59 2.016 14.133 1 11.517 1 6.082 1 1.657 5.37 1.654 10.8c-.001 1.674.444 3.308 1.29 4.747L1.9 21.03l4.747-1.876zM17.41 14.5c-.32-.16-1.89-.93-2.185-1.04-.294-.11-.51-.16-.723.16-.214.32-.83 1.04-1.02 1.25-.19.21-.38.24-.7.08-1.127-.565-1.951-1.034-2.737-2.39-.2-.34.2-.32.57-1.07.09-.18.04-.34-.02-.45-.06-.11-.51-1.22-.7-1.68-.18-.43-.36-.37-.5-.38-.13 0-.28 0-.43 0-.15 0-.39.06-.6.29-.21.23-.8.78-.8 1.9s.82 2.21.93 2.37c.11.16 1.61 2.46 3.91 3.46 1.15.5 2.06.82 2.76 1.04.58.19 1.11.16 1.53.1.47-.07 1.46-.6 1.67-1.18.21-.58.21-1.08.15-1.18-.06-.1-.23-.16-.55-.32z"/>
@@ -84,7 +107,7 @@
     <main>
         
         <!-- -----------------------------------------
-             SEÇÃO HERO
+             SEÇÃO HERO (Apresentação Inicial)
              ----------------------------------------- -->
         <section id="home" class="hero">
             <div class="hero-bg"></div>
@@ -93,6 +116,7 @@
                 
                 <!-- Conteúdo de Chamada -->
                 <div class="hero-content">
+                    <!-- 👉 PEQUENO SELO DE DESTAQUE -->
                     <div class="hero-tag">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
                             <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
@@ -101,11 +125,19 @@
                         </svg>
                         Assistência Técnica Multimarcas & Autorizada
                     </div>
+                    
+                    <!-- 👉 TÍTULO PRINCIPAL (Abaixo)
+                         ⚠️ CUIDADO: Altere o texto, mas mantenha a tag <span>equipamentos industriais.</span> para a palavra continuar laranja -->
                     <h1 class="hero-title">Assistência técnica especializada em <span>equipamentos industriais.</span></h1>
+                    
+                    <!-- 👉 PARÁGRAFO DE APRESENTAÇÃO -->
                     <p class="hero-description">Conserto ágil e manutenção preventiva para ferramentas pneumáticas, sistemas de pintura airless, motores elétricos e muito mais. Mantenha sua produção ativa com quem entende.</p>
                     
+                    <!-- 👉 BOTÕES DE CHAMADA (CTAs) -->
                     <div class="hero-ctas">
                         <div class="hero-ctas-row">
+                            <!-- 👉 WHATSAPP DO HERO:
+                                 ⚠️ INSTRUÇÃO: Substitua "[NUMERO_DO_WHATSAPP]" pelo seu número completo com DDD (ex: 51999999999) -->
                             <a href="https://wa.me/55[NUMERO_DO_WHATSAPP]" class="btn btn-primary btn-whatsapp" target="_blank" rel="noopener noreferrer" id="hero-cta-whats">
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.455L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.37 9.864-9.799.002-2.63-1.023-5.101-2.885-6.965C16.59 2.016 14.133 1 11.517 1 6.082 1 1.657 5.37 1.654 10.8c-.001 1.674.444 3.308 1.29 4.747L1.9 21.03l4.747-1.876zM17.41 14.5c-.32-.16-1.89-.93-2.185-1.04-.294-.11-.51-.16-.723.16-.214.32-.83 1.04-1.02 1.25-.19.21-.38.24-.7.08-1.127-.565-1.951-1.034-2.737-2.39-.2-.34.2-.32.57-1.07.09-.18.04-.34-.02-.45-.06-.11-.51-1.22-.7-1.68-.18-.43-.36-.37-.5-.38-.13 0-.28 0-.43 0-.15 0-.39.06-.6.29-.21.23-.8.78-.8 1.9s.82 2.21.93 2.37c.11.16 1.61 2.46 3.91 3.46 1.15.5 2.06.82 2.76 1.04.58.19 1.11.16 1.53.1.47-.07 1.46-.6 1.67-1.18.21-.58.21-1.08.15-1.18-.06-.1-.23-.16-.55-.32z"/>
@@ -163,10 +195,11 @@
         </section>
 
         <!-- -----------------------------------------
-             SEÇÃO DE ESTATÍSTICAS
+             SEÇÃO DE ESTATÍSTICAS (NÚMEROS DA EMPRESA)
              ----------------------------------------- -->
         <section class="stats">
             <div class="container stats-grid">
+                <!-- 👉 ITEM DE ESTATÍSTICA: Altere os números (ex: [10+]) e os textos abaixo de cada um -->
                 <div class="stat-item">
                     <div class="stat-number">[10+]</div>
                     <div class="stat-label">Anos de Experiência</div>
@@ -187,7 +220,7 @@
         </section>
 
         <!-- -----------------------------------------
-             SEÇÃO SOBRE
+             SEÇÃO SOBRE (QUEM SOMOS / HISTÓRIA)
              ----------------------------------------- -->
         <section id="sobre" class="about section-padding">
             <div class="container">
@@ -195,6 +228,11 @@
                     
                     <!-- Imagem / Visual da Empresa -->
                     <div class="about-image-side">
+                        <!-- 👉 ESPAÇO DA IMAGEM INSTITUCIONAL
+                             Aqui há um gráfico dinâmico (SVG). Se quiser trocar por uma foto real da empresa:
+                             1. Remova todo o bloco <svg> ... </svg> abaixo.
+                             2. Coloque no lugar uma tag de imagem comum, exemplo:
+                                <img src="assets/images/foto-empresa.jpg" alt="Sede da Buffon" style="width: 100%; border-radius: 12px;"> -->
                         <div class="about-image-container">
                             <svg viewBox="0 0 500 350" fill="none" xmlns="http://www.w3.org/2000/svg" style="background:#1e293b; width:100%; display:block;">
                                 <rect width="500" height="350" fill="#1e293b"/>
@@ -208,6 +246,7 @@
                                 <path d="M70 80 L90 80 M80 70 L80 90" stroke="var(--color-accent)" stroke-width="3" stroke-linecap="round"/>
                             </svg>
                         </div>
+                        <!-- 👉 SELO DE EXPERIÊNCIA FLUTUANTE -->
                         <div class="about-experience-badge">
                             <h3>[10]</h3>
                             <p>Anos no Mercado</p>
@@ -216,6 +255,7 @@
 
                     <!-- Texto Institucional -->
                     <div class="about-content">
+                        <!-- 👉 LEGENDA, TÍTULO E PARÁGRAFOS INSTITUCIONAIS -->
                         <span class="section-subtitle">Sobre a Buffon</span>
                         <h2 class="section-title">Parceiro estratégico para o conserto de máquinas e ferramentas</h2>
                         <p class="about-text">A Buffon nasceu com o compromisso de suprir a demanda industrial por serviços de assistência técnica rápidos e eficientes. Com infraestrutura robusta, ferramentas de diagnóstico e profissionais capacitados, realizamos manutenções corretivas e preventivas que aumentam a vida útil do maquinário e minimizam o tempo de inatividade operacional da sua empresa.</p>
@@ -248,10 +288,11 @@
         </section>
 
         <!-- -----------------------------------------
-             SEÇÃO PROCESSO (COMO FUNCIONA)
+             SEÇÃO PROCESSO (COMO FUNCIONA O ATENDIMENTO)
              ----------------------------------------- -->
         <section id="processo" class="process section-padding">
             <div class="container">
+                <!-- 👉 TÍTULO E INTRODUÇÃO DA SEÇÃO -->
                 <div class="section-title-wrapper">
                     <span class="section-subtitle">Etapas Simplificadas</span>
                     <h2 class="section-title">Como funciona a nossa assistência técnica?</h2>
@@ -261,7 +302,7 @@
                 <div class="timeline-wrapper">
                     <div class="timeline-line"></div>
 
-                    <!-- Passo 1 -->
+                    <!-- 👉 PASSO 1 DA LINHA DO TEMPO: Altere o título e a descrição abaixo -->
                     <div class="timeline-step">
                         <div class="timeline-content-side">
                             <div class="timeline-card">
@@ -313,7 +354,7 @@
                         </div>
                     </div>
 
-                    <!-- Passo 5 -->
+                    <!-- 👉 PASSO 5 DA LINHA DO TEMPO: Altere o prazo de garantia se necessário (ex: [90 DIAS]) -->
                     <div class="timeline-step">
                         <div class="timeline-content-side">
                             <div class="timeline-card">
@@ -327,7 +368,7 @@
                     </div>
                 </div>
 
-                <!-- Aviso / Políticas de Garantia -->
+                <!-- 👉 DESTAQUE DE COMPROMISSO / GARANTIA NO FINAL DO PROCESSO -->
                 <div class="process-footer-notice">
                     <h4>
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -355,7 +396,8 @@
 
                 <div class="services-grid">
                     
-                    <!-- Serviço 1: Ferramentas Pneumáticas -->
+                    <!-- 👉 SERVIÇO 1: FERRAMENTAS PNEUMÁTICAS
+                         ⚠️ INSTRUÇÃO: Substitua "[NUMERO_DO_WHATSAPP]" pelo seu número completo com DDD -->
                     <div class="service-card">
                         <div class="service-icon-box">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -373,7 +415,8 @@
                         </a>
                     </div>
 
-                    <!-- Serviço 2: Equipamentos de Pintura -->
+                    <!-- 👉 SERVIÇO 2: EQUIPAMENTOS DE PINTURA
+                         ⚠️ INSTRUÇÃO: Substitua "[NUMERO_DO_WHATSAPP]" pelo seu número completo com DDD -->
                     <div class="service-card">
                         <div class="service-icon-box">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -393,7 +436,8 @@
                         </a>
                     </div>
 
-                    <!-- Serviço 3: Motores Elétricos -->
+                    <!-- 👉 SERVIÇO 3: MOTORES ELÉTRICOS & BOMBAS
+                         ⚠️ INSTRUÇÃO: Substitua "[NUMERO_DO_WHATSAPP]" pelo seu número completo com DDD -->
                     <div class="service-card">
                         <div class="service-icon-box">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -412,7 +456,8 @@
                         </a>
                     </div>
 
-                    <!-- Serviço 4: Ferramentas Elétricas -->
+                    <!-- 👉 SERVIÇO 4: FERRAMENTAS ELÉTRICAS
+                         ⚠️ INSTRUÇÃO: Substitua "[NUMERO_DO_WHATSAPP]" pelo seu número completo com DDD -->
                     <div class="service-card">
                         <div class="service-icon-box">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -433,7 +478,9 @@
 
                 </div>
 
-                <!-- Carrossel / Lista de Marcas Atendidas -->
+                <!-- 👉 CARROSSEL DE MARCAS ATENDIDAS
+                     Aqui você pode alterar as marcas que a sua assistência atende. 
+                     Lembre-se de alterar nos dois conjuntos de marcas no código abaixo para manter a animação infinita perfeita! -->
                 <div class="brands-section text-center">
                     <h3 class="brands-title">Manutenção Multimarcas</h3>
                     <div class="brands-carousel-container">
@@ -462,10 +509,11 @@
         </section>
 
         <!-- -----------------------------------------
-             SEÇÃO FAQ
+             SEÇÃO FAQ (PERGUNTAS FREQUENTES)
              ----------------------------------------- -->
         <section id="faq" class="faq section-padding">
             <div class="container">
+                <!-- 👉 TÍTULO DO FAQ: Altere a introdução aqui se desejar -->
                 <div class="section-title-wrapper">
                     <span class="section-subtitle">Dúvidas Frequentes</span>
                     <h2 class="section-title">Perguntas Respondidas</h2>
@@ -474,7 +522,8 @@
 
                 <div class="faq-wrapper">
                     
-                    <!-- FAQ 1 -->
+                    <!-- 👉 PERGUNTA 1 DO FAQ: Altere a pergunta na tag class="faq-question" 
+                         e a resposta dentro da tag <p> do faq-content -->
                     <div class="faq-item">
                         <button class="faq-header" aria-expanded="false" id="faq-btn-1">
                             <span class="faq-question">A Buffon realiza atendimentos em todo o Brasil?</span>
@@ -547,10 +596,11 @@
         </section>
 
         <!-- -----------------------------------------
-             SEÇÃO DEPOIMENTOS (GOOGLE REVIEWS)
+             SEÇÃO DEPOIMENTOS (AVALIAÇÕES DOS CLIENTES)
              ----------------------------------------- -->
         <section id="depoimentos" class="testimonials section-padding">
             <div class="container">
+                <!-- 👉 TÍTULO DE DEPOIMENTOS -->
                 <div class="section-title-wrapper">
                     <span class="section-subtitle">Prova Social</span>
                     <h2 class="section-title">O que nossos clientes dizem</h2>
@@ -558,7 +608,7 @@
                 </div>
 
                 <div class="testimonials-grid">
-                    <!-- Depoimento 1 -->
+                    <!-- 👉 DEPOIMENTO 1: Altere as iniciais do avatar, o nome, a empresa, o texto e o tempo do depoimento -->
                     <div class="testimonial-card">
                         <div class="testimonial-header">
                             <div class="client-avatar">
@@ -650,8 +700,10 @@
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="#f59e0b"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="#f59e0b"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
                         </div>
+                        <!-- 👉 TOTAL DE AVALIAÇÕES: Altere o número de avaliações (ex: [58]) -->
                         <span class="reviews-count">com base em [58] avaliações no Google</span>
                     </div>
+                    <!-- 👉 LINK DO GOOGLE MEU NEGÓCIO: Substitua "[PLACE_ID_DO_GOOGLE_AQUI]" pelo Place ID da sua empresa para que os clientes cliquem e vejam as avaliações no Google -->
                     <a href="https://search.google.com/local/reviews?placeid=[PLACE_ID_DO_GOOGLE_AQUI]" class="btn btn-secondary" target="_blank" rel="noopener noreferrer" style="margin-top: 24px;">
                         Ver Perfil da Empresa no Google
                     </a>
@@ -677,7 +729,7 @@
                     <div class="contact-info-side">
                         <div class="contact-info-cards">
                             
-                            <!-- Telefone/Whats -->
+                            <!-- 👉 TELEFONE E WHATSAPP DE CONTATO DA SEÇÃO DE CONTATO -->
                             <div class="info-card">
                                 <div class="info-card-icon">
                                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -691,7 +743,7 @@
                                 </div>
                             </div>
 
-                            <!-- E-mail -->
+                            <!-- 👉 E-MAIL DA SEÇÃO DE CONTATO -->
                             <div class="info-card">
                                 <div class="info-card-icon">
                                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -705,7 +757,8 @@
                                 </div>
                             </div>
 
-                            <!-- Endereço -->
+                            <!-- 👉 ENDEREÇO DA SEÇÃO DE CONTATO
+                                 Altere o endereço da sede da empresa nos campos abaixo -->
                             <div class="info-card">
                                 <div class="info-card-icon">
                                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -722,7 +775,9 @@
 
                         </div>
 
-                        <!-- Mapa Incorporado -->
+                        <!-- 👉 MAPA DO GOOGLE INCORPORADO (IFRAME)
+                             Para alterar o mapa para a sua localização:
+                             Substitua o CEP ou endereço no parâmetro 'q=' (ex: q=Sapucaia+do+Sul+RS) -->
                         <div class="map-container">
                             <iframe 
                                 src="https://maps.google.com/maps?q=93222-010&t=&z=15&ie=UTF8&iwloc=&output=embed" 
@@ -740,12 +795,14 @@
                         <p>Preencha os dados básicos abaixo para iniciarmos seu pré-atendimento.</p>
                         
                         <!-- 
-                            Formulário Funcional via Formspree. 
-                            Como Configurar:
-                            1. Acesse https://formspree.io/
-                            2. Crie uma conta gratuita e crie um formulário
-                            3. Substitua o action abaixo por: action="https://formspree.io/f/SEU_ID_FORM"
-                            4. Defina o method="POST"
+                            👉 FORMULÁRIO DE CONTATO (RECEBIMENTO POR E-MAIL)
+                            Este formulário envia e-mails através do serviço gratuito Formspree.
+                            Como configurar para o seu e-mail:
+                            1. Acesse o site https://formspree.io/
+                            2. Crie uma conta gratuita.
+                            3. Crie um novo formulário (New Form) e insira o e-mail onde quer receber as mensagens.
+                            4. O Formspree fornecerá um link semelhante a: "https://formspree.io/f/meu_id_unico"
+                            5. Substitua o texto "[ENDPOINT_DE_EMAIL_FORM_SPREE_AQUI]" no action abaixo por este link único.
                         -->
                         <form id="budget-form" action="[ENDPOINT_DE_EMAIL_FORM_SPREE_AQUI]" method="POST">
                             
@@ -802,14 +859,15 @@
                 
                 <!-- Coluna 1: Marca Buffon -->
                 <div class="footer-brand">
+                    <!-- 👉 LOGO DO RODAPÉ -->
                     <a href="#home" class="logo">
-                        <svg width="24" height="24" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:inline-block; vertical-align: middle;">
-                            <rect x="6" y="6" width="20" height="20" rx="4" stroke="currentColor" stroke-width="3" />
-                            <circle cx="16" cy="16" r="5" fill="var(--color-accent)" />
-                        </svg>
+                        <img src="assets/images/logo-icon.png" alt="Logo Buffon" class="logo-icon" width="34" height="34" style="border-radius: 50%; object-fit: cover; display: inline-block; vertical-align: middle; margin-right: 4px;">
                         BUFFON<span>.</span>
                     </a>
                     <p>Referência em manutenção corretiva, preventiva e calibração de ferramentas industriais de alta performance.</p>
+                    
+                    <!-- 👉 LINKS DAS REDES SOCIAIS (RODAPÉ)
+                         ⚠️ INSTRUÇÃO: Substitua "[PAGINA_BUFFON]" pelos links da sua página no Facebook e Instagram -->
                     <div class="social-links">
                         <a href="https://facebook.com/[PAGINA_BUFFON]" class="social-icon-btn" target="_blank" rel="noopener noreferrer" aria-label="Facebook da Buffon">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -850,7 +908,8 @@
                     </ul>
                 </div>
 
-                <!-- Coluna 4: Contato Direto -->
+                <!-- Coluna 4: Contato Direto (Rodapé)
+                     ⚠️ INSTRUÇÃO: Altere o endereço, telefone e e-mail exibidos no rodapé abaixo -->
                 <div>
                     <h4 class="footer-nav-title">Fale Conosco</h4>
                     <div class="footer-contact-item">
@@ -883,15 +942,16 @@
                     &copy; <span id="footer-year">2026</span> Buffon Assistência Técnica Industrial. Todos os direitos reservados.
                 </div>
                 <div class="footer-legal-links">
-                    <a href="[LINK_POLITICA_PRIVACIDADE]">[Política de Privacidade]</a>
-                    <a href="[LINK_TERMOS_SERVICO]">[Termos de Uso]</a>
+                    <a href="politica-de-privacidade.html">Política de Privacidade</a>
+                    <a href="termos-de-uso.html">Termos de Uso</a>
                 </div>
             </div>
         </div>
     </footer>
 
     <!-- -----------------------------------------
-         BOTÃO DE WHATSAPP FLUTUANTE
+         👉 BOTÃO DE WHATSAPP FLUTUANTE (CANTO INFERIOR DIREITO)
+         ⚠️ INSTRUÇÃO: Substitua "[NUMERO_DO_WHATSAPP]" pelo seu número completo com DDD
          ----------------------------------------- -->
     <a href="https://wa.me/55[NUMERO_DO_WHATSAPP]" class="whatsapp-floating" target="_blank" rel="noopener noreferrer" aria-label="Fale conosco no WhatsApp" id="floating-whatsapp-btn">
         <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">

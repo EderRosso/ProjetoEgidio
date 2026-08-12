@@ -2,35 +2,49 @@
    BUFFON - ASSISTÊNCIA TÉCNICA INDUSTRIAL
    Estilos Principais (CSS3)
    
-   Instruções de Personalização:
-   - Para trocar a paleta de cores ou fontes, altere as variáveis no bloco :root abaixo.
-   - O site é totalmente responsivo e utiliza CSS Grid e Flexbox.
+   =================================================================================
+   GUIA DE MODIFICAÇÕES VISUAIS PARA O PROPRIETÁRIO (CORES E FONTES):
+   ---------------------------------------------------------------------------------
+   Este arquivo controla toda a aparência visual do seu site (cores, fontes, espaçamentos).
+   Para alterar a paleta de cores ou a fonte principal, basta editar os valores no bloco 
+   ":root" abaixo.
+   
+   👉 COMO MUDAR UMA COR: Altere o código hexadecimal da cor (ex: #f97316).
+      - Você pode gerar cores em sites como: https://htmlcolorcodes.com/br/
+   
+   ⚠️ CUIDADO: Não remova os nomes das variáveis (ex: --color-accent:) nem os pontos e vírgulas (;) 
+   no final de cada linha!
+   =================================================================================
 */
 
 /* -----------------------------------------
-   1. VARIÁVEIS DO SISTEMA DE DESIGN (:root)
+   1. VARIÁVEIS DE DESIGN (:root) - Altere as Cores Aqui!
    ----------------------------------------- */
 :root {
-    /* Paleta de Cores */
-    --color-primary-dark: #0f172a;    /* Navy Escuro - Fundo Principal */
-    --color-secondary-dark: #1e293b;  /* Navy Médio - Fundo de Cards / Seções Alternadas */
-    --color-tertiary-dark: #334155;   /* Navy Claro - Bordas e Elementos de Destaque Secundários */
+    /* 👉 CORES DE FUNDO DO SITE (Tema Escuro/Navy) */
+    --color-primary-dark: #0f172a;    /* Fundo principal do site (Navy Escuro) */
+    --color-secondary-dark: #1e293b;  /* Fundo dos cartões e caixas (Navy Médio) */
+    --color-tertiary-dark: #334155;   /* Bordas e linhas sutis (Navy Claro) */
     
-    --color-accent: #f97316;          /* Laranja Industrial (Destaque Principal / CTAs) */
-    --color-accent-hover: #ea580c;    /* Laranja Escuro para Hover */
-    --color-accent-glow: rgba(249, 115, 22, 0.3);
+    /* 👉 COR DE DESTAQUE PRINCIPAL (Atualmente Laranja Industrial)
+       Altere aqui para mudar a cor de destaque de todo o site (como botões principais e pontos) */
+    --color-accent: #f97316;          /* Laranja de Destaque */
+    --color-accent-hover: #ea580c;    /* Laranja ligeiramente mais escuro (quando passa o mouse) */
+    --color-accent-glow: rgba(249, 115, 22, 0.3); /* Efeito de brilho laranja */
     
-    --color-success: #22c55e;         /* Verde para WhatsApp e Sucesso */
-    --color-success-hover: #16a34a;
+    /* 👉 CORES DE SUCESSO (Verde do WhatsApp) */
+    --color-success: #22c55e;         /* Cor do botão do WhatsApp */
+    --color-success-hover: #16a34a;   /* Verde do WhatsApp quando passa o mouse */
     
-    --color-text-primary: #f8fafc;    /* Branco Suave - Títulos e Textos Principais */
-    --color-text-secondary: #94a3b8;  /* Cinza Slate - Textos de Descrição */
-    --color-text-muted: #64748b;      /* Cinza Escuro - Detalhes menores e placeholders */
+    /* 👉 CORES DOS TEXTOS */
+    --color-text-primary: #f8fafc;    /* Cor dos títulos principais (Branco Suave) */
+    --color-text-secondary: #94a3b8;  /* Cor dos parágrafos de descrição (Cinza Slate) */
+    --color-text-muted: #64748b;      /* Cor de textos pequenos e detalhes (Cinza Escuro) */
     
-    --color-bg-light: #f8fafc;        /* Usado caso prefira fundos claros em algumas seções */
-    --color-border: rgba(255, 255, 255, 0.08);
+    --color-bg-light: #f8fafc;        /* Fundo claro opcional */
+    --color-border: rgba(255, 255, 255, 0.08); /* Bordas gerais */
     
-    /* Fontes */
+    /* 👉 FONTE DE TEXTO PRINCIPAL */
     --font-primary: 'Outfit', 'Inter', system-ui, -apple-system, sans-serif;
     
     /* Espaçamentos e Layout */
@@ -1718,3 +1732,55 @@ textarea.form-control {
         padding: 16px;
     }
 }
+
+/* -----------------------------------------
+   PÁGINAS LEGAIS (POLÍTICA E TERMOS)
+   ----------------------------------------- */
+.legal-container {
+    padding-top: 140px;
+    padding-bottom: 80px;
+}
+
+.legal-content h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    margin-bottom: 10px;
+    letter-spacing: -0.5px;
+}
+
+.legal-content .last-updated {
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+    margin-bottom: 40px;
+    display: block;
+}
+
+.legal-content h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin-top: 40px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: 8px;
+}
+
+.legal-content p {
+    color: var(--color-text-secondary);
+    margin-bottom: 20px;
+    line-height: 1.7;
+}
+
+.legal-content ul {
+    list-style: disc;
+    margin-left: 20px;
+    margin-bottom: 25px;
+    color: var(--color-text-secondary);
+}
+
+.legal-content li {
+    margin-bottom: 10px;
+    line-height: 1.6;
+}
+

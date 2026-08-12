@@ -1,6 +1,18 @@
 /**
  * BUFFON - ASSISTÊNCIA TÉCNICA INDUSTRIAL
  * JavaScript principal (ES6+)
+ * 
+ * =================================================================================
+ * AVISO IMPORTANTE PARA O PROPRIETÁRIO:
+ * ---------------------------------------------------------------------------------
+ * Este arquivo JavaScript controla a interatividade do site (como o menu abrir/fechar 
+ * no celular, o FAQ abrir/fechar ao clicar, e a validação do formulário de contato).
+ * 
+ * 🚫 ATENÇÃO: NÃO RECOMENDADO ALTERAR ESTE ARQUIVO! 
+ * Alterar qualquer linha de código abaixo sem o devido conhecimento técnico em JavaScript 
+ * pode desativar recursos vitais do site e fazer com que os botões ou o formulário 
+ * de e-mail parem de funcionar.
+ * =================================================================================
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -132,7 +144,8 @@ document.addEventListener('DOMContentLoaded', () => {
         budgetForm.addEventListener('submit', async (event) => {
             const formAction = budgetForm.getAttribute('action');
 
-            // Verifica se o usuário não alterou o placeholder do Formspree
+            // 👉 AVISO DE SEGURANÇA: Se o formulário action ainda estiver com a palavra [ENDPOINT_DE_EMAIL_FORM_SPREE_AQUI],
+            // o site avisa que está em modo de testes e impede o envio.
             if (formAction.includes('[ENDPOINT_DE_EMAIL_FORM_SPREE_AQUI]')) {
                 event.preventDefault();
                 alert('Atenção: O formulário de contato está em modo de demonstração. Configure um endpoint válido no atributo "action" do formulário para receber os e-mails (veja as instruções no arquivo README.md ou no próprio código HTML).');

@@ -1,0 +1,26 @@
+{
+  "name": "projetoegidio",
+  "version": "1.0.0",
+  "description": "Este é o projeto do site institucional completo da **Buffon**, desenvolvido do zero com foco em alta performance, responsividade, design premium e SEO otimizado. O site foi construído utilizando **HTML5 semântico, CSS3 personalizado (vanilla) e JavaScript puro (ES6+)**, sem a necessidade de dependências ou CMS pesados.",
+  "main": "test-server.js",
+  "scripts": {
+    "test": "playwright test",
+    "test:ui": "playwright test --ui",
+    "test:watch": "npx nodemon --watch admin.html -e html,js --exec \"npx playwright test\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EderRosso/ProjetoEgidio.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/EderRosso/ProjetoEgidio/issues"
+  },
+  "homepage": "https://github.com/EderRosso/ProjetoEgidio#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.62.1"
+  }
+}

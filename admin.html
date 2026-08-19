@@ -1950,13 +1950,14 @@ window.siteData = ${JSON.stringify(localData, null, 2)};
             const apiUrl = `https://api.github.com/repos/${repo}/contents/${path}`;
             
             try {
-                // 1. Verificar se o arquivo já existe e obter seu SHA para fazer overwrite
+                // 1. Verificar se o arquivo já existe e obter seu SHA para fazer overwrite (Evitando cache do navegador)
                 let sha = '';
-                const getResponse = await fetch(apiUrl + `?ref=${branch}`, {
+                const getResponse = await fetch(apiUrl + `?ref=${branch}&_t=${new Date().getTime()}`, {
                     headers: {
                         'Authorization': `token ${token}`,
                         'Accept': 'application/vnd.github.v3+json'
-                    }
+                    },
+                    cache: 'no-store'
                 });
 
                 if (getResponse.ok) {

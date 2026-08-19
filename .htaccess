@@ -1,0 +1,8 @@
+<Files "admin.html">
+    AuthType Basic
+    AuthName "Acesso Restrito - Painel Administrativo"
+    # ATENÇÃO: Substitua o caminho abaixo pelo caminho absoluto real do seu servidor de hospedagem
+    # Exemplo no HostGator/cPanel: /home/seuusuarionohost/public_html/.htpasswd
+    AuthUserFile /caminho/absoluto/do/seu/servidor/.htpasswd
+    Require valid-user
+</Files>

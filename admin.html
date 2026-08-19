@@ -1,0 +1,1918 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel de Controle - Buffon Assistência Técnica</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-bg: #0f172a;
+            --color-card: #1e293b;
+            --color-card-border: #334155;
+            --color-accent: #f97316;
+            --color-accent-hover: #ea580c;
+            --color-text-main: #f8fafc;
+            --color-text-muted: #94a3b8;
+            --color-success: #22c55e;
+            --color-danger: #ef4444;
+            --font-primary: 'Outfit', sans-serif;
+            --font-secondary: 'Inter', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-secondary);
+            background-color: var(--color-bg);
+            color: var(--color-text-main);
+            line-height: 1.5;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background-color: rgba(30, 41, 59, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--color-card-border);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-logo {
+            font-family: var(--font-primary);
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--color-text-main);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .header-logo span {
+            color: var(--color-accent);
+        }
+
+        .badge-admin {
+            background-color: rgba(249, 115, 22, 0.15);
+            border: 1px solid var(--color-accent);
+            color: var(--color-accent);
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .main-container {
+            flex: 1;
+            display: flex;
+            max-width: 1400px;
+            width: 100%;
+            margin: 2rem auto;
+            gap: 2rem;
+            padding: 0 1rem;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            width: 280px;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .tab-btn {
+            background: none;
+            border: 1px solid transparent;
+            color: var(--color-text-muted);
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: left;
+            font-family: var(--font-primary);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .tab-btn svg {
+            width: 20px;
+            height: 20px;
+            transition: stroke 0.2s ease;
+        }
+
+        .tab-btn:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+            color: var(--color-text-main);
+        }
+
+        .tab-btn.active {
+            background-color: var(--color-card);
+            border-color: var(--color-card-border);
+            color: var(--color-accent);
+        }
+
+        .tab-btn.active svg {
+            stroke: var(--color-accent);
+        }
+
+        /* Editor Section */
+        .editor-content {
+            flex: 1;
+            background-color: var(--color-card);
+            border: 1px solid var(--color-card-border);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .tab-pane {
+            display: none;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .tab-pane.active {
+            display: flex;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .pane-header {
+            border-bottom: 1px solid var(--color-card-border);
+            padding-bottom: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .pane-header h2 {
+            font-family: var(--font-primary);
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--color-text-main);
+        }
+
+        .pane-header p {
+            font-size: 0.875rem;
+            color: var(--color-text-muted);
+            margin-top: 0.25rem;
+        }
+
+        /* Forms Layout */
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--color-text-main);
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="url"],
+        textarea,
+        select {
+            background-color: rgba(15, 23, 42, 0.6);
+            border: 1px solid var(--color-card-border);
+            color: var(--color-text-main);
+            padding: 0.75rem 1rem;
+            border-radius: 6px;
+            font-family: var(--font-secondary);
+            font-size: 0.95rem;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+            width: 100%;
+        }
+
+        input:focus,
+        textarea:focus,
+        select:focus {
+            outline: none;
+            border-color: var(--color-accent);
+            box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.15);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        /* Image Upload */
+        .image-upload-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            border: 1px dashed var(--color-card-border);
+            padding: 1.25rem;
+            border-radius: 8px;
+            background-color: rgba(15, 23, 42, 0.2);
+        }
+
+        .image-preview {
+            width: 100px;
+            height: 100px;
+            border-radius: 8px;
+            border: 1px solid var(--color-card-border);
+            background-color: #0f172a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .image-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .image-preview svg {
+            width: 32px;
+            height: 32px;
+            stroke: var(--color-text-muted);
+        }
+
+        .image-upload-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .btn-upload {
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--color-card-border);
+            color: var(--color-text-main);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-upload:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .image-upload-info span {
+            font-size: 0.75rem;
+            color: var(--color-text-muted);
+        }
+
+        /* Dynamic Lists (FAQ, Services, etc) */
+        .list-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .list-item-card {
+            background-color: rgba(15, 23, 42, 0.4);
+            border: 1px solid var(--color-card-border);
+            border-radius: 8px;
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            position: relative;
+        }
+
+        .list-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.05);
+            padding-bottom: 0.5rem;
+        }
+
+        .list-item-header span {
+            font-weight: 700;
+            font-family: var(--font-primary);
+            color: var(--color-accent);
+            font-size: 0.9rem;
+        }
+
+        .btn-remove {
+            background: none;
+            border: none;
+            color: var(--color-danger);
+            cursor: pointer;
+            padding: 0.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            transition: background-color 0.2s ease;
+        }
+
+        .btn-remove:hover {
+            background-color: rgba(239, 68, 68, 0.1);
+        }
+
+        .btn-add {
+            background-color: rgba(249, 115, 22, 0.1);
+            border: 1px dashed var(--color-accent);
+            color: var(--color-accent);
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            font-family: var(--font-primary);
+        }
+
+        .btn-add:hover {
+            background-color: rgba(249, 115, 22, 0.15);
+            color: var(--color-text-main);
+        }
+
+        /* Save Screen & Steps */
+        .tutorial-box {
+            background-color: rgba(249, 115, 22, 0.05);
+            border: 1px solid rgba(249, 115, 22, 0.2);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tutorial-box h3 {
+            font-family: var(--font-primary);
+            color: var(--color-accent);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .tutorial-steps {
+            list-style-type: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+
+        .tutorial-steps li {
+            position: relative;
+            padding-left: 2rem;
+            font-size: 0.9rem;
+        }
+
+        .tutorial-steps li::before {
+            content: attr(data-step);
+            position: absolute;
+            left: 0;
+            top: 0.1rem;
+            background-color: var(--color-accent);
+            color: #fff;
+            width: 1.25rem;
+            height: 1.25rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        .btn-save-main {
+            background-color: var(--color-accent);
+            border: none;
+            color: #fff;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-family: var(--font-primary);
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            box-shadow: 0 4px 10px rgba(249, 115, 22, 0.3);
+            width: 100%;
+        }
+
+        .btn-save-main:hover {
+            background-color: var(--color-accent-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 14px rgba(249, 115, 22, 0.4);
+        }
+
+        .github-box {
+            border: 1px solid var(--color-card-border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            background-color: rgba(15, 23, 42, 0.3);
+            margin-top: 2rem;
+        }
+
+        .github-box h3 {
+            font-family: var(--font-primary);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .github-box p {
+            font-size: 0.85rem;
+            color: var(--color-text-muted);
+            margin-bottom: 1rem;
+        }
+
+        .btn-github {
+            background-color: #24292f;
+            border: 1px solid #444c56;
+            color: #ffffff;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            font-family: var(--font-primary);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            width: 100%;
+        }
+
+        .btn-github:hover {
+            background-color: #2f363d;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--color-text-muted);
+            font-size: 0.8rem;
+            border-top: 1px solid var(--color-card-border);
+            margin-top: auto;
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .main-container {
+                flex-direction: column;
+            }
+            .sidebar {
+                width: 100%;
+                flex-direction: row;
+                overflow-x: auto;
+                padding-bottom: 0.5rem;
+            }
+            .tab-btn {
+                white-space: nowrap;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="index.html" class="header-logo">
+            BUFFON<span>.</span>
+        </a>
+        <div style="display: flex; align-items: center; gap: 1rem;">
+            <div class="badge-admin">Editor Visual</div>
+            <a href="index.html" style="color: var(--color-text-muted); font-size: 0.9rem; text-decoration: none; font-weight: 500;">Voltar ao Site</a>
+        </div>
+    </header>
+
+    <div class="main-container">
+        
+        <!-- Sidebar Menu -->
+        <div class="sidebar">
+            <button class="tab-btn active" onclick="switchTab('config-geral')">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.94.725l.548 2.2a1 1 0 00.996.808H15a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V5z"></path></svg>
+                Contatos & Config
+            </button>
+            <button class="tab-btn" onclick="switchTab('hero')">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                Banner Principal
+            </button>
+            <button class="tab-btn" onclick="switchTab('estatisticas')">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                Estatísticas
+            </button>
+            <button class="tab-btn" onclick="switchTab('sobre')">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+                Sobre Nós
+            </button>
+            <button class="tab-btn" onclick="switchTab('processo')">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
+                Como Funciona
+            </button>
+            <button class="tab-btn" onclick="switchTab('servicos')">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                Equipamentos
+            </button>
+            <button class="tab-btn" onclick="switchTab('faq')">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                Perguntas (FAQ)
+            </button>
+            <button class="tab-btn" onclick="switchTab('depoimentos')">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5"></path></svg>
+                Depoimentos & Marcas
+            </button>
+            <button class="tab-btn" onclick="switchTab('salvar')" style="border-top: 1px solid var(--color-card-border); margin-top: 1rem; color: #fff; background-color: rgba(249, 115, 22, 0.05);">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"></path></svg>
+                Salvar Alterações
+            </button>
+        </div>
+
+        <!-- Form Editor Container -->
+        <div class="editor-content">
+            <form id="cms-editor-form" onsubmit="event.preventDefault();">
+                
+                <!-- Tab: Contatos & Config -->
+                <div class="tab-pane active" id="config-geral">
+                    <div class="pane-header" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;">
+                        <div>
+                            <h2>Configurações Gerais & Contatos</h2>
+                            <p>Gerencie as informações básicas de contato e integrações do site.</p>
+                        </div>
+                        <div style="display:flex; align-items:center; gap:0.5rem; background-color:rgba(255,255,255,0.05); padding:0.5rem 1rem; border-radius:6px; border:1px solid var(--color-card-border);">
+                            <input type="checkbox" id="visibility-contact" style="width:18px; height:18px; accent-color:var(--color-accent); cursor:pointer;">
+                            <label for="visibility-contact" style="cursor:pointer; user-select:none; font-size:0.875rem; font-weight:600;">Seção de Contato Visível</label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="config-phone">Telefone Comercial (Exibição)</label>
+                            <input type="text" id="config-phone" placeholder="Ex: (51) 3474-0000">
+                        </div>
+                        <div class="form-group">
+                            <label for="config-whatsapp">Número do WhatsApp (Envio Direto - Apenas números)</label>
+                            <input type="text" id="config-whatsapp" placeholder="Ex: 5551999999999">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="config-email">E-mail para Orçamentos</label>
+                            <input type="email" id="config-email" placeholder="Ex: contato@buffon.com.br">
+                        </div>
+                        <div class="form-group">
+                            <label for="config-address">Endereço Comercial</label>
+                            <input type="text" id="config-address" placeholder="Ex: Rua Exemplo, 123 - Centro">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="config-cityStateCep">Cidade, Estado e CEP</label>
+                            <input type="text" id="config-cityStateCep" placeholder="Ex: Sapucaia do Sul - RS - CEP 93222-010">
+                        </div>
+                        <div class="form-group">
+                            <label for="config-formspreeAction">Link de Destino do E-mail (Formspree Endpoint)</label>
+                            <input type="url" id="config-formspreeAction" placeholder="Ex: https://formspree.io/f/meu_id_formspree">
+                        </div>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="config-mapsIframeSrc">URL do Google Maps Incorporado (src do iframe)</label>
+                        <input type="text" id="config-mapsIframeSrc" placeholder="Link de incorporação do Maps...">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="config-facebookUrl">Link do Facebook</label>
+                            <input type="url" id="config-facebookUrl" placeholder="https://facebook.com/minhapagina">
+                        </div>
+                        <div class="form-group">
+                            <label for="config-instagramUrl">Link do Instagram</label>
+                            <input type="url" id="config-instagramUrl" placeholder="https://instagram.com/minhapagina">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Favicon do Site (Ícone da Aba)</label>
+                            <div class="image-upload-wrapper">
+                                <div class="image-preview" id="preview-favicon">
+                                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                </div>
+                                <div class="image-upload-info">
+                                    <input type="file" id="file-favicon" accept="image/*" style="display:none" onchange="handleImageUpload(this, 'config.faviconUrl', 'preview-favicon')">
+                                    <button type="button" class="btn-upload" onclick="document.getElementById('file-favicon').click()">Enviar Ícone</button>
+                                    <span>Recomendado: PNG 32x32 pixels.</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Logotipo da Empresa (Ícone)</label>
+                            <div class="image-upload-wrapper">
+                                <div class="image-preview" id="preview-logo">
+                                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                </div>
+                                <div class="image-upload-info">
+                                    <input type="file" id="file-logo" accept="image/*" style="display:none" onchange="handleImageUpload(this, 'config.logoIconUrl', 'preview-logo')">
+                                    <button type="button" class="btn-upload" onclick="document.getElementById('file-logo').click()">Enviar Logotipo</button>
+                                    <span>Imagem do ícone ao lado do nome BUFFON.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab: Banner Principal (Hero) -->
+                <div class="tab-pane" id="hero">
+                    <div class="pane-header" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;">
+                        <div>
+                            <h2>Banner Principal (Hero)</h2>
+                            <p>Edite os textos que o visitante visualiza assim que entra no site.</p>
+                        </div>
+                        <div style="display:flex; align-items:center; gap:0.5rem; background-color:rgba(255,255,255,0.05); padding:0.5rem 1rem; border-radius:6px; border:1px solid var(--color-card-border);">
+                            <input type="checkbox" id="visibility-hero" style="width:18px; height:18px; accent-color:var(--color-accent); cursor:pointer;">
+                            <label for="visibility-hero" style="cursor:pointer; user-select:none; font-size:0.875rem; font-weight:600;">Banner Hero Visível</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="hero-tag">Selo de Destaque (Acima do Título)</label>
+                        <input type="text" id="hero-tag" placeholder="Ex: Assistência Técnica Multimarcas">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="hero-title">Título Principal (Permite tags HTML, ex: &lt;span&gt;palavra&lt;/span&gt; para destaque em laranja)</label>
+                        <input type="text" id="hero-title" placeholder="Ex: Assistência técnica especializada em <span>equipamentos industriais.</span>">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="hero-description">Descrição Auxiliar</label>
+                        <textarea id="hero-description" placeholder="Texto curto detalhando os diferenciais..."></textarea>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="hero-ctaPrimaryText">Texto do Botão Principal (WhatsApp)</label>
+                            <input type="text" id="hero-ctaPrimaryText" placeholder="Ex: Fale no WhatsApp">
+                        </div>
+                        <div class="form-group">
+                            <label for="hero-ctaSecondaryText">Texto do Botão Conhecer</label>
+                            <input type="text" id="hero-ctaSecondaryText" placeholder="Ex: Conhecer a Buffon">
+                        </div>
+                        <div class="form-group">
+                            <label for="hero-ctaBudgetText">Texto do Botão de Orçamento</label>
+                            <input type="text" id="hero-ctaBudgetText" placeholder="Ex: Solicitar Orçamento">
+                        </div>
+                    </div>
+
+                    <h3 style="font-family: var(--font-primary); font-size: 1.15rem; margin-top: 1.5rem; border-top: 1px solid var(--color-card-border); padding-top: 1.5rem;">Imagens de Fundo do Banner (Carrossel)</h3>
+                    <p style="font-size: 0.8rem; color: var(--color-text-muted); margin-bottom: 1rem;">Envie até 4 imagens. O site alternará automaticamente entre elas com uma transição suave. Se deixar tudo em branco, usará o fundo original.</p>
+                    
+                    <div class="form-row" style="margin-bottom: 1rem;">
+                        <div class="form-group">
+                            <label>Imagem de Fundo 1</label>
+                            <div class="image-upload-wrapper">
+                                <div class="image-preview" id="preview-bg-0" style="width: 100px; height: 60px;">
+                                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                </div>
+                                <div class="image-upload-info">
+                                    <input type="file" id="file-bg-0" accept="image/*" style="display:none" onchange="handleBackgroundUpload(this, 0)">
+                                    <button type="button" class="btn-upload" onclick="document.getElementById('file-bg-0').click()">Alterar Foto 1</button>
+                                    <button type="button" class="btn-upload" onclick="clearBackgroundSlot(0)" style="margin-top:0.25rem; font-size:0.75rem; border:1px solid var(--color-card-border); padding: 0.2rem 0.5rem; justify-content:center; color: var(--color-danger); background-color: rgba(239, 68, 68, 0.05);">Remover</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Imagem de Fundo 2</label>
+                            <div class="image-upload-wrapper">
+                                <div class="image-preview" id="preview-bg-1" style="width: 100px; height: 60px;">
+                                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                </div>
+                                <div class="image-upload-info">
+                                    <input type="file" id="file-bg-1" accept="image/*" style="display:none" onchange="handleBackgroundUpload(this, 1)">
+                                    <button type="button" class="btn-upload" onclick="document.getElementById('file-bg-1').click()">Alterar Foto 2</button>
+                                    <button type="button" class="btn-upload" onclick="clearBackgroundSlot(1)" style="margin-top:0.25rem; font-size:0.75rem; border:1px solid var(--color-card-border); padding: 0.2rem 0.5rem; justify-content:center; color: var(--color-danger); background-color: rgba(239, 68, 68, 0.05);">Remover</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row" style="margin-bottom: 1.5rem;">
+                        <div class="form-group">
+                            <label>Imagem de Fundo 3</label>
+                            <div class="image-upload-wrapper">
+                                <div class="image-preview" id="preview-bg-2" style="width: 100px; height: 60px;">
+                                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                </div>
+                                <div class="image-upload-info">
+                                    <input type="file" id="file-bg-2" accept="image/*" style="display:none" onchange="handleBackgroundUpload(this, 2)">
+                                    <button type="button" class="btn-upload" onclick="document.getElementById('file-bg-2').click()">Alterar Foto 3</button>
+                                    <button type="button" class="btn-upload" onclick="clearBackgroundSlot(2)" style="margin-top:0.25rem; font-size:0.75rem; border:1px solid var(--color-card-border); padding: 0.2rem 0.5rem; justify-content:center; color: var(--color-danger); background-color: rgba(239, 68, 68, 0.05);">Remover</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Imagem de Fundo 4</label>
+                            <div class="image-upload-wrapper">
+                                <div class="image-preview" id="preview-bg-3" style="width: 100px; height: 60px;">
+                                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                </div>
+                                <div class="image-upload-info">
+                                    <input type="file" id="file-bg-3" accept="image/*" style="display:none" onchange="handleBackgroundUpload(this, 3)">
+                                    <button type="button" class="btn-upload" onclick="document.getElementById('file-bg-3').click()">Alterar Foto 4</button>
+                                    <button type="button" class="btn-upload" onclick="clearBackgroundSlot(3)" style="margin-top:0.25rem; font-size:0.75rem; border:1px solid var(--color-card-border); padding: 0.2rem 0.5rem; justify-content:center; color: var(--color-danger); background-color: rgba(239, 68, 68, 0.05);">Remover</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h3 style="font-family: var(--font-primary); font-size: 1.15rem; margin-top: 1rem; border-top: 1px solid var(--color-card-border); padding-top: 1.5rem;">Os 3 Diferenciais Flutuantes</h3>
+                    <div id="hero-features-list" class="list-container">
+                        <!-- Gerado dinamicamente -->
+                    </div>
+                </div>
+
+                <!-- Tab: Estatísticas -->
+                <div class="tab-pane" id="estatisticas">
+                    <div class="pane-header" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;">
+                        <div>
+                            <h2>Estatísticas da Empresa</h2>
+                            <p>Gerencie as 4 caixas numéricas exibidas no topo do site.</p>
+                        </div>
+                        <div style="display:flex; align-items:center; gap:0.5rem; background-color:rgba(255,255,255,0.05); padding:0.5rem 1rem; border-radius:6px; border:1px solid var(--color-card-border);">
+                            <input type="checkbox" id="visibility-stats" style="width:18px; height:18px; accent-color:var(--color-accent); cursor:pointer;">
+                            <label for="visibility-stats" style="cursor:pointer; user-select:none; font-size:0.875rem; font-weight:600;">Seção de Estatísticas Visível</label>
+                        </div>
+                    </div>
+                    
+                    <div id="stats-list" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem;">
+                        <!-- Gerado dinamicamente -->
+                    </div>
+                </div>
+
+                <!-- Tab: Sobre Nós -->
+                <div class="tab-pane" id="sobre">
+                    <div class="pane-header" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;">
+                        <div>
+                            <h2>Sobre a Empresa</h2>
+                            <p>História, foto institucional e cartões de diferencial da Buffon.</p>
+                        </div>
+                        <div style="display:flex; align-items:center; gap:0.5rem; background-color:rgba(255,255,255,0.05); padding:0.5rem 1rem; border-radius:6px; border:1px solid var(--color-card-border);">
+                            <input type="checkbox" id="visibility-about" style="width:18px; height:18px; accent-color:var(--color-accent); cursor:pointer;">
+                            <label for="visibility-about" style="cursor:pointer; user-select:none; font-size:0.875rem; font-weight:600;">Seção Sobre Nós Visível</label>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="about-subtitle">Subtítulo (Legenda pequena)</label>
+                            <input type="text" id="about-subtitle" placeholder="Ex: Sobre a Buffon">
+                        </div>
+                        <div class="form-group">
+                            <label for="about-title">Título Principal da Seção</label>
+                            <input type="text" id="about-title" placeholder="Ex: Parceiro estratégico para o conserto...">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="about-description">Texto Institucional Completo</label>
+                        <textarea id="about-description" style="min-height: 140px;"></textarea>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="about-experienceYears">Anos de Experiência (Número)</label>
+                            <input type="text" id="about-experienceYears" placeholder="Ex: 10">
+                        </div>
+                        <div class="form-group">
+                            <label for="about-experienceLabel">Texto de Experiência</label>
+                            <input type="text" id="about-experienceLabel" placeholder="Ex: Anos no Mercado">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Foto da Sede da Empresa / Equipe (Substitui o gráfico SVG)</label>
+                        <div class="image-upload-wrapper">
+                            <div class="image-preview" id="preview-about-img" style="width: 150px; height: 100px;">
+                                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                            </div>
+                            <div class="image-upload-info">
+                                <input type="file" id="file-about-img" accept="image/*" style="display:none" onchange="handleImageUpload(this, 'about.imageUrl', 'preview-about-img')">
+                                <button type="button" class="btn-upload" onclick="document.getElementById('file-about-img').click()">Escolher Foto</button>
+                                <span>Será redimensionada automaticamente para caber no layout sem pesar.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h3 style="font-family: var(--font-primary); font-size: 1.15rem; margin-top: 1rem; border-top: 1px solid var(--color-card-border); padding-top: 1.5rem;">Cartões Adicionais da Seção Sobre</h3>
+                    <div id="about-cards-list" class="list-container">
+                        <!-- Gerado dinamicamente -->
+                    </div>
+                </div>
+
+                <!-- Tab: Como Funciona -->
+                <div class="tab-pane" id="processo">
+                    <div class="pane-header" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;">
+                        <div>
+                            <h2>Como Funciona (Linha do Tempo)</h2>
+                            <p>Edite as etapas de atendimento exibidas no site.</p>
+                        </div>
+                        <div style="display:flex; align-items:center; gap:0.5rem; background-color:rgba(255,255,255,0.05); padding:0.5rem 1rem; border-radius:6px; border:1px solid var(--color-card-border);">
+                            <input type="checkbox" id="visibility-process" style="width:18px; height:18px; accent-color:var(--color-accent); cursor:pointer;">
+                            <label for="visibility-process" style="cursor:pointer; user-select:none; font-size:0.875rem; font-weight:600;">Seção Como Funciona Visível</label>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="process-subtitle">Subtítulo da Seção</label>
+                            <input type="text" id="process-subtitle" placeholder="Ex: Etapas Simplificadas">
+                        </div>
+                        <div class="form-group">
+                            <label for="process-title">Título Principal</label>
+                            <input type="text" id="process-title" placeholder="Ex: Como funciona a nossa assistência técnica?">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="process-description">Descrição Curta</label>
+                        <input type="text" id="process-description" placeholder="Texto introdutório...">
+                    </div>
+
+                    <h3 style="font-family: var(--font-primary); font-size: 1.15rem; margin-top: 1.5rem; display:flex; justify-content:space-between; align-items:center; border-top: 1px solid var(--color-card-border); padding-top: 1.5rem;">
+                        Etapas / Passos
+                        <button type="button" class="btn-upload" onclick="addProcessStep()" style="padding: 0.35rem 0.75rem;">+ Novo Passo</button>
+                    </h3>
+                    <div id="process-steps-list" class="list-container">
+                        <!-- Gerado dinamicamente -->
+                    </div>
+
+                    <h3 style="font-family: var(--font-primary); font-size: 1.15rem; margin-top: 2rem; border-top: 1px solid var(--color-card-border); padding-top: 1.5rem;">Nota de Compromisso (Rodapé do Processo)</h3>
+                    <div class="form-group">
+                        <label for="process-footerTitle">Título da Nota</label>
+                        <input type="text" id="process-footerTitle" placeholder="Ex: Nossa Política de Compromisso">
+                    </div>
+                    <div class="form-group">
+                        <label for="process-footerText">Texto da Nota de Compromisso</label>
+                        <textarea id="process-footerText" style="min-height: 80px;"></textarea>
+                    </div>
+                </div>
+
+                <!-- Tab: Equipamentos (Serviços) -->
+                <div class="tab-pane" id="servicos">
+                    <div class="pane-header" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;">
+                        <div>
+                            <h2>Nossos Serviços e Equipamentos</h2>
+                            <p>Gerencie a lista de máquinas que você conserta.</p>
+                        </div>
+                        <div style="display:flex; align-items:center; gap:0.5rem; background-color:rgba(255,255,255,0.05); padding:0.5rem 1rem; border-radius:6px; border:1px solid var(--color-card-border);">
+                            <input type="checkbox" id="visibility-services" style="width:18px; height:18px; accent-color:var(--color-accent); cursor:pointer;">
+                            <label for="visibility-services" style="cursor:pointer; user-select:none; font-size:0.875rem; font-weight:600;">Seção Equipamentos Visível</label>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="services-subtitle">Subtítulo da Seção</label>
+                            <input type="text" id="services-subtitle" placeholder="Ex: O Que Fazemos">
+                        </div>
+                        <div class="form-group">
+                            <label for="services-title">Título da Seção</label>
+                            <input type="text" id="services-title" placeholder="Ex: Especialistas em assistência...">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="services-description">Descrição Curta da Seção</label>
+                        <input type="text" id="services-description" placeholder="Resumo de serviços realizados...">
+                    </div>
+
+                    <h3 style="font-family: var(--font-primary); font-size: 1.15rem; margin-top: 1.5rem; display:flex; justify-content:space-between; align-items:center;">
+                        Lista de Cartões de Equipamentos
+                        <button type="button" class="btn-upload" onclick="addServiceItem()" style="padding: 0.35rem 0.75rem;">+ Novo Item</button>
+                    </h3>
+                    <div id="services-list" class="list-container">
+                        <!-- Gerado dinamicamente -->
+                    </div>
+                </div>
+
+                <!-- Tab: FAQ -->
+                <div class="tab-pane" id="faq">
+                    <div class="pane-header" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;">
+                        <div>
+                            <h2>Perguntas Frequentes (FAQ)</h2>
+                            <p>Adicione ou modifique perguntas e respostas sobre prazos, custos e envio.</p>
+                        </div>
+                        <div style="display:flex; align-items:center; gap:0.5rem; background-color:rgba(255,255,255,0.05); padding:0.5rem 1rem; border-radius:6px; border:1px solid var(--color-card-border);">
+                            <input type="checkbox" id="visibility-faq" style="width:18px; height:18px; accent-color:var(--color-accent); cursor:pointer;">
+                            <label for="visibility-faq" style="cursor:pointer; user-select:none; font-size:0.875rem; font-weight:600;">Seção FAQ Visível</label>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="faq-subtitle">Subtítulo da Seção</label>
+                            <input type="text" id="faq-subtitle" placeholder="Ex: Dúvidas Frequentes">
+                        </div>
+                        <div class="form-group">
+                            <label for="faq-title">Título Principal</label>
+                            <input type="text" id="faq-title" placeholder="Ex: Perguntas Respondidas">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="faq-description">Descrição Curta</label>
+                        <input type="text" id="faq-description" placeholder="Texto introdutório do FAQ...">
+                    </div>
+
+                    <h3 style="font-family: var(--font-primary); font-size: 1.15rem; margin-top: 1.5rem; display:flex; justify-content:space-between; align-items:center;">
+                        Perguntas e Respostas
+                        <button type="button" class="btn-upload" onclick="addFaqItem()" style="padding: 0.35rem 0.75rem;">+ Nova Pergunta</button>
+                    </h3>
+                    <div id="faq-list" class="list-container">
+                        <!-- Gerado dinamicamente -->
+                    </div>
+                </div>
+
+                <!-- Tab: Depoimentos & Marcas -->
+                <div class="tab-pane" id="depoimentos">
+                    <div class="pane-header" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;">
+                        <div>
+                            <h2>Depoimentos & Marcas Atendidas</h2>
+                            <p>Gerencie as marcas parceiras e as avaliações que dão credibilidade ao negócio.</p>
+                        </div>
+                        <div style="display:flex; align-items:center; gap:0.5rem; background-color:rgba(255,255,255,0.05); padding:0.5rem 1rem; border-radius:6px; border:1px solid var(--color-card-border);">
+                            <input type="checkbox" id="visibility-testimonials" style="width:18px; height:18px; accent-color:var(--color-accent); cursor:pointer;">
+                            <label for="visibility-testimonials" style="cursor:pointer; user-select:none; font-size:0.875rem; font-weight:600;">Seção Depoimentos Visível</label>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="testimonials-subtitle">Subtítulo da Seção</label>
+                            <input type="text" id="testimonials-subtitle" placeholder="Ex: Prova Social">
+                        </div>
+                        <div class="form-group">
+                            <label for="testimonials-title">Título de Avaliações</label>
+                            <input type="text" id="testimonials-title" placeholder="Ex: O que nossos clientes dizem">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="testimonials-averageRating">Nota Média (Ex: 4.9 / 5.0)</label>
+                            <input type="text" id="testimonials-averageRating" placeholder="4.9 / 5.0">
+                        </div>
+                        <div class="form-group">
+                            <label for="testimonials-reviewsCountText">Total de Avaliações (Texto)</label>
+                            <input type="text" id="testimonials-reviewsCountText" placeholder="com base em 58 avaliações">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="testimonials-googlePlaceReviewsUrl">Link do Perfil no Google (Para ver mais avaliações)</label>
+                        <input type="url" id="testimonials-googlePlaceReviewsUrl" placeholder="Link de avaliações do Google Meu Negócio...">
+                    </div>
+
+                    <div class="form-group" style="margin-top: 1rem; border-top: 1px dashed rgba(255, 255, 255, 0.05); padding-top: 1rem; margin-bottom: 2rem;">
+                        <label for="testimonials-widgetHtml">Código Incorporado do Widget de Avaliações (Opcional - Ex: TrustIndex, Elfsight)</label>
+                        <p style="font-size: 0.75rem; color: var(--color-text-muted); margin-bottom: 0.5rem;">Se você usa um widget externo do Google Empresas, cole o código de incorporação (&lt;iframe&gt; ou &lt;script&gt;) aqui para exibir avaliações ao vivo. Se deixar vazio, os depoimentos manuais abaixo serão exibidos.</p>
+                        <textarea id="testimonials-widgetHtml" placeholder="Cole o código do widget de avaliações aqui (iframe, script)..." style="min-height: 80px; font-family: monospace; font-size: 0.8rem;"></textarea>
+                    </div>
+
+                    <h3 style="font-family: var(--font-primary); font-size: 1.15rem; margin-top: 1.5rem; display:flex; justify-content:space-between; align-items:center;">
+                        Depoimentos de Clientes (Google Reviews)
+                        <button type="button" class="btn-upload" onclick="addTestimonialItem()" style="padding: 0.35rem 0.75rem;">+ Novo Depoimento</button>
+                    </h3>
+                    <div id="testimonials-list" class="list-container">
+                        <!-- Gerado dinamicamente -->
+                    </div>
+
+                    <h3 style="font-family: var(--font-primary); font-size: 1.15rem; margin-top: 2rem; border-top: 1px solid var(--color-card-border); padding-top: 1.5rem;">Marcas Atendidas (Carrossel)</h3>
+                    <div class="form-group">
+                        <label for="services-brands">Escreva os nomes das marcas separados por vírgula (Ex: BOSCH, MAKITA, DEWALT)</label>
+                        <textarea id="services-brands" style="min-height: 80px;"></textarea>
+                    </div>
+                </div>
+
+                <!-- Tab: Salvar Alterações -->
+                <div class="tab-pane" id="salvar">
+                    <div class="pane-header">
+                        <h2>Salvar & Aplicar Configurações</h2>
+                        <p>Escolha como deseja atualizar o seu site com as novas alterações.</p>
+                    </div>
+
+                    <div class="tutorial-box">
+                        <h3>
+                            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            Método Padrão (Sem Instalação)
+                        </h3>
+                        <p>Baixe o arquivo de configurações e salve-o na pasta do site. É muito simples:</p>
+                        <ol class="tutorial-steps">
+                            <li data-step="1">Clique no botão laranja grande <strong>"Baixar Arquivo data.js"</strong> logo abaixo.</li>
+                            <li data-step="2">Salve ou mova o arquivo baixado diretamente para dentro da pasta <strong>js</strong> do seu site.</li>
+                            <li data-step="3">Substitua o arquivo <strong>data.js</strong> existente quando o computador perguntar. Pronto! O site está atualizado.</li>
+                        </ol>
+                    </div>
+
+                    <button type="button" class="btn-save-main" onclick="downloadConfigFile()">
+                        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                        Baixar Arquivo data.js
+                    </button>
+
+                    <div class="github-box">
+                        <h3>
+                            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"></path></svg>
+                            Integração Automática (Avançado)
+                        </h3>
+                        <p>Hospedado no GitHub Pages, Netlify ou Vercel? Publique as atualizações online imediatamente sem precisar baixar arquivos.</p>
+                        
+                        <div class="form-group" style="margin-bottom: 1rem;">
+                            <label for="gh-token">GitHub Personal Access Token (Salvo localmente em seu navegador)</label>
+                            <input type="password" id="gh-token" placeholder="ghp_1234567890abcdef...">
+                        </div>
+                        <div class="form-row" style="margin-bottom: 1.5rem;">
+                            <div class="form-group">
+                                <label for="gh-repo">Repositório GitHub (Ex: usuario/projeto)</label>
+                                <input type="text" id="gh-repo" placeholder="usuario/repositorio">
+                            </div>
+                            <div class="form-group">
+                                <label for="gh-branch">Branch (Normalmente 'main' ou 'master')</label>
+                                <input type="text" id="gh-branch" value="main">
+                            </div>
+                        </div>
+
+                        <button type="button" class="btn-github" onclick="commitToGitHub()">
+                            Publicar Alterações Online no GitHub
+                        </button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
+    </div>
+
+    <!-- Script de dados iniciais -->
+    <script src="js/data.js"></script>
+
+    <script>
+        // Guardará todas as informações locais editadas
+        let localData = {};
+
+        // Ao carregar a página
+        window.addEventListener('DOMContentLoaded', () => {
+            // Importa o siteData definido em js/data.js
+            if (window.siteData) {
+                localData = JSON.parse(JSON.stringify(window.siteData)); // Deep clone
+            } else {
+                alert('Erro: Arquivo js/data.js não carregado corretamente. Iniciando com dados vazios.');
+                localData = { config: {}, hero: {}, stats: [], about: {}, process: {}, services: {}, faq: {}, testimonials: {} };
+            }
+
+            // Preenche as credenciais do GitHub salvas se houverem
+            document.getElementById('gh-token').value = localStorage.getItem('gh_token') || '';
+            document.getElementById('gh-repo').value = localStorage.getItem('gh_repo') || '';
+            document.getElementById('gh-branch').value = localStorage.getItem('gh_branch') || 'main';
+
+            // Preenche todos os campos
+            loadFormValues();
+        });
+
+        // Alterna entre abas
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-pane').forEach(pane => pane.classList.remove('active'));
+
+            const activeBtn = Array.from(document.querySelectorAll('.tab-btn')).find(btn => btn.getAttribute('onclick').includes(tabId));
+            if (activeBtn) activeBtn.classList.add('active');
+
+            const activePane = document.getElementById(tabId);
+            if (activePane) activePane.classList.add('active');
+        }
+
+        // Carrega valores do objeto localData para os campos de input do form
+        function loadFormValues() {
+            // 0. Visibilidade Checkboxes
+            const visibility = localData.visibility || {};
+            document.getElementById('visibility-contact').checked = visibility.contact !== false;
+            document.getElementById('visibility-hero').checked = visibility.hero !== false;
+            document.getElementById('visibility-stats').checked = visibility.stats !== false;
+            document.getElementById('visibility-about').checked = visibility.about !== false;
+            document.getElementById('visibility-process').checked = visibility.process !== false;
+            document.getElementById('visibility-services').checked = visibility.services !== false;
+            document.getElementById('visibility-faq').checked = visibility.faq !== false;
+            document.getElementById('visibility-testimonials').checked = visibility.testimonials !== false;
+
+            // 1. Config Geral
+            const config = localData.config || {};
+            document.getElementById('config-phone').value = config.phone || '';
+            document.getElementById('config-whatsapp').value = config.whatsapp || '';
+            document.getElementById('config-email').value = config.email || '';
+            document.getElementById('config-address').value = config.address || '';
+            document.getElementById('config-cityStateCep').value = config.cityStateCep || '';
+            document.getElementById('config-formspreeAction').value = config.formspreeAction || '';
+            document.getElementById('config-mapsIframeSrc').value = config.mapsIframeSrc || '';
+            document.getElementById('config-facebookUrl').value = config.facebookUrl || '';
+            document.getElementById('config-instagramUrl').value = config.instagramUrl || '';
+
+            updateImagePreview('preview-favicon', config.faviconUrl);
+            updateImagePreview('preview-logo', config.logoIconUrl);
+
+            // 2. Hero
+            const hero = localData.hero || {};
+            document.getElementById('hero-tag').value = hero.tag || '';
+            document.getElementById('hero-title').value = hero.title || '';
+            document.getElementById('hero-description').value = hero.description || '';
+            document.getElementById('hero-ctaPrimaryText').value = hero.ctaPrimaryText || '';
+            document.getElementById('hero-ctaSecondaryText').value = hero.ctaSecondaryText || '';
+            document.getElementById('hero-ctaBudgetText').value = hero.ctaBudgetText || '';
+
+            // Hero Backgrounds Previews
+            const backgrounds = hero.backgrounds || [];
+            for (let i = 0; i < 4; i++) {
+                updateImagePreview(`preview-bg-${i}`, backgrounds[i] || '');
+            }
+
+            // Hero Features (Lista)
+            renderHeroFeaturesList();
+
+            // 3. Stats
+            renderStatsList();
+
+            // 4. Sobre
+            const about = localData.about || {};
+            document.getElementById('about-subtitle').value = about.subtitle || '';
+            document.getElementById('about-title').value = about.title || '';
+            document.getElementById('about-description').value = about.description || '';
+            document.getElementById('about-experienceYears').value = about.experienceYears || '';
+            document.getElementById('about-experienceLabel').value = about.experienceLabel || '';
+            updateImagePreview('preview-about-img', about.imageUrl);
+
+            renderAboutCardsList();
+
+            // 4.5 Como Funciona (Processo)
+            const process = localData.process || {};
+            document.getElementById('process-subtitle').value = process.subtitle || '';
+            document.getElementById('process-title').value = process.title || '';
+            document.getElementById('process-description').value = process.description || '';
+            document.getElementById('process-footerTitle').value = process.footerTitle || '';
+            document.getElementById('process-footerText').value = process.footerText || '';
+            
+            renderProcessStepsList();
+
+            // 5. Serviços (Equipamentos)
+            const srv = localData.services || {};
+            document.getElementById('services-subtitle').value = srv.subtitle || '';
+            document.getElementById('services-title').value = srv.title || '';
+            document.getElementById('services-description').value = srv.description || '';
+            document.getElementById('services-brands').value = (srv.brands || []).join(', ');
+
+            renderServicesList();
+
+            // 6. FAQ
+            const faq = localData.faq || {};
+            document.getElementById('faq-subtitle').value = faq.subtitle || '';
+            document.getElementById('faq-title').value = faq.title || '';
+            document.getElementById('faq-description').value = faq.description || '';
+
+            renderFaqList();
+
+            // 7. Depoimentos
+            const test = localData.testimonials || {};
+            document.getElementById('testimonials-subtitle').value = test.subtitle || '';
+            document.getElementById('testimonials-title').value = test.title || '';
+            document.getElementById('testimonials-averageRating').value = test.averageRating || '';
+            document.getElementById('testimonials-reviewsCountText').value = test.reviewsCountText || '';
+            document.getElementById('testimonials-googlePlaceReviewsUrl').value = test.googlePlaceReviewsUrl || '';
+            document.getElementById('testimonials-widgetHtml').value = test.widgetHtml || '';
+
+            renderTestimonialsList();
+        }
+
+        // Salva os valores dos inputs de volta para o objeto localData antes de gerar o arquivo
+        function collectFormValues() {
+            // 0. Coleta Visibilidade
+            localData.visibility = localData.visibility || {};
+            localData.visibility.contact = document.getElementById('visibility-contact').checked;
+            localData.visibility.hero = document.getElementById('visibility-hero').checked;
+            localData.visibility.stats = document.getElementById('visibility-stats').checked;
+            localData.visibility.about = document.getElementById('visibility-about').checked;
+            localData.visibility.process = document.getElementById('visibility-process').checked;
+            localData.visibility.services = document.getElementById('visibility-services').checked;
+            localData.visibility.faq = document.getElementById('visibility-faq').checked;
+            localData.visibility.testimonials = document.getElementById('visibility-testimonials').checked;
+
+            // 1. Config Geral
+            localData.config = localData.config || {};
+            localData.config.phone = document.getElementById('config-phone').value;
+            localData.config.whatsapp = document.getElementById('config-whatsapp').value;
+            localData.config.email = document.getElementById('config-email').value;
+            localData.config.address = document.getElementById('config-address').value;
+            localData.config.cityStateCep = document.getElementById('config-cityStateCep').value;
+            localData.config.formspreeAction = document.getElementById('config-formspreeAction').value;
+            localData.config.mapsIframeSrc = document.getElementById('config-mapsIframeSrc').value;
+            localData.config.facebookUrl = document.getElementById('config-facebookUrl').value;
+            localData.config.instagramUrl = document.getElementById('config-instagramUrl').value;
+
+            // 2. Hero
+            localData.hero = localData.hero || {};
+            localData.hero.tag = document.getElementById('hero-tag').value;
+            localData.hero.title = document.getElementById('hero-title').value;
+            localData.hero.description = document.getElementById('hero-description').value;
+            localData.hero.ctaPrimaryText = document.getElementById('hero-ctaPrimaryText').value;
+            localData.hero.ctaSecondaryText = document.getElementById('hero-ctaSecondaryText').value;
+            localData.hero.ctaBudgetText = document.getElementById('hero-ctaBudgetText').value;
+
+            // Coleta Hero Features
+            const featCards = document.querySelectorAll('.hero-feat-item-form');
+            localData.hero.features = Array.from(featCards).map(card => ({
+                title: card.querySelector('.feat-title-input').value,
+                description: card.querySelector('.feat-desc-input').value
+            }));
+
+            // 3. Stats
+            const statCards = document.querySelectorAll('.stat-item-form');
+            localData.stats = Array.from(statCards).map(card => ({
+                number: card.querySelector('.stat-num-input').value,
+                label: card.querySelector('.stat-lbl-input').value
+            }));
+
+            // 4. Sobre
+            localData.about = localData.about || {};
+            localData.about.subtitle = document.getElementById('about-subtitle').value;
+            localData.about.title = document.getElementById('about-title').value;
+            localData.about.description = document.getElementById('about-description').value;
+            localData.about.experienceYears = document.getElementById('about-experienceYears').value;
+            localData.about.experienceLabel = document.getElementById('about-experienceLabel').value;
+
+            // Coleta Sobre Cards
+            const abCards = document.querySelectorAll('.about-card-item-form');
+            localData.about.cards = Array.from(abCards).map(card => ({
+                title: card.querySelector('.card-title-input').value,
+                description: card.querySelector('.card-desc-input').value
+            }));
+
+            // 4.5 Como Funciona (Processo)
+            localData.process = localData.process || {};
+            localData.process.subtitle = document.getElementById('process-subtitle').value;
+            localData.process.title = document.getElementById('process-title').value;
+            localData.process.description = document.getElementById('process-description').value;
+            localData.process.footerTitle = document.getElementById('process-footerTitle').value;
+            localData.process.footerText = document.getElementById('process-footerText').value;
+
+            // Coleta Process Steps
+            const stepCards = document.querySelectorAll('.step-item-form');
+            localData.process.steps = Array.from(stepCards).map((card, idx) => ({
+                num: `Passo ${idx + 1}`,
+                title: card.querySelector('.step-title-input').value,
+                description: card.querySelector('.step-desc-input').value
+            }));
+
+            // 5. Serviços (Equipamentos)
+            localData.services = localData.services || {};
+            localData.services.subtitle = document.getElementById('services-subtitle').value;
+            localData.services.title = document.getElementById('services-title').value;
+            localData.services.description = document.getElementById('services-description').value;
+            localData.services.brands = document.getElementById('services-brands').value.split(',').map(s => s.trim()).filter(s => s !== '');
+
+            // Coleta Equipamentos itens
+            const srvCards = document.querySelectorAll('.srv-item-form');
+            localData.services.items = Array.from(srvCards).map((card, idx) => ({
+                icon: card.querySelector('.srv-icon-select').value,
+                title: card.querySelector('.srv-title-input').value,
+                description: card.querySelector('.srv-desc-input').value,
+                imageUrl: (localData.services.items[idx] && localData.services.items[idx].imageUrl) ? localData.services.items[idx].imageUrl : ''
+            }));
+
+            // 6. FAQ
+            localData.faq = localData.faq || {};
+            localData.faq.subtitle = document.getElementById('faq-subtitle').value;
+            localData.faq.title = document.getElementById('faq-title').value;
+            localData.faq.description = document.getElementById('faq-description').value;
+
+            // Coleta FAQ Itens
+            const faqCards = document.querySelectorAll('.faq-item-form');
+            localData.faq.items = Array.from(faqCards).map(card => ({
+                question: card.querySelector('.faq-q-input').value,
+                answer: card.querySelector('.faq-a-input').value
+            }));
+
+            // 7. Depoimentos
+            localData.testimonials = localData.testimonials || {};
+            localData.testimonials.subtitle = document.getElementById('testimonials-subtitle').value;
+            localData.testimonials.title = document.getElementById('testimonials-title').value;
+            localData.testimonials.averageRating = document.getElementById('testimonials-averageRating').value;
+            localData.testimonials.reviewsCountText = document.getElementById('testimonials-reviewsCountText').value;
+            localData.testimonials.googlePlaceReviewsUrl = document.getElementById('testimonials-googlePlaceReviewsUrl').value;
+            localData.testimonials.widgetHtml = document.getElementById('testimonials-widgetHtml').value;
+
+            // Coleta Depoimentos Itens
+            const testCards = document.querySelectorAll('.test-item-form');
+            localData.testimonials.items = Array.from(testCards).map(card => ({
+                initials: card.querySelector('.test-init-input').value,
+                name: card.querySelector('.test-name-input').value,
+                company: card.querySelector('.test-comp-input').value,
+                rating: parseInt(card.querySelector('.test-rat-select').value) || 5,
+                text: card.querySelector('.test-text-input').value,
+                date: card.querySelector('.test-date-input').value
+            }));
+        }
+
+        // Atualiza a visualização da imagem
+        function updateImagePreview(previewId, dataUrl) {
+            const preview = document.getElementById(previewId);
+            if (dataUrl) {
+                preview.innerHTML = `<img src="${dataUrl}" alt="Preview">`;
+            } else {
+                preview.innerHTML = `<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>`;
+            }
+        }
+
+        // Lê, comprime e salva imagens enviadas localmente no objeto
+        function handleImageUpload(inputEl, path, previewId) {
+            const file = inputEl.files[0];
+            if (!file) return;
+
+            // Limite de tamanho original apenas para alertar, o script fará compressão
+            const reader = new FileReader();
+            
+            // Define o carregamento do arquivo
+            reader.onload = function(e) {
+                const img = new Image();
+                img.onload = function() {
+                    const canvas = document.createElement('canvas');
+                    const MAX_WIDTH = 1200;
+                    const MAX_HEIGHT = 1200;
+                    let width = img.width;
+                    let height = img.height;
+
+                    // Ajusta tamanho proporcional
+                    if (width > height) {
+                        if (width > MAX_WIDTH) {
+                            height = Math.round((height * MAX_WIDTH) / width);
+                            width = MAX_WIDTH;
+                        }
+                    } else {
+                        if (height > MAX_HEIGHT) {
+                            width = Math.round((width * MAX_HEIGHT) / height);
+                            height = MAX_HEIGHT;
+                        }
+                    }
+
+                    canvas.width = width;
+                    canvas.height = height;
+
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, width, height);
+
+                    // Comprime para JPEG de boa qualidade
+                    const compressedBase64 = canvas.toDataURL('image/jpeg', 0.75);
+                    
+                    // Salva no objeto aninhado
+                    setNestedValue(localData, path, compressedBase64);
+
+                    // Atualiza visualmente
+                    updateImagePreview(previewId, compressedBase64);
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // Upload de imagem de fundo do banner
+        function handleBackgroundUpload(inputEl, index) {
+            const file = inputEl.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = new Image();
+                img.onload = function() {
+                    const canvas = document.createElement('canvas');
+                    const MAX_WIDTH = 1200;
+                    const MAX_HEIGHT = 800; // Landscape orientation
+                    let width = img.width;
+                    let height = img.height;
+
+                    if (width > height) {
+                        if (width > MAX_WIDTH) {
+                            height = Math.round((height * MAX_WIDTH) / width);
+                            width = MAX_WIDTH;
+                        }
+                    } else {
+                        if (height > MAX_HEIGHT) {
+                            width = Math.round((width * MAX_HEIGHT) / height);
+                            height = MAX_HEIGHT;
+                        }
+                    }
+
+                    canvas.width = width;
+                    canvas.height = height;
+
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, width, height);
+
+                    const compressedBase64 = canvas.toDataURL('image/jpeg', 0.70); // Slightly more compression for backgrounds
+                    
+                    localData.hero = localData.hero || {};
+                    localData.hero.backgrounds = localData.hero.backgrounds || [];
+                    
+                    // Fill array to ensure index exists
+                    while (localData.hero.backgrounds.length <= index) {
+                        localData.hero.backgrounds.push('');
+                    }
+                    
+                    localData.hero.backgrounds[index] = compressedBase64;
+                    updateImagePreview(`preview-bg-${index}`, compressedBase64);
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // Limpa o slot de imagem de fundo
+        function clearBackgroundSlot(index) {
+            localData.hero = localData.hero || {};
+            localData.hero.backgrounds = localData.hero.backgrounds || [];
+            
+            if (localData.hero.backgrounds.length > index) {
+                localData.hero.backgrounds[index] = '';
+            }
+            updateImagePreview(`preview-bg-${index}`, '');
+        }
+
+        // Define valor para objeto aninhado a partir do caminho string
+        function setNestedValue(obj, path, value) {
+            const parts = path.split('.');
+            let current = obj;
+            for (let i = 0; i < parts.length - 1; i++) {
+                if (!current[parts[i]]) current[parts[i]] = {};
+                current = current[parts[i]];
+            }
+            current[parts[parts.length - 1]] = value;
+        }
+
+        // Renderizadores de listas no formulário
+
+        function renderProcessStepsList() {
+            const container = document.getElementById('process-steps-list');
+            if (!container) return;
+            const list = (localData.process && localData.process.steps) || [];
+            container.innerHTML = list.map((step, idx) => `
+                <div class="list-item-card step-item-form">
+                    <div class="list-item-header">
+                        <span>Passo #${idx + 1} (Lado ${idx % 2 === 0 ? 'Esquerdo' : 'Direito'})</span>
+                        <button type="button" class="btn-remove" onclick="removeItem('process.steps', ${idx}, 'renderProcessStepsList')">
+                            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                        </button>
+                    </div>
+                    <div class="form-group">
+                        <label>Título da Etapa</label>
+                        <input type="text" class="step-title-input" value="${step.title || ''}">
+                    </div>
+                    <div class="form-group">
+                        <label>Descrição da Etapa</label>
+                        <textarea class="step-desc-input" style="min-height: 60px;">${step.description || ''}</textarea>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function addProcessStep() {
+            collectFormValues();
+            localData.process = localData.process || {};
+            localData.process.steps = localData.process.steps || [];
+            localData.process.steps.push({ num: `Passo ${localData.process.steps.length + 1}`, title: 'Nova Etapa', description: 'Descrição da nova etapa...' });
+            renderProcessStepsList();
+        }
+
+        function renderHeroFeaturesList() {
+            const container = document.getElementById('hero-features-list');
+            const list = localData.hero.features || [];
+            container.innerHTML = list.map((feat, idx) => `
+                <div class="list-item-card hero-feat-item-form">
+                    <div class="list-item-header">
+                        <span>Diferencial #${idx + 1}</span>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Título do Diferencial</label>
+                            <input type="text" class="feat-title-input" value="${feat.title || ''}">
+                        </div>
+                        <div class="form-group">
+                            <label>Descrição do Diferencial</label>
+                            <input type="text" class="feat-desc-input" value="${feat.description || ''}">
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderStatsList() {
+            const container = document.getElementById('stats-list');
+            const list = localData.stats || [];
+            container.innerHTML = list.map((stat, idx) => `
+                <div class="list-item-card stat-item-form" style="margin-top:0;">
+                    <div class="list-item-header">
+                        <span>Contador #${idx + 1}</span>
+                    </div>
+                    <div class="form-group">
+                        <label>Número/Dado (Ex: 10+, 48h)</label>
+                        <input type="text" class="stat-num-input" value="${stat.number || ''}">
+                    </div>
+                    <div class="form-group">
+                        <label>Legenda / Descrição</label>
+                        <input type="text" class="stat-lbl-input" value="${stat.label || ''}">
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderAboutCardsList() {
+            const container = document.getElementById('about-cards-list');
+            const list = localData.about.cards || [];
+            container.innerHTML = list.map((card, idx) => `
+                <div class="list-item-card about-card-item-form">
+                    <div class="list-item-header">
+                        <span>Cartão #${idx + 1}</span>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Título do Cartão</label>
+                            <input type="text" class="card-title-input" value="${card.title || ''}">
+                        </div>
+                        <div class="form-group">
+                            <label>Descrição do Cartão</label>
+                            <input type="text" class="card-desc-input" value="${card.description || ''}">
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderServicesList() {
+            const container = document.getElementById('services-list');
+            const list = localData.services.items || [];
+            container.innerHTML = list.map((srv, idx) => `
+                <div class="list-item-card srv-item-form">
+                    <div class="list-item-header">
+                        <span>Serviço #${idx + 1}</span>
+                        <button type="button" class="btn-remove" onclick="removeItem('services.items', ${idx}, 'renderServicesList')">
+                            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                        </button>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Título do Serviço</label>
+                            <input type="text" class="srv-title-input" value="${srv.title || ''}">
+                        </div>
+                        <div class="form-group">
+                            <label>Tipo de Ícone</label>
+                            <select class="srv-icon-select">
+                                <option value="pneumatic" ${srv.icon === 'pneumatic' ? 'selected' : ''}>Ferramenta Pneumática</option>
+                                <option value="painting" ${srv.icon === 'painting' ? 'selected' : ''}>Equipamento de Pintura / Airless</option>
+                                <option value="motor" ${srv.icon === 'motor' ? 'selected' : ''}>Motor Elétrico & Bomba</option>
+                                <option value="electric" ${srv.icon === 'electric' ? 'selected' : ''}>Ferramenta Elétrica Profissional</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Foto do Equipamento</label>
+                        <div class="image-upload-wrapper">
+                            <div class="image-preview" id="preview-srv-img-${idx}" style="width: 100px; height: 60px;">
+                                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                            </div>
+                            <div class="image-upload-info">
+                                <input type="file" id="file-srv-img-${idx}" accept="image/*" style="display:none" onchange="handleServiceImageUpload(this, ${idx})">
+                                <button type="button" class="btn-upload" onclick="document.getElementById('file-srv-img-${idx}').click()">Escolher Foto</button>
+                                <button type="button" class="btn-upload" onclick="clearServiceImage(${idx})" style="margin-top:0.25rem; font-size:0.75rem; border:1px solid var(--color-card-border); padding: 0.2rem 0.5rem; justify-content:center; color: var(--color-danger); background-color: rgba(239, 68, 68, 0.05);">Remover</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Descrição detalhada dos serviços prestados</label>
+                        <textarea class="srv-desc-input">${srv.description || ''}</textarea>
+                    </div>
+                </div>
+            `).join('');
+
+            list.forEach((srv, idx) => {
+                updateImagePreview(`preview-srv-img-${idx}`, srv.imageUrl || '');
+            });
+        }
+
+        function addServiceItem() {
+            collectFormValues();
+            localData.services = localData.services || {};
+            localData.services.items = localData.services.items || [];
+            localData.services.items.push({ icon: 'pneumatic', title: 'Novo Serviço', description: 'Descrição do novo serviço de assistência técnica...', imageUrl: '' });
+            renderServicesList();
+        }
+
+        function handleServiceImageUpload(inputEl, index) {
+            const file = inputEl.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = new Image();
+                img.onload = function() {
+                    const canvas = document.createElement('canvas');
+                    const MAX_WIDTH = 600;
+                    const MAX_HEIGHT = 400;
+                    let width = img.width;
+                    let height = img.height;
+
+                    if (width > height) {
+                        if (width > MAX_WIDTH) {
+                            height = Math.round((height * MAX_WIDTH) / width);
+                            width = MAX_WIDTH;
+                        }
+                    } else {
+                        if (height > MAX_HEIGHT) {
+                            width = Math.round((width * MAX_HEIGHT) / height);
+                            height = MAX_HEIGHT;
+                        }
+                    }
+
+                    canvas.width = width;
+                    canvas.height = height;
+
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, width, height);
+
+                    const compressedBase64 = canvas.toDataURL('image/jpeg', 0.70);
+                    
+                    localData.services = localData.services || {};
+                    localData.services.items = localData.services.items || [];
+                    
+                    if (localData.services.items[index]) {
+                        localData.services.items[index].imageUrl = compressedBase64;
+                    }
+                    updateImagePreview(`preview-srv-img-${index}`, compressedBase64);
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function clearServiceImage(index) {
+            localData.services = localData.services || {};
+            localData.services.items = localData.services.items || [];
+            
+            if (localData.services.items[index]) {
+                localData.services.items[index].imageUrl = '';
+            }
+            updateImagePreview(`preview-srv-img-${index}`, '');
+        }
+
+        function renderFaqList() {
+            const container = document.getElementById('faq-list');
+            const list = localData.faq.items || [];
+            container.innerHTML = list.map((faq, idx) => `
+                <div class="list-item-card faq-item-form">
+                    <div class="list-item-header">
+                        <span>Pergunta FAQ #${idx + 1}</span>
+                        <button type="button" class="btn-remove" onclick="removeItem('faq.items', ${idx}, 'renderFaqList')">
+                            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                        </button>
+                    </div>
+                    <div class="form-group">
+                        <label>Pergunta do Cliente</label>
+                        <input type="text" class="faq-q-input" value="${faq.question || ''}">
+                    </div>
+                    <div class="form-group">
+                        <label>Resposta</label>
+                        <textarea class="faq-a-input">${faq.answer || ''}</textarea>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function addFaqItem() {
+            collectFormValues();
+            localData.faq = localData.faq || {};
+            localData.faq.items = localData.faq.items || [];
+            localData.faq.items.push({ question: 'Escreva a pergunta aqui?', answer: 'Escreva a resposta detalhada aqui...' });
+            renderFaqList();
+        }
+
+        function renderTestimonialsList() {
+            const container = document.getElementById('testimonials-list');
+            const list = localData.testimonials.items || [];
+            container.innerHTML = list.map((test, idx) => `
+                <div class="list-item-card test-item-form">
+                    <div class="list-item-header">
+                        <span>Avaliação #${idx + 1}</span>
+                        <button type="button" class="btn-remove" onclick="removeItem('testimonials.items', ${idx}, 'renderTestimonialsList')">
+                            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                        </button>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Iniciais do Cliente (Avatar)</label>
+                            <input type="text" class="test-init-input" value="${test.initials || ''}">
+                        </div>
+                        <div class="form-group">
+                            <label>Nome do Cliente</label>
+                            <input type="text" class="test-name-input" value="${test.name || ''}">
+                        </div>
+                        <div class="form-group">
+                            <label>Cargo / Empresa</label>
+                            <input type="text" class="test-comp-input" value="${test.company || ''}">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Data de Publicação</label>
+                            <input type="text" class="test-date-input" value="${test.date || 'Há 2 semanas'}">
+                        </div>
+                        <div class="form-group">
+                            <label>Estrelas (Avaliação)</label>
+                            <select class="test-rat-select">
+                                <option value="5" ${test.rating === 5 ? 'selected' : ''}>5 estrelas</option>
+                                <option value="4" ${test.rating === 4 ? 'selected' : ''}>4 estrelas</option>
+                                <option value="3" ${test.rating === 3 ? 'selected' : ''}>3 estrelas</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Comentário da Avaliação</label>
+                        <textarea class="test-text-input">${test.text || ''}</textarea>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function addTestimonialItem() {
+            collectFormValues();
+            localData.testimonials = localData.testimonials || {};
+            localData.testimonials.items = localData.testimonials.items || [];
+            localData.testimonials.items.push({ initials: 'NC', name: 'Nome do Cliente', company: 'Cargo / Metalúrgica', rating: 5, text: '"Avaliação sobre a qualidade dos consertos da Buffon..."', date: 'Há 1 semana' });
+            renderTestimonialsList();
+        }
+
+        // Remove item de uma lista dinâmica
+        function removeItem(path, idx, renderCallbackName) {
+            collectFormValues();
+            const parts = path.split('.');
+            let current = localData;
+            for (let i = 0; i < parts.length; i++) {
+                current = current[parts[i]];
+            }
+            if (Array.isArray(current)) {
+                current.splice(idx, 1);
+            }
+            window[renderCallbackName]();
+        }
+
+        // Geração do arquivo data.js para download
+        function downloadConfigFile() {
+            collectFormValues();
+            
+            // Transforma o objeto localData em uma string formatada em JS
+            const fileContent = `/**
+ * BUFFON - ASSISTÊNCIA TÉCNICA INDUSTRIAL
+ * Dados e Configurações Dinâmicas do Site
+ * 
+ * Este arquivo contém todas as informações editáveis que aparecem no site.
+ * Gerado automaticamente via Painel de Controle (admin.html).
+ */
+
+window.siteData = ${JSON.stringify(localData, null, 2)};
+`;
+
+            const blob = new Blob([fileContent], { type: 'application/javascript;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'data.js';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+        }
+
+        // Commit direto das alterações na API do GitHub
+        async function commitToGitHub() {
+            collectFormValues();
+
+            const token = document.getElementById('gh-token').value.trim();
+            const repo = document.getElementById('gh-repo').value.trim();
+            const branch = document.getElementById('gh-branch').value.trim();
+
+            if (!token || !repo) {
+                alert('Atenção: Você precisa inserir o seu Token de Acesso do GitHub e o caminho do Repositório (usuario/projeto) para publicar.');
+                return;
+            }
+
+            // Salva no local storage para o usuário não precisar digitar toda vez
+            localStorage.setItem('gh_token', token);
+            localStorage.setItem('gh_repo', repo);
+            localStorage.setItem('gh_branch', branch);
+
+            const path = 'js/data.js';
+            const commitMessage = 'Atualização de conteúdo pelo Editor Visual (admin.html)';
+            
+            // Conteúdo a ser commitado
+            const fileContent = `/**
+ * BUFFON - ASSISTÊNCIA TÉCNICA INDUSTRIAL
+ * Dados e Configurações Dinâmicas do Site
+ * 
+ * Gerado automaticamente via Painel de Controle (admin.html).
+ */
+
+window.siteData = ${JSON.stringify(localData, null, 2)};
+`;
+
+            const apiUrl = `https://api.github.com/repos/${repo}/contents/${path}`;
+            
+            try {
+                // 1. Verificar se o arquivo já existe e obter seu SHA para fazer overwrite
+                let sha = '';
+                const getResponse = await fetch(apiUrl + `?ref=${branch}`, {
+                    headers: {
+                        'Authorization': `token ${token}`,
+                        'Accept': 'application/vnd.github.v3+json'
+                    }
+                });
+
+                if (getResponse.ok) {
+                    const data = await getResponse.json();
+                    sha = data.sha;
+                }
+
+                // 2. Fazer o PUT request para criar/atualizar o arquivo
+                const putResponse = await fetch(apiUrl, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `token ${token}`,
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/vnd.github.v3+json'
+                    },
+                    body: JSON.stringify({
+                        message: commitMessage,
+                        content: btoa(unescape(encodeURIComponent(fileContent))), // Base64 encoding do UTF-8
+                        sha: sha || undefined,
+                        branch: branch
+                    })
+                });
+
+                if (putResponse.ok) {
+                    alert('Parabéns! Suas alterações foram salvas e publicadas no GitHub com sucesso. Se o seu site estiver hospedado no GitHub Pages, Netlify ou Vercel, o site ao vivo será atualizado em alguns segundos!');
+                } else {
+                    const errData = await putResponse.json();
+                    alert('Erro ao publicar: ' + (errData.message || 'Erro desconhecido. Verifique se o seu Token de Acesso e Repositório estão corretos.'));
+                }
+            } catch (error) {
+                console.error(error);
+                alert('Erro de conexão ao tentar enviar os dados para a API do GitHub. Verifique sua conexão e tente novamente.');
+            }
+        }
+    </script>
+</body>
+</html>

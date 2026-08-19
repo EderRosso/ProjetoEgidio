@@ -1149,10 +1149,6 @@
                 localData = { config: {}, hero: {}, stats: [], about: {}, process: {}, services: {}, faq: {}, testimonials: {} };
             }
 
-            // Preenche as credenciais do GitHub salvas se houverem
-            document.getElementById('gh-token').value = localStorage.getItem('gh_token') || '';
-            document.getElementById('gh-repo').value = localStorage.getItem('gh_repo') || '';
-            document.getElementById('gh-branch').value = localStorage.getItem('gh_branch') || 'main';
 
             // Preenche todos os campos
             loadFormValues();
@@ -1890,28 +1886,11 @@ window.siteData = ${JSON.stringify(localData, null, 2)};
             URL.revokeObjectURL(url);
         }
 
-        // Commit direto das alterações na API do GitHub
+        // Commit enviando dados para o backend PHP
         async function commitToGitHub() {
             collectFormValues();
 
-            const token = document.getElementById('gh-token').value.trim();
-            const repo = document.getElementById('gh-repo').value.trim();
-            const branch = document.getElementById('gh-branch').value.trim();
-
-            if (!token || !repo) {
-                alert('Atenção: Você precisa inserir o seu Token de Acesso do GitHub e o caminho do Repositório (usuario/projeto) para publicar.');
-                return;
-            }
-
-            // Salva no local storage para o usuário não precisar digitar toda vez
-            localStorage.setItem('gh_token', token);
-            localStorage.setItem('gh_repo', repo);
-            localStorage.setItem('gh_branch', branch);
-
-            const path = 'js/data.js';
-            const commitMessage = 'Atualização de conteúdo pelo Editor Visual (admin.html)';
-            
-            // Conteúdo a ser commitado
+            // Conteúdo a ser salvo
             const fileContent = `/**
  * BUFFON - ASSISTÊNCIA TÉCNICA INDUSTRIAL
  * Dados e Configurações Dinâmicas do Site
@@ -1922,49 +1901,28 @@ window.siteData = ${JSON.stringify(localData, null, 2)};
 window.siteData = ${JSON.stringify(localData, null, 2)};
 `;
 
-            const apiUrl = `https://api.github.com/repos/${repo}/contents/${path}`;
-            
             try {
-                // 1. Verificar se o arquivo já existe e obter seu SHA para fazer overwrite (Evitando cache do navegador)
-                let sha = '';
-                const getResponse = await fetch(apiUrl + `?ref=${branch}&_t=${new Date().getTime()}`, {
+                // Enviar requisição para o nosso arquivo PHP local
+                const response = await fetch('publish.php', {
+                    method: 'POST',
                     headers: {
-                        'Authorization': `token ${token}`,
-                        'Accept': 'application/vnd.github.v3+json'
-                    },
-                    cache: 'no-store'
-                });
-
-                if (getResponse.ok) {
-                    const data = await getResponse.json();
-                    sha = data.sha;
-                }
-
-                // 2. Fazer o PUT request para criar/atualizar o arquivo
-                const putResponse = await fetch(apiUrl, {
-                    method: 'PUT',
-                    headers: {
-                        'Authorization': `token ${token}`,
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/vnd.github.v3+json'
+                        'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        message: commitMessage,
-                        content: btoa(unescape(encodeURIComponent(fileContent))), // Base64 encoding do UTF-8
-                        sha: sha || undefined,
-                        branch: branch
+                        content: fileContent
                     })
                 });
 
-                if (putResponse.ok) {
-                    alert('Parabéns! Suas alterações foram salvas e publicadas no GitHub com sucesso. Se o seu site estiver hospedado no GitHub Pages, Netlify ou Vercel, o site ao vivo será atualizado em alguns segundos!');
+                if (response.ok) {
+                    alert('Parabéns! Suas alterações foram salvas e publicadas no site com sucesso. Em alguns segundos o site ao vivo será atualizado!');
                 } else {
-                    const errData = await putResponse.json();
-                    alert('Erro ao publicar: ' + (errData.message || 'Erro desconhecido. Verifique se o seu Token de Acesso e Repositório estão corretos.'));
+                    const errData = await response.json();
+                    console.error("Erro detalhado:", errData);
+                    alert('Erro ao publicar: ' + (errData.error || 'Erro desconhecido ao tentar comunicar com o servidor.'));
                 }
             } catch (error) {
                 console.error(error);
-                alert('Erro de conexão ao tentar enviar os dados para a API do GitHub. Verifique sua conexão e tente novamente.');
+                alert('Erro de conexão ao tentar comunicar com o servidor local (publish.php). Verifique sua conexão e tente novamente.');
             }
         }
     </script>

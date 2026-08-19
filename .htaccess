@@ -3,6 +3,6 @@
     AuthName "Acesso Restrito - Painel Administrativo"
     # ATENÇÃO: Substitua o caminho abaixo pelo caminho absoluto real do seu servidor de hospedagem
     # Exemplo no HostGator/cPanel: /home/seuusuarionohost/public_html/.htpasswd
-        AuthUserFile /home/u950170173/public_html/.htpasswd
+    AuthUserFile /home/u950170173/domains/buffonassistenciatecnica.com.br/public_html/.htpasswd
     Require valid-user
 </Files>

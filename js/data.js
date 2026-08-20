@@ -218,7 +218,7 @@ window.siteData = {
   },
   "visibility": {
     "hero": true,
-    "stats": false,
+    "stats": true,
     "about": true,
     "process": true,
     "services": true,

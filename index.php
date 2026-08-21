@@ -965,7 +965,8 @@
     </a>
 
     <!-- JS Principal com cache buster -->
-    <script src="js/data.js?v=<?php echo time(); ?>"></script>
+    <?php $dataFile = file_exists('js/data.js') ? 'js/data.js' : 'js/data.default.js'; ?>
+    <script src="<?php echo $dataFile; ?>?v=<?php echo time(); ?>"></script>
     <script src="js/main.js?v=<?php echo time(); ?>"></script>
 </body>
 </html>

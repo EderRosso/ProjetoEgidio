@@ -1139,7 +1139,8 @@ checkAuth();
     </div>
 
     <!-- Script de dados iniciais -->
-    <script>document.write('<script src="js/data.js?v=' + new Date().getTime() + '"><\/script>');</script>
+    <?php $dataFile = file_exists('js/data.js') ? 'js/data.js' : 'js/data.default.js'; ?>
+    <script>document.write('<script src="<?php echo $dataFile; ?>?v=' + new Date().getTime() + '"><\/script>');</script>
 
     <script>
         // Guardará todas as informações locais editadas

@@ -1130,6 +1130,16 @@ checkAuth();
                         <button type="button" class="btn-github" onclick="commitToGitHub()" style="padding: 1rem 2rem; font-size: 1.1rem; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
                             Publicar Alterações Online
                         </button>
+
+                        <hr style="border: 0; border-top: 1px dashed rgba(255,255,255,0.1); margin: 2rem 0;">
+
+                        <div style="background-color: rgba(239, 68, 68, 0.05); border: 1px solid rgba(239, 68, 68, 0.2); padding: 1.5rem; border-radius: 8px;">
+                            <h4 style="color: var(--color-danger); margin-bottom: 0.5rem; font-family: var(--font-primary);">Restaurar Estado Inicial</h4>
+                            <p style="font-size: 0.85rem; color: var(--color-text-muted); margin-bottom: 1rem;">Cuidado: Esta ação apagará todas as edições já feitas e restaurará os dados originais do momento da criação.</p>
+                            <button type="button" class="btn-remove" onclick="resetToDefault()" style="border: 1px solid var(--color-danger); padding: 0.75rem 1.5rem; font-weight: bold; width: auto; color: var(--color-danger);">
+                                Voltar ao Estado Inicial
+                            </button>
+                        </div>
                     </div>
                 </div>
 
@@ -1931,6 +1941,33 @@ window.siteData = ${JSON.stringify(localData, null, 2)};
             } catch (error) {
                 console.error(error);
                 alert('Erro de conexão ao tentar comunicar com o servidor local (publish.php). Verifique sua conexão e tente novamente.');
+            }
+        }
+
+        async function resetToDefault() {
+            if (confirm('Tem certeza? Isso apagará definitivamente todas as edições feitas até hoje e o site voltará para como era no dia em que foi criado!')) {
+                try {
+                    const response = await fetch('publish.php', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            action: 'reset',
+                            csrf_token: CSRF_TOKEN
+                        })
+                    });
+
+                    if (response.ok) {
+                        alert('Sucesso! O site voltou ao estado original de criação.');
+                        location.reload();
+                    } else {
+                        const errData = await response.json();
+                        alert('Erro: ' + (errData.error || 'Não foi possível restaurar.'));
+                    }
+                } catch (error) {
+                    alert('Erro de conexão.');
+                }
             }
         }
     </script>

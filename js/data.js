@@ -8,7 +8,7 @@
 window.siteData = {
   "config": {
     "whatsapp": "555134740000",
-    "phone": "(51) 3474-0000",
+    "phone": "(51) 345193-40",
     "email": "contato@buffonassistencia.com.br",
     "address": "Rua Tiradentes, 123 - Centro",
     "cityStateCep": "Sapucaia do Sul - RS - CEP 93222-010",

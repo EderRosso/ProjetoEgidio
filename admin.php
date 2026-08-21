@@ -1,7 +1,12 @@
+<?php
+require_once 'auth.php';
+checkAuth();
+?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
+    <script>const CSRF_TOKEN = "<?php echo $_SESSION['csrf_token'] ?? ''; ?>";</script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Painel de Controle - Buffon Assistência Técnica</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -584,7 +589,8 @@
         </div>
         <div style="display: flex; align-items: center; gap: 1rem;">
             <div class="badge-admin">Editor Visual</div>
-            <a href="index.html" class="link-voltar" style="color: var(--color-text-muted); font-size: 0.9rem; text-decoration: none; font-weight: 500;">Voltar ao Site</a>
+            <a href="index.php" class="link-voltar" style="color: var(--color-text-muted); font-size: 0.9rem; text-decoration: none; font-weight: 500;">Voltar ao Site</a>
+            <a href="logout.php" class="link-voltar" style="color: var(--color-danger); font-size: 0.9rem; text-decoration: none; font-weight: 500;">Sair</a>
         </div>
     </header>
     
@@ -1133,7 +1139,7 @@
     </div>
 
     <!-- Script de dados iniciais -->
-    <script src="js/data.js"></script>
+    <script>document.write('<script src="js/data.js?v=' + new Date().getTime() + '"><\/script>');</script>
 
     <script>
         // Guardará todas as informações locais editadas
@@ -1909,7 +1915,8 @@ window.siteData = ${JSON.stringify(localData, null, 2)};
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        content: fileContent
+                        content: fileContent,
+                        csrf_token: CSRF_TOKEN
                     })
                 });
 

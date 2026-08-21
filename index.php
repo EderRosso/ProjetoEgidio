@@ -939,7 +939,7 @@
                 <div class="footer-copy">
                     &copy; <span id="footer-year">2026</span> Buffon Assistência Técnica Industrial. Todos os direitos reservados.
                     <!-- Atalho discreto para o Painel Administrativo -->
-                    <a href="admin.html" aria-label="Painel Administrativo" style="opacity: 0.15; margin-left: 8px; color: inherit; text-decoration: none; display: inline-block; vertical-align: middle;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.15">
+                    <a href="admin.php" aria-label="Painel Administrativo" style="opacity: 0.15; margin-left: 8px; color: inherit; text-decoration: none; display: inline-block; vertical-align: middle;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.15">
                         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
                             <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
@@ -964,8 +964,8 @@
         </svg>
     </a>
 
-    <!-- JS Principal -->
-    <script src="js/data.js"></script>
-    <script src="js/main.js"></script>
+    <!-- JS Principal com cache buster -->
+    <script src="js/data.js?v=<?php echo time(); ?>"></script>
+    <script src="js/main.js?v=<?php echo time(); ?>"></script>
 </body>
 </html>

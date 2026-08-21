@@ -117,9 +117,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <label for="username">Usuário</label>
                 <input type="text" id="username" name="username" required>
             </div>
-            <div class="form-group">
+            <div class="form-group" style="margin-bottom: 0.5rem;">
                 <label for="password">Senha</label>
                 <input type="password" id="password" name="password" required>
+            </div>
+            <div class="form-group" style="display:flex; align-items:center; gap:0.5rem;">
+                <input type="checkbox" id="show-password" style="width: auto; margin:0; accent-color:#f97316; cursor:pointer;" onclick="document.getElementById('password').type = this.checked ? 'text' : 'password'">
+                <label for="show-password" style="margin:0; cursor:pointer;">Mostrar senha</label>
             </div>
             <button type="submit">Entrar no Painel</button>
         </form>

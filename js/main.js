@@ -128,52 +128,38 @@ document.addEventListener('DOMContentLoaded', () => {
     const submitBtn = document.getElementById('form-submit-btn');
 
     if (budgetForm) {
-        budgetForm.addEventListener('submit', async (event) => {
-            const formAction = budgetForm.getAttribute('action');
-
-            if (!formAction || formAction.includes('[ENDPOINT_DE_EMAIL_FORM_SPREE_AQUI]')) {
-                event.preventDefault();
-                alert('Atenção: O formulário de contato está em modo de demonstração. Configure um endpoint válido no atributo "action" do formulário para receber os e-mails (veja as instruções no painel administrativo admin.html).');
-                
-                const formData = new FormData(budgetForm);
-                console.log('Dados do orçamento simulados:');
-                for (let [key, value] of formData.entries()) {
-                    console.log(`${key}: ${value}`);
-                }
-                return;
-            }
-
+        budgetForm.addEventListener('submit', (event) => {
             event.preventDefault();
-            const originalBtnText = submitBtn.textContent;
-            submitBtn.disabled = true;
-            submitBtn.textContent = 'Enviando orçamento...';
+            
+            const formData = new FormData(budgetForm);
+            const name = formData.get('name') || '';
+            const phone = formData.get('phone') || '';
+            const email = formData.get('email') || '';
+            const device_type = formData.get('device_type') || '';
+            const message = formData.get('message') || '';
+            
+            const deviceMap = {
+                'pneumatica': 'Ferramenta Pneumática',
+                'pintura': 'Equipamento de Pintura',
+                'motor': 'Motor Elétrico',
+                'eletrica': 'Ferramenta Elétrica',
+                'outro': 'Outro Equipamento'
+            };
+            const deviceName = deviceMap[device_type] || device_type;
+            
+            const wppText = `*NOVA SOLICITAÇÃO DE ORÇAMENTO*
+            
+*Nome/Empresa:* ${name}
+*Telefone/WhatsApp:* ${phone}
+*E-mail:* ${email}
+*Equipamento:* ${deviceName}
+*Defeito/Descrição:* ${message}`;
 
-            try {
-                const response = await fetch(formAction, {
-                    method: 'POST',
-                    body: new FormData(budgetForm),
-                    headers: {
-                        'Accept': 'application/json'
-                    }
-                });
-
-                if (response.ok) {
-                    alert('Solicitação de orçamento enviada com sucesso! Nossa equipe entrará em contato em breve.');
-                    budgetForm.reset();
-                } else {
-                    const data = await response.json();
-                    if (Object.hasOwn(data, 'errors')) {
-                        alert('Erro no envio: ' + data.errors.map(error => error.message).join(', '));
-                    } else {
-                        alert('Houve um problema ao enviar o formulário. Por favor, tente novamente ou fale conosco via WhatsApp.');
-                    }
-                }
-            } catch (error) {
-                alert('Erro de conexão ao enviar o formulário. Favor tentar mais tarde ou via WhatsApp.');
-            } finally {
-                submitBtn.disabled = false;
-                submitBtn.textContent = originalBtnText;
-            }
+            const rawPhone = window.siteData?.config?.whatsapp || '555134740000';
+            const cleanPhone = rawPhone.replace(/\D/g, '');
+            
+            const whatsappUrl = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(wppText)}`;
+            window.open(whatsappUrl, '_blank');
         });
     }
 });

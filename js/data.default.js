@@ -17,7 +17,9 @@ window.siteData = {
     "faviconUrl": "assets/images/logo-icon.png",
     "logoIconUrl": "assets/images/logo-icon.png",
     "facebookUrl": "https://facebook.com/buffonassistencia",
-    "instagramUrl": "https://instagram.com/buffonassistencia"
+    "instagramUrl": "https://instagram.com/buffonassistencia",
+    "companyName": "BUFFON",
+    "logoSuffix": "."
   },
   "hero": {
     "backgrounds": [

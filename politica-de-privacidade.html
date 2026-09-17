@@ -32,7 +32,7 @@
             <!-- Logo Institucional -->
             <a href="index.html#home" class="logo" id="header-logo">
                 <img src="assets/images/logo-icon.png" alt="Logo Buffon" class="logo-icon" width="38" height="38" style="border-radius: 50%; object-fit: cover; display: inline-block; vertical-align: middle; margin-right: 4px;">
-                BUFFON<span>.</span>
+                <span class="logo-text-brand">BUFFON</span><span class="logo-dot">.</span>
             </a>
 
             <!-- Menu de Navegação -->
@@ -116,9 +116,9 @@
                 <!-- Coluna 1: Marca Buffon -->
                 <div class="footer-brand">
                     <!-- 👉 LOGO DO RODAPÉ -->
-                    <a href="index.html#home" class="logo">
+                    <a href="index.html#home" class="logo" id="footer-logo">
                         <img src="assets/images/logo-icon.png" alt="Logo Buffon" class="logo-icon" width="34" height="34" style="border-radius: 50%; object-fit: cover; display: inline-block; vertical-align: middle; margin-right: 4px;">
-                        BUFFON<span>.</span>
+                        <span class="logo-text-brand">BUFFON</span><span class="logo-dot">.</span>
                     </a>
                     <p>Referência em manutenção corretiva, preventiva e calibração de ferramentas industriais de alta performance.</p>
                     <!-- 👉 LINKS DAS REDES SOCIAIS (RODAPÉ) -->
@@ -204,6 +204,8 @@
     </footer>
 
     <!-- JS Principal -->
+    <script src="js/data.default.js"></script>
+    <script>window.defaultSiteData = JSON.parse(JSON.stringify(window.siteData || {}));</script>
     <script src="js/data.js"></script>
     <script src="js/main.js"></script>
 </body>

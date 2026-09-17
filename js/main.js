@@ -164,15 +164,35 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-/**
- * Injeta todos os dados dinâmicos do arquivo js/data.js no HTML
- */
-function renderSiteData() {
-    const data = window.siteData;
-    if (!data) {
-        console.warn("Aviso: Configurações do site (window.siteData) não encontradas. O site utilizará as informações estáticas.");
-        return;
+function deepMergeObjects(target, source) {
+    if (!source || typeof source !== 'object') return JSON.parse(JSON.stringify(target || {}));
+    const output = JSON.parse(JSON.stringify(target || {}));
+    for (const key of Object.keys(source)) {
+        const val = source[key];
+        if (val !== undefined && val !== null) {
+            if (Array.isArray(val)) {
+                output[key] = val.length > 0 ? val : (output[key] || []);
+            } else if (typeof val === 'object') {
+                output[key] = deepMergeObjects(output[key] || {}, val);
+            } else if (val !== '') {
+                output[key] = val;
+            }
+        }
     }
+    return output;
+}
+
+function renderSiteData() {
+    try {
+        const defaults = window.defaultSiteData || {};
+        const custom = window.siteData || {};
+        const data = deepMergeObjects(defaults, custom);
+        window.siteData = data;
+
+        if (!data || Object.keys(data).length === 0) {
+            console.warn("Aviso: Configurações do site (window.siteData) não encontradas. O site utilizará as informações estáticas.");
+            return;
+        }
 
     // 0. Visibilidade das Seções e Links de Navegação
     const visibility = data.visibility || {};
@@ -207,7 +227,8 @@ function renderSiteData() {
         const fieldPath = el.getAttribute('data-field');
         const value = getNestedValue(data, fieldPath);
         
-        if (value !== undefined && value !== null) {
+        // Apenas substitui se o valor não for nulo, indefinido ou string vazia
+        if (value !== undefined && value !== null && value !== '') {
             // Se o campo tiver tags HTML (ex: no título do Hero), usamos innerHTML, caso contrário textContent
             if (el.tagName === 'SPAN' || el.tagName === 'H1' || el.tagName === 'H2' || fieldPath.includes('title')) {
                 el.innerHTML = value;
@@ -226,24 +247,72 @@ function renderSiteData() {
         if (faviconLink) faviconLink.setAttribute('href', config.faviconUrl);
     }
 
-    // Logo Icon
-    if (config.logoIconUrl) {
-        const logoIcon = document.querySelector('#header-logo img');
-        if (logoIcon) logoIcon.setAttribute('src', config.logoIconUrl);
+    // Logo Icon & Nome da Marca (Header, Footer, etc.)
+    const companyName = config.companyName || config.logoText || '';
+    const logoSuffix = config.logoSuffix !== undefined ? config.logoSuffix : '.';
+    const logoIconUrl = config.logoIconUrl || '';
+
+    const logoElements = document.querySelectorAll('a.logo, #header-logo, #footer-logo');
+    logoElements.forEach(logoLink => {
+        // Atualizar ícone da imagem
+        const logoImg = logoLink.querySelector('img');
+        if (logoImg && logoIconUrl) {
+            logoImg.setAttribute('src', logoIconUrl);
+            if (companyName) {
+                logoImg.setAttribute('alt', `Logo ${companyName}`);
+            }
+        }
+
+        // Atualizar texto da logo
+        if (companyName) {
+            const brandSpan = logoLink.querySelector('.logo-text-brand');
+            const dotSpan = logoLink.querySelector('.logo-dot, span:not(.logo-text-brand):not(.badge)');
+
+            if (brandSpan) {
+                brandSpan.textContent = companyName;
+                if (dotSpan) dotSpan.textContent = logoSuffix;
+            } else {
+                // Fallback seguro preservando a imagem existente
+                const existingImg = logoLink.querySelector('img');
+                const imgMarkup = existingImg ? existingImg.outerHTML : '';
+                logoLink.innerHTML = `${imgMarkup} <span class="logo-text-brand">${companyName}</span><span class="logo-dot">${logoSuffix}</span>`;
+            }
+        }
+    });
+
+    // Phone Links (Card de Contato)
+    const rawPhone = (config.phone || config.whatsapp || '').replace(/\D/g, '');
+    const phoneCard = document.getElementById('contact-card-phone');
+    if (phoneCard && rawPhone) {
+        phoneCard.setAttribute('href', `tel:${rawPhone}`);
     }
 
-    // WhatsApp Links
+    // WhatsApp Links (Botões flutuantes, links e CTAs)
     if (config.whatsapp) {
-        const whatsappLinks = document.querySelectorAll('a[href*="wa.me"]');
+        const rawWa = config.whatsapp.replace(/\D/g, '');
+        const whatsappLinks = document.querySelectorAll('a[href*="wa.me"], .whatsapp-floating, #floating-whatsapp-btn');
         whatsappLinks.forEach(link => {
-            link.setAttribute('href', `https://wa.me/${config.whatsapp.replace(/\D/g, '')}`);
+            link.setAttribute('href', `https://wa.me/${rawWa}`);
         });
     }
 
-    // Email link
+    // Email Links (Card de Contato e outros links mailto)
     if (config.email) {
-        const emailLink = document.querySelector('a[href^="mailto:"]');
-        if (emailLink) emailLink.setAttribute('href', `mailto:${config.email}`);
+        const emailLinks = document.querySelectorAll('a[href^="mailto:"], #contact-card-email');
+        emailLinks.forEach(link => {
+            link.setAttribute('href', `mailto:${config.email}`);
+        });
+    }
+
+    // Address Links (Card de Endereço para abrir rota no Google Maps)
+    const addressCard = document.getElementById('contact-card-address');
+    if (addressCard) {
+        const fullAddress = [config.address, config.cityStateCep].filter(Boolean).join(', ');
+        if (fullAddress) {
+            addressCard.setAttribute('href', `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(fullAddress)}`);
+            addressCard.setAttribute('target', '_blank');
+            addressCard.setAttribute('rel', 'noopener noreferrer');
+        }
     }
 
     // Facebook & Instagram
@@ -303,7 +372,7 @@ function renderSiteData() {
     }
 
     // Hero Features
-    if (data.hero && data.hero.features) {
+    if (data.hero && Array.isArray(data.hero.features) && data.hero.features.length > 0) {
         const heroFeaturesBadge = document.querySelector('.hero-features-badge');
         if (heroFeaturesBadge) {
             heroFeaturesBadge.innerHTML = data.hero.features.map(feat => `
@@ -323,7 +392,7 @@ function renderSiteData() {
     }
 
     // Stats Grid
-    if (data.stats) {
+    if (Array.isArray(data.stats) && data.stats.length > 0) {
         const statsGrid = document.querySelector('.stats-grid');
         if (statsGrid) {
             statsGrid.innerHTML = data.stats.map(stat => `
@@ -346,7 +415,7 @@ function renderSiteData() {
             
             // Experiência flutuante
             const expBadge = aboutImgSide.querySelector('.about-experience-badge');
-            if (expBadge) {
+            if (expBadge && (data.about.experienceYears || data.about.experienceLabel)) {
                 expBadge.innerHTML = `
                     <h3>${data.about.experienceYears || '10'}</h3>
                     <p>${data.about.experienceLabel || 'Anos no Mercado'}</p>
@@ -355,7 +424,7 @@ function renderSiteData() {
         }
 
         // About Cards
-        if (data.about.cards) {
+        if (Array.isArray(data.about.cards) && data.about.cards.length > 0) {
             const aboutGrid = document.querySelector('.about-grid');
             if (aboutGrid) {
                 aboutGrid.innerHTML = data.about.cards.map((card, idx) => `
@@ -380,7 +449,7 @@ function renderSiteData() {
     }
 
     // Process Steps Timeline
-    if (data.process && data.process.steps) {
+    if (data.process && Array.isArray(data.process.steps) && data.process.steps.length > 0) {
         const timelineWrapper = document.querySelector('.timeline-wrapper');
         if (timelineWrapper) {
             const timelineHeader = `<div class="timeline-line"></div>`;
@@ -417,7 +486,7 @@ function renderSiteData() {
     }
 
     // Services Grid
-    if (data.services && data.services.items) {
+    if (data.services && Array.isArray(data.services.items) && data.services.items.length > 0) {
         const servicesGrid = document.querySelector('.services-grid');
         if (servicesGrid) {
             const svgs = {
@@ -454,7 +523,7 @@ function renderSiteData() {
     }
 
     // Brands Carousel (duplicado para efeito infinito)
-    if (data.services && data.services.brands) {
+    if (data.services && Array.isArray(data.services.brands) && data.services.brands.length > 0) {
         const carouselTrack = document.querySelector('.brands-carousel-track');
         if (carouselTrack) {
             const brandsHtml = data.services.brands.map(brand => `
@@ -466,7 +535,7 @@ function renderSiteData() {
     }
 
     // FAQ Wrapper
-    if (data.faq && data.faq.items) {
+    if (data.faq && Array.isArray(data.faq.items) && data.faq.items.length > 0) {
         const faqWrapper = document.querySelector('.faq-wrapper');
         if (faqWrapper) {
             faqWrapper.innerHTML = data.faq.items.map((faq, idx) => `
@@ -494,8 +563,8 @@ function renderSiteData() {
         const testGrid = document.querySelector('.testimonials-grid');
         const summaryBadge = document.querySelector('.google-badge-summary');
         
-        if (data.testimonials.widgetHtml) {
-            // Se houver código de widget, exibe-o e esconde as estatísticas manuais
+        if (data.testimonials.widgetHtml && data.testimonials.widgetHtml.trim() !== '') {
+            // Se houver código de widget, exibe-o e esconde as avaliações manuais
             if (testGrid) {
                 testGrid.style.display = 'block';
                 testGrid.innerHTML = `<div class="google-widget-wrapper" style="width:100%; overflow:hidden;">${data.testimonials.widgetHtml}</div>`;
@@ -505,7 +574,7 @@ function renderSiteData() {
             // Caso contrário, renderiza os depoimentos manuais estruturados
             if (summaryBadge) summaryBadge.style.display = '';
             
-            if (data.testimonials.items && testGrid) {
+            if (Array.isArray(data.testimonials.items) && data.testimonials.items.length > 0 && testGrid) {
                 testGrid.style.display = 'grid';
                 testGrid.innerHTML = data.testimonials.items.map(test => {
                     let starsHtml = '';
@@ -517,7 +586,7 @@ function renderSiteData() {
                         <div class="testimonial-card">
                             <div class="testimonial-header">
                                 <div class="client-avatar">
-                                    <span>${test.initials}</span>
+                                    <span>${test.initials || 'C'}</span>
                                 </div>
                                 <div class="client-info">
                                     <h4 class="client-name">${test.name}</h4>
@@ -533,7 +602,7 @@ function renderSiteData() {
                                 ${starsHtml}
                             </div>
                             <p class="testimonial-text">${test.text}</p>
-                            <span class="testimonial-date">${test.date}</span>
+                            <span class="testimonial-date">${test.date || ''}</span>
                         </div>
                     `;
                 }).join('');
@@ -545,6 +614,9 @@ function renderSiteData() {
             const googleLinkBtn = document.querySelector('.testimonials-footer a');
             if (googleLinkBtn) googleLinkBtn.setAttribute('href', data.testimonials.googlePlaceReviewsUrl);
         }
+    }
+    } catch (e) {
+        console.error("Erro ao renderizar dados:", e);
     }
 }
 

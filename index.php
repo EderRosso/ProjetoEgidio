@@ -68,7 +68,7 @@
                  - O span com "." dá o ponto laranja. -->
             <a href="#home" class="logo" id="header-logo">
                 <img src="assets/images/logo-icon.png" alt="Logo Buffon" class="logo-icon" width="38" height="38" style="border-radius: 50%; object-fit: cover; display: inline-block; vertical-align: middle; margin-right: 4px;">
-                BUFFON<span>.</span>
+                <span class="logo-text-brand">BUFFON</span><span class="logo-dot">.</span>
             </a>
 
             <!-- 👉 LINKS DO MENU DE NAVEGAÇÃO
@@ -729,7 +729,7 @@
                         <div class="contact-info-cards">
                             
                             <!-- 👉 TELEFONE E WHATSAPP DE CONTATO DA SEÇÃO DE CONTATO -->
-                            <div class="info-card">
+                            <a href="tel:5134740000" class="info-card" id="contact-card-phone" aria-label="Ligar para a empresa">
                                 <div class="info-card-icon">
                                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                         <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
@@ -739,10 +739,10 @@
                                     <h4>Telefone & WhatsApp</h4>
                                     <p data-field="config.phone">(51) 3474-0000</p>
                                 </div>
-                            </div>
+                            </a>
 
                             <!-- 👉 E-MAIL DA SEÇÃO DE CONTATO -->
-                            <div class="info-card">
+                            <a href="mailto:contato@buffonassistencia.com.br" class="info-card" id="contact-card-email" aria-label="Enviar e-mail para orçamentos">
                                 <div class="info-card-icon">
                                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                         <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
@@ -753,11 +753,10 @@
                                     <h4>E-mail para Orçamentos</h4>
                                     <p data-field="config.email">contato@buffonassistencia.com.br</p>
                                 </div>
-                            </div>
+                            </a>
 
-                            <!-- 👉 ENDEREÇO DA SEÇÃO DE CONTATO
-                                 Altere o endereço da sede da empresa nos campos abaixo -->
-                            <div class="info-card">
+                            <!-- 👉 ENDEREÇO DA SEÇÃO DE CONTATO -->
+                            <a href="https://maps.google.com/?q=Rua+Tiradentes,+123+-+Centro,+Sapucaia+do+Sul+-+RS+-+CEP+93222-010" target="_blank" rel="noopener noreferrer" class="info-card" id="contact-card-address" aria-label="Abrir endereço no Google Maps">
                                 <div class="info-card-icon">
                                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                         <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
@@ -769,7 +768,7 @@
                                     <p data-field="config.address">Rua Tiradentes, 123 - Centro</p>
                                     <p data-field="config.cityStateCep">Sapucaia do Sul - RS - CEP 93222-010</p>
                                 </div>
-                            </div>
+                            </a>
 
                         </div>
 
@@ -858,9 +857,9 @@
                 <!-- Coluna 1: Marca Buffon -->
                 <div class="footer-brand">
                     <!-- 👉 LOGO DO RODAPÉ -->
-                    <a href="#home" class="logo">
+                    <a href="#home" class="logo" id="footer-logo">
                         <img src="assets/images/logo-icon.png" alt="Logo Buffon" class="logo-icon" width="34" height="34" style="border-radius: 50%; object-fit: cover; display: inline-block; vertical-align: middle; margin-right: 4px;">
-                        BUFFON<span>.</span>
+                        <span class="logo-text-brand">BUFFON</span><span class="logo-dot">.</span>
                     </a>
                     <p>Referência em manutenção corretiva, preventiva e calibração de ferramentas industriais de alta performance.</p>
                     
@@ -965,6 +964,8 @@
     </a>
 
     <!-- JS Principal com cache buster -->
+    <script src="js/data.default.js?v=<?php echo time(); ?>"></script>
+    <script>window.defaultSiteData = JSON.parse(JSON.stringify(window.siteData || {}));</script>
     <?php $dataFile = file_exists('js/data.js') ? 'js/data.js' : 'js/data.default.js'; ?>
     <script src="<?php echo $dataFile; ?>?v=<?php echo time(); ?>"></script>
     <script src="js/main.js?v=<?php echo time(); ?>"></script>

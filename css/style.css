@@ -1080,6 +1080,16 @@ button, input, textarea, select {
     display: flex;
     align-items: flex-start;
     gap: 16px;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    cursor: pointer;
+}
+
+.info-card:hover {
+    border-color: var(--color-accent);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
 }
 
 .info-card-icon {
@@ -1092,6 +1102,13 @@ button, input, textarea, select {
     justify-content: center;
     color: var(--color-accent);
     flex-shrink: 0;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.info-card:hover .info-card-icon {
+    background: var(--color-accent);
+    color: #ffffff;
+    transform: scale(1.08);
 }
 
 .info-card-content h4 {

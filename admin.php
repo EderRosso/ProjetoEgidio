@@ -583,8 +583,9 @@ checkAuth();
             <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menu">
                 <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path></svg>
             </button>
-            <a href="index.html" class="header-logo">
-                BUFFON<span>.</span>
+            <a href="index.php" class="header-logo" id="admin-header-logo" style="display: inline-flex; align-items: center; gap: 8px;">
+                <img id="admin-header-logo-img" src="assets/images/logo-icon.png" alt="Logo" class="logo-icon" width="30" height="30" style="border-radius: 50%; object-fit: cover; display: inline-block;">
+                <span id="admin-header-logo-text">BUFFON</span><span id="admin-header-logo-dot" style="color: var(--color-accent);">.</span>
             </a>
         </div>
         <div style="display: flex; align-items: center; gap: 1rem;">
@@ -704,31 +705,69 @@ checkAuth();
                         </div>
                     </div>
 
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>Favicon do Site (Ícone da Aba)</label>
-                            <div class="image-upload-wrapper">
-                                <div class="image-preview" id="preview-favicon">
-                                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                                </div>
-                                <div class="image-upload-info">
-                                    <input type="file" id="file-favicon" accept="image/*" style="display:none" onchange="handleImageUpload(this, 'config.faviconUrl', 'preview-favicon')">
-                                    <button type="button" class="btn-upload" onclick="document.getElementById('file-favicon').click()">Enviar Ícone</button>
-                                    <span>Recomendado: PNG 32x32 pixels.</span>
-                                </div>
+                    <!-- Seção de Identidade Visual & Logotipo -->
+                    <div style="margin-top: 1.5rem; padding: 1.25rem; background: rgba(255,255,255,0.02); border: 1px solid var(--color-card-border); border-radius: 8px;">
+                        <h3 style="font-size: 1.1rem; margin-bottom: 0.35rem; color: var(--color-text-main); display: flex; align-items: center; gap: 8px;">
+                            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                            Identidade Visual & Logotipo do Site
+                        </h3>
+                        <p style="font-size: 0.85rem; color: var(--color-text-muted); margin-bottom: 1.25rem;">
+                            Personalize o logotipo, o nome da empresa e o ícone exibidos no cabeçalho e rodapé do site.
+                        </p>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="config-companyName">Nome da Marca / Empresa no Logotipo</label>
+                                <input type="text" id="config-companyName" placeholder="Ex: BUFFON" oninput="updateLogoLivePreview()">
+                                <span style="font-size: 0.8rem; color: var(--color-text-muted); margin-top: 4px;">Texto principal exibido ao lado do ícone no cabeçalho e rodapé.</span>
+                            </div>
+                            <div class="form-group">
+                                <label for="config-logoSuffix">Ponto / Sufixo de Destaque</label>
+                                <input type="text" id="config-logoSuffix" placeholder="Ex: ." oninput="updateLogoLivePreview()">
+                                <span style="font-size: 0.8rem; color: var(--color-text-muted); margin-top: 4px;">Caractere ou texto com destaque em laranja (padrão: <code>.</code>).</span>
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <label>Logotipo da Empresa (Ícone)</label>
-                            <div class="image-upload-wrapper">
-                                <div class="image-preview" id="preview-logo">
-                                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                        <!-- Live Preview Box do Logotipo -->
+                        <div class="form-group full-width" style="margin-bottom: 1.25rem;">
+                            <label>Pré-visualização da Logo (Como aparece no Site):</label>
+                            <div id="logo-live-preview-box" style="display: inline-flex; align-items: center; gap: 10px; background: #0b1120; border: 1px solid #334155; padding: 12px 22px; border-radius: 8px; margin-top: 6px;">
+                                <img id="preview-logo-img-tag" src="assets/images/logo-icon.png" alt="Logo Preview" style="width: 38px; height: 38px; border-radius: 50%; object-fit: cover;">
+                                <span style="font-family: 'Outfit', sans-serif; font-size: 1.45rem; font-weight: 800; color: #f8fafc; letter-spacing: 1px; display: inline-flex; align-items: baseline;">
+                                    <span id="preview-logo-name-text">BUFFON</span><span id="preview-logo-suffix-text" style="color: var(--color-accent);">.</span>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Ícone do Logotipo (Imagem Circular)</label>
+                                <div class="image-upload-wrapper">
+                                    <div class="image-preview" id="preview-logo">
+                                        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                    </div>
+                                    <div class="image-upload-info">
+                                        <input type="file" id="file-logo" accept="image/*" style="display:none" onchange="handleLogoImageUpload(this)">
+                                        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                                            <button type="button" class="btn-upload" onclick="document.getElementById('file-logo').click()">Alterar Logotipo</button>
+                                            <button type="button" class="btn-upload" style="background-color: transparent; border: 1px solid var(--color-card-border); color: var(--color-text-muted);" onclick="resetLogoToDefault()">Restaurar Padrão</button>
+                                        </div>
+                                        <span>Recomendado: Imagem quadrada (PNG, SVG, WEBP ou JPG).</span>
+                                    </div>
                                 </div>
-                                <div class="image-upload-info">
-                                    <input type="file" id="file-logo" accept="image/*" style="display:none" onchange="handleImageUpload(this, 'config.logoIconUrl', 'preview-logo')">
-                                    <button type="button" class="btn-upload" onclick="document.getElementById('file-logo').click()">Enviar Logotipo</button>
-                                    <span>Imagem do ícone ao lado do nome BUFFON.</span>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Favicon do Site (Ícone da Aba)</label>
+                                <div class="image-upload-wrapper">
+                                    <div class="image-preview" id="preview-favicon">
+                                        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                    </div>
+                                    <div class="image-upload-info">
+                                        <input type="file" id="file-favicon" accept="image/*" style="display:none" onchange="handleImageUpload(this, 'config.faviconUrl', 'preview-favicon')">
+                                        <button type="button" class="btn-upload" onclick="document.getElementById('file-favicon').click()">Enviar Ícone</button>
+                                        <span>Recomendado: PNG 32x32 pixels.</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1127,9 +1166,14 @@ checkAuth();
                             <input type="text" id="gh-branch" value="main">
                         </div>
 
-                        <button type="button" class="btn-github" onclick="commitToGitHub()" style="padding: 1rem 2rem; font-size: 1.1rem; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
-                            Publicar Alterações Online
-                        </button>
+                        <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;">
+                            <button type="button" class="btn-github" onclick="commitToGitHub()" style="padding: 1rem 2rem; font-size: 1.1rem; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
+                                Publicar Alterações Online
+                            </button>
+                            <button type="button" class="btn-upload" onclick="downloadConfigFile()" style="padding: 1rem 1.5rem; font-size: 1rem;">
+                                Baixar Arquivo data.js
+                            </button>
+                        </div>
 
                         <hr style="border: 0; border-top: 1px dashed rgba(255,255,255,0.1); margin: 2rem 0;">
 
@@ -1148,24 +1192,38 @@ checkAuth();
 
     </div>
 
-    <!-- Script de dados iniciais -->
+    <!-- Script de dados padrão e dados salvos -->
+    <script src="js/data.default.js?v=<?php echo time(); ?>"></script>
+    <script>window.defaultSiteData = JSON.parse(JSON.stringify(window.siteData || {}));</script>
     <?php $dataFile = file_exists('js/data.js') ? 'js/data.js' : 'js/data.default.js'; ?>
-    <script>document.write('<script src="<?php echo $dataFile; ?>?v=' + new Date().getTime() + '"><\/script>');</script>
+    <script src="<?php echo $dataFile; ?>?v=<?php echo time(); ?>"></script>
 
     <script>
         // Guardará todas as informações locais editadas
         let localData = {};
 
+        function deepMergeDefaults(defaults, current) {
+            if (!current || typeof current !== 'object') return JSON.parse(JSON.stringify(defaults || {}));
+            const result = JSON.parse(JSON.stringify(defaults || {}));
+            for (const key of Object.keys(current)) {
+                if (current[key] !== undefined && current[key] !== null) {
+                    if (Array.isArray(current[key])) {
+                        result[key] = current[key].length > 0 ? current[key] : (result[key] || []);
+                    } else if (typeof current[key] === 'object') {
+                        result[key] = deepMergeDefaults(result[key] || {}, current[key]);
+                    } else if (current[key] !== '') {
+                        result[key] = current[key];
+                    }
+                }
+            }
+            return result;
+        }
+
         // Ao carregar a página
         window.addEventListener('DOMContentLoaded', () => {
-            // Importa o siteData definido em js/data.js
-            if (window.siteData) {
-                localData = JSON.parse(JSON.stringify(window.siteData)); // Deep clone
-            } else {
-                alert('Erro: Arquivo js/data.js não carregado corretamente. Iniciando com dados vazios.');
-                localData = { config: {}, hero: {}, stats: [], about: {}, process: {}, services: {}, faq: {}, testimonials: {} };
-            }
-
+            const defaults = window.defaultSiteData || {};
+            const saved = window.siteData || {};
+            localData = deepMergeDefaults(defaults, saved);
 
             // Preenche todos os campos
             loadFormValues();
@@ -1222,8 +1280,12 @@ checkAuth();
             document.getElementById('config-facebookUrl').value = config.facebookUrl || '';
             document.getElementById('config-instagramUrl').value = config.instagramUrl || '';
 
+            document.getElementById('config-companyName').value = config.companyName || config.logoText || 'BUFFON';
+            document.getElementById('config-logoSuffix').value = config.logoSuffix !== undefined ? config.logoSuffix : '.';
+
             updateImagePreview('preview-favicon', config.faviconUrl);
             updateImagePreview('preview-logo', config.logoIconUrl);
+            updateLogoLivePreview();
 
             // 2. Hero
             const hero = localData.hero || {};
@@ -1319,7 +1381,9 @@ checkAuth();
             localData.config.formspreeAction = document.getElementById('config-formspreeAction').value;
             localData.config.mapsIframeSrc = document.getElementById('config-mapsIframeSrc').value;
             localData.config.facebookUrl = document.getElementById('config-facebookUrl').value;
-            localData.config.instagramUrl = document.getElementById('config-instagramUrl').value;
+            localData.config.companyName = document.getElementById('config-companyName').value || 'BUFFON';
+            localData.config.logoText = localData.config.companyName;
+            localData.config.logoSuffix = document.getElementById('config-logoSuffix').value;
 
             // 2. Hero
             localData.hero = localData.hero || {};
@@ -1428,11 +1492,90 @@ checkAuth();
         // Atualiza a visualização da imagem
         function updateImagePreview(previewId, dataUrl) {
             const preview = document.getElementById(previewId);
+            if (!preview) return;
             if (dataUrl) {
                 preview.innerHTML = `<img src="${dataUrl}" alt="Preview">`;
             } else {
                 preview.innerHTML = `<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>`;
             }
+        }
+
+        // Atualiza o preview em tempo real do logotipo e o topo do admin
+        function updateLogoLivePreview() {
+            const name = document.getElementById('config-companyName')?.value || 'BUFFON';
+            const suffix = document.getElementById('config-logoSuffix')?.value !== undefined ? document.getElementById('config-logoSuffix').value : '.';
+            const logoUrl = (localData.config && localData.config.logoIconUrl) || 'assets/images/logo-icon.png';
+
+            // Box de Preview
+            const previewName = document.getElementById('preview-logo-name-text');
+            const previewSuffix = document.getElementById('preview-logo-suffix-text');
+            const previewImg = document.getElementById('preview-logo-img-tag');
+
+            if (previewName) previewName.textContent = name;
+            if (previewSuffix) previewSuffix.textContent = suffix;
+            if (previewImg && logoUrl) previewImg.src = logoUrl;
+
+            // Header do Admin
+            const adminLogoText = document.getElementById('admin-header-logo-text');
+            const adminLogoDot = document.getElementById('admin-header-logo-dot');
+            const adminLogoImg = document.getElementById('admin-header-logo-img');
+
+            if (adminLogoText) adminLogoText.textContent = name;
+            if (adminLogoDot) adminLogoDot.textContent = suffix;
+            if (adminLogoImg && logoUrl) adminLogoImg.src = logoUrl;
+        }
+
+        // Upload específico para o logotipo da empresa
+        function handleLogoImageUpload(inputEl) {
+            const file = inputEl.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = new Image();
+                img.onload = function() {
+                    const canvas = document.createElement('canvas');
+                    const MAX_DIM = 600;
+                    let width = img.width;
+                    let height = img.height;
+
+                    if (width > height) {
+                        if (width > MAX_DIM) {
+                            height = Math.round((height * MAX_DIM) / width);
+                            width = MAX_DIM;
+                        }
+                    } else {
+                        if (height > MAX_DIM) {
+                            width = Math.round((width * MAX_DIM) / height);
+                            height = MAX_DIM;
+                        }
+                    }
+
+                    canvas.width = width;
+                    canvas.height = height;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, width, height);
+
+                    const compressedBase64 = canvas.toDataURL('image/png'); // Mantém transparência se houver
+                    localData.config = localData.config || {};
+                    localData.config.logoIconUrl = compressedBase64;
+
+                    updateImagePreview('preview-logo', compressedBase64);
+                    updateLogoLivePreview();
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // Restaura logotipo padrão do sistema
+        function resetLogoToDefault() {
+            const defaultLogo = 'assets/images/logo-icon.png';
+            localData.config = localData.config || {};
+            localData.config.logoIconUrl = defaultLogo;
+
+            updateImagePreview('preview-logo', defaultLogo);
+            updateLogoLivePreview();
         }
 
         // Lê, comprime e salva imagens enviadas localmente no objeto

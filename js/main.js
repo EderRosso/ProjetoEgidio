@@ -184,10 +184,7 @@ function deepMergeObjects(target, source) {
 
 function renderSiteData() {
     try {
-        const defaults = window.defaultSiteData || {};
-        const custom = window.siteData || {};
-        const data = deepMergeObjects(defaults, custom);
-        window.siteData = data;
+        const data = window.siteData || window.defaultSiteData || {};
 
         if (!data || Object.keys(data).length === 0) {
             console.warn("Aviso: Configurações do site (window.siteData) não encontradas. O site utilizará as informações estáticas.");

@@ -266,9 +266,20 @@ function renderSiteData() {
     }
 
     // Logo Icon & Nome da Marca (Header, Footer, etc.)
-    const companyName = config.companyName || config.logoText || '';
-    const logoSuffix = config.logoSuffix !== undefined ? config.logoSuffix : '.';
+    let companyName = config.companyName || config.logoText || 'BUFFON';
+    let logoSuffix = config.logoSuffix !== undefined ? config.logoSuffix : ' ASSISTÊNCIA';
     const logoIconUrl = config.logoIconUrl || '';
+
+    // Normalização e correção ortográfica automática
+    companyName = companyName.replace(/ASSITÊNCIA/gi, 'ASSISTÊNCIA').replace(/ASSITENCIA/gi, 'ASSISTÊNCIA').trim();
+    logoSuffix = logoSuffix.replace(/ASSITÊNCIA/gi, 'ASSISTÊNCIA').replace(/ASSITENCIA/gi, 'ASSISTÊNCIA').trim();
+
+    if (companyName.toUpperCase() === 'BUFFON ASSISTÊNCIA' || companyName.toUpperCase() === 'BUFFON ASSITÊNCIA') {
+        companyName = 'BUFFON';
+        logoSuffix = ' ASSISTÊNCIA';
+    } else if (logoSuffix && !logoSuffix.startsWith(' ') && logoSuffix !== '.' && logoSuffix !== '!') {
+        logoSuffix = ' ' + logoSuffix;
+    }
 
     const logoElements = document.querySelectorAll('a.logo, #header-logo, #footer-logo');
     logoElements.forEach(logoLink => {
@@ -282,20 +293,9 @@ function renderSiteData() {
         }
 
         // Atualizar texto da logo
-        if (companyName) {
-            const brandSpan = logoLink.querySelector('.logo-text-brand');
-            const dotSpan = logoLink.querySelector('.logo-dot, span:not(.logo-text-brand):not(.badge)');
-
-            if (brandSpan) {
-                brandSpan.textContent = companyName;
-                if (dotSpan) dotSpan.textContent = logoSuffix;
-            } else {
-                // Fallback seguro preservando a imagem existente
-                const existingImg = logoLink.querySelector('img');
-                const imgMarkup = existingImg ? existingImg.outerHTML : '';
-                logoLink.innerHTML = `${imgMarkup} <span class="logo-text-brand">${companyName}</span><span class="logo-dot">${logoSuffix}</span>`;
-            }
-        }
+        const existingImg = logoLink.querySelector('img');
+        const imgMarkup = existingImg ? existingImg.outerHTML : '';
+        logoLink.innerHTML = `${imgMarkup} <span class="logo-text-brand">${companyName}</span><span class="logo-dot">${logoSuffix}</span>`;
     });
 
     // Phone Links (Card de Contato)
@@ -346,7 +346,7 @@ function renderSiteData() {
         if (igLink) igLink.setAttribute('href', config.instagramUrl);
     }
 
-    // Google Maps Iframe (Sanitização e Fallback)
+    // Google Maps Iframe (Sanitização e Fallback Inteligente)
     let mapUrl = config.mapsIframeSrc ? config.mapsIframeSrc.trim() : '';
     // Limpar aspas se foram salvas acidentalmente (ex: "\"https:...\"")
     mapUrl = mapUrl.replace(/^["']|["']$/g, '').trim();
@@ -357,7 +357,32 @@ function renderSiteData() {
             mapUrl = srcMatch[1];
         }
     }
-    // Fallback com base no endereço caso a URL esteja vazia ou corrompida
+
+    // Se a URL não for um embed válido do Google Maps (ex: link normal de compartilhamento do Google Maps)
+    if (mapUrl && !mapUrl.includes('output=embed') && !mapUrl.includes('/embed')) {
+        let query = '';
+        if (mapUrl.includes('/place/')) {
+            const placeMatch = mapUrl.match(/\/place\/([^\/\?]+)/);
+            if (placeMatch && placeMatch[1]) {
+                query = placeMatch[1];
+            }
+        } else if (mapUrl.includes('q=')) {
+            const qMatch = mapUrl.match(/q=([^&]+)/);
+            if (qMatch && qMatch[1]) {
+                query = qMatch[1];
+            }
+        }
+        
+        if (!query && (config.address || config.cityStateCep)) {
+            query = encodeURIComponent([config.address, config.cityStateCep].filter(Boolean).join(', '));
+        }
+
+        if (query) {
+            mapUrl = `https://maps.google.com/maps?q=${query}&t=&z=16&ie=UTF8&iwloc=&output=embed`;
+        }
+    }
+
+    // Fallback com base no endereço caso a URL esteja vazia
     if (!mapUrl && (config.address || config.cityStateCep)) {
         const fullAddress = [config.address, config.cityStateCep].filter(Boolean).join(', ');
         mapUrl = `https://maps.google.com/maps?q=${encodeURIComponent(fullAddress)}&t=&z=16&ie=UTF8&iwloc=&output=embed`;

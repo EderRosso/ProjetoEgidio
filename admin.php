@@ -1285,8 +1285,16 @@ checkAuth();
             document.getElementById('config-facebookUrl').value = config.facebookUrl || '';
             document.getElementById('config-instagramUrl').value = config.instagramUrl || '';
 
-            document.getElementById('config-companyName').value = config.companyName || config.logoText || 'BUFFON';
-            document.getElementById('config-logoSuffix').value = config.logoSuffix !== undefined ? config.logoSuffix : '.';
+            let cName = config.companyName || config.logoText || 'BUFFON';
+            let lSuffix = config.logoSuffix !== undefined ? config.logoSuffix : ' ASSISTÊNCIA';
+            cName = cName.replace(/ASSITÊNCIA/gi, 'ASSISTÊNCIA').replace(/ASSITENCIA/gi, 'ASSISTÊNCIA').trim();
+            lSuffix = lSuffix.replace(/ASSITÊNCIA/gi, 'ASSISTÊNCIA').replace(/ASSITENCIA/gi, 'ASSISTÊNCIA').trim();
+            if (cName.toUpperCase() === 'BUFFON ASSISTÊNCIA' || cName.toUpperCase() === 'BUFFON ASSITÊNCIA') {
+                cName = 'BUFFON';
+                lSuffix = ' ASSISTÊNCIA';
+            }
+            document.getElementById('config-companyName').value = cName;
+            document.getElementById('config-logoSuffix').value = lSuffix;
 
             updateImagePreview('preview-favicon', config.faviconUrl);
             updateImagePreview('preview-logo', config.logoIconUrl);
@@ -1390,11 +1398,40 @@ checkAuth();
                 const match = rawMapUrl.match(/src=["']([^"']+)["']/i);
                 if (match && match[1]) rawMapUrl = match[1];
             }
+            if (rawMapUrl && !rawMapUrl.includes('output=embed') && !rawMapUrl.includes('/embed')) {
+                let query = '';
+                if (rawMapUrl.includes('/place/')) {
+                    const placeMatch = rawMapUrl.match(/\/place\/([^\/\?]+)/);
+                    if (placeMatch && placeMatch[1]) query = placeMatch[1];
+                } else if (rawMapUrl.includes('q=')) {
+                    const qMatch = rawMapUrl.match(/q=([^&]+)/);
+                    if (qMatch && qMatch[1]) query = qMatch[1];
+                }
+                if (!query) {
+                    const addr = document.getElementById('config-address').value;
+                    const city = document.getElementById('config-cityStateCep').value;
+                    if (addr || city) {
+                        query = encodeURIComponent([addr, city].filter(Boolean).join(', '));
+                    }
+                }
+                if (query) {
+                    rawMapUrl = `https://maps.google.com/maps?q=${query}&t=&z=16&ie=UTF8&iwloc=&output=embed`;
+                }
+            }
             localData.config.mapsIframeSrc = rawMapUrl;
             localData.config.facebookUrl = document.getElementById('config-facebookUrl').value;
-            localData.config.companyName = document.getElementById('config-companyName').value || 'BUFFON';
-            localData.config.logoText = localData.config.companyName;
-            localData.config.logoSuffix = document.getElementById('config-logoSuffix').value;
+            
+            let cName = document.getElementById('config-companyName').value.trim() || 'BUFFON';
+            let lSuffix = document.getElementById('config-logoSuffix').value;
+            cName = cName.replace(/ASSITÊNCIA/gi, 'ASSISTÊNCIA').replace(/ASSITENCIA/gi, 'ASSISTÊNCIA').trim();
+            lSuffix = lSuffix.replace(/ASSITÊNCIA/gi, 'ASSISTÊNCIA').replace(/ASSITENCIA/gi, 'ASSISTÊNCIA').trim();
+            if (cName.toUpperCase() === 'BUFFON ASSISTÊNCIA' || cName.toUpperCase() === 'BUFFON ASSITÊNCIA') {
+                cName = 'BUFFON';
+                lSuffix = ' ASSISTÊNCIA';
+            }
+            localData.config.companyName = cName;
+            localData.config.logoText = cName;
+            localData.config.logoSuffix = lSuffix;
 
             // 2. Hero
             localData.hero = localData.hero || {};

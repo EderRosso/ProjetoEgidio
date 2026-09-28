@@ -52,8 +52,8 @@
          Substitua "[FAVICON_PLACEHOLDER]" pelo caminho da sua imagem (Ex: "assets/images/favicon.png") -->
     <link rel="shortcut icon" href="assets/images/logo-icon.png" type="image/x-icon">
 
-    <!-- 👉 VÍNCULO COM O ARQUIVO DE ESTILOS (CORES E LAYOUT - NÃO ALTERAR) -->
-    <link rel="stylesheet" href="css/style.css?v=1.2">
+    <!-- 👉 VÍNCULO COM O ARQUIVO DE ESTILOS (CORES E LAYOUT) -->
+    <link rel="stylesheet" href="css/style.css?v=<?php echo time(); ?>">
 </head>
 <body>
 

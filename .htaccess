@@ -1,3 +1,9 @@
+RewriteEngine On
+# Força redirecionamento automático de HTTP para HTTPS seguro
+RewriteCond %{HTTPS} off
+RewriteCond %{HTTP:X-Forwarded-Proto} !https
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
 <Files "admin.html">
     AuthType Basic
     AuthName "Acesso Restrito - Painel Administrativo"
@@ -6,3 +12,4 @@
     AuthUserFile /home/u950170173/domains/buffonassistenciatecnica.com.br/public_html/.htpasswd
     Require valid-user
 </Files>
+

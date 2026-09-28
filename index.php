@@ -1,3 +1,17 @@
+<?php
+// Redirecionamento forçado para HTTPS seguro
+if (!isset($_SERVER['HTTPS']) || $_SERVER['HTTPS'] !== 'on') {
+    $isHttps = (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') ||
+               (isset($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT'] == 443);
+    $isLocal = isset($_SERVER['HTTP_HOST']) && (strpos($_SERVER['HTTP_HOST'], 'localhost') !== false || strpos($_SERVER['HTTP_HOST'], '127.0.0.1') !== false);
+    
+    if (!$isHttps && !$isLocal && isset($_SERVER['HTTP_HOST'])) {
+        header("HTTP/1.1 301 Moved Permanently");
+        header("Location: https://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
+        exit();
+    }
+}
+?>
 <!-- 
     =================================================================================
     GUIA RÁPIDO DE MODIFICAÇÕES PARA O PROPRIETÁRIO:

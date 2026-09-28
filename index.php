@@ -84,7 +84,7 @@
                 
                 <!-- 👉 BOTÃO DE CONTATO DO MENU (FALE CONOSCO)
                      ⚠️ INSTRUÇÃO: Substitua "[NUMERO_DO_WHATSAPP]" pelo seu número completo com DDD (ex: 51999999999) -->
-                <a href="https://wa.me/555134740000" class="btn btn-whatsapp btn-menu-cta" target="_blank" rel="noopener noreferrer" id="menu-cta-whats">
+                <a href="https://wa.me/5551986012711" class="btn btn-whatsapp btn-menu-cta" target="_blank" rel="noopener noreferrer" id="menu-cta-whats">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                         <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.455L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.37 9.864-9.799.002-2.63-1.023-5.101-2.885-6.965C16.59 2.016 14.133 1 11.517 1 6.082 1 1.657 5.37 1.654 10.8c-.001 1.674.444 3.308 1.29 4.747L1.9 21.03l4.747-1.876zM17.41 14.5c-.32-.16-1.89-.93-2.185-1.04-.294-.11-.51-.16-.723.16-.214.32-.83 1.04-1.02 1.25-.19.21-.38.24-.7.08-1.127-.565-1.951-1.034-2.737-2.39-.2-.34.2-.32.57-1.07.09-.18.04-.34-.02-.45-.06-.11-.51-1.22-.7-1.68-.18-.43-.36-.37-.5-.38-.13 0-.28 0-.43 0-.15 0-.39.06-.6.29-.21.23-.8.78-.8 1.9s.82 2.21.93 2.37c.11.16 1.61 2.46 3.91 3.46 1.15.5 2.06.82 2.76 1.04.58.19 1.11.16 1.53.1.47-.07 1.46-.6 1.67-1.18.21-.58.21-1.08.15-1.18-.06-.1-.23-.16-.55-.32z"/>
                     </svg>
@@ -729,7 +729,7 @@
                         <div class="contact-info-cards">
                             
                             <!-- 👉 TELEFONE E WHATSAPP DE CONTATO DA SEÇÃO DE CONTATO -->
-                            <a href="tel:5134740000" class="info-card" id="contact-card-phone" aria-label="Ligar para a empresa">
+                            <a href="tel:51986012711" class="info-card" id="contact-card-phone" aria-label="Ligar para a empresa">
                                 <div class="info-card-icon">
                                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                         <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
@@ -737,12 +737,12 @@
                                 </div>
                                 <div class="info-card-content">
                                     <h4>Telefone & WhatsApp</h4>
-                                    <p data-field="config.phone">(51) 3474-0000</p>
+                                    <p data-field="config.phone">(51) 98601-2711</p>
                                 </div>
                             </a>
 
                             <!-- 👉 E-MAIL DA SEÇÃO DE CONTATO -->
-                            <a href="mailto:contato@buffonassistencia.com.br" class="info-card" id="contact-card-email" aria-label="Enviar e-mail para orçamentos">
+                            <a href="mailto:buffonassistencia@gmail.com" class="info-card" id="contact-card-email" aria-label="Enviar e-mail para orçamentos">
                                 <div class="info-card-icon">
                                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                         <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
@@ -751,12 +751,12 @@
                                 </div>
                                 <div class="info-card-content">
                                     <h4>E-mail para Orçamentos</h4>
-                                    <p data-field="config.email">contato@buffonassistencia.com.br</p>
+                                    <p data-field="config.email">buffonassistencia@gmail.com</p>
                                 </div>
                             </a>
 
                             <!-- 👉 ENDEREÇO DA SEÇÃO DE CONTATO -->
-                            <a href="https://maps.google.com/?q=Rua+Tiradentes,+123+-+Centro,+Sapucaia+do+Sul+-+RS+-+CEP+93222-010" target="_blank" rel="noopener noreferrer" class="info-card" id="contact-card-address" aria-label="Abrir endereço no Google Maps">
+                            <a href="https://maps.google.com/?q=Avenida+Joao+Pereira+De+Vargas,+851,+Sapucaia+do+Sul+-+RS,+93220-190" target="_blank" rel="noopener noreferrer" class="info-card" id="contact-card-address" aria-label="Abrir endereço no Google Maps">
                                 <div class="info-card-icon">
                                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                         <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
@@ -765,19 +765,17 @@
                                 </div>
                                 <div class="info-card-content">
                                     <h4>Endereço Sede</h4>
-                                    <p data-field="config.address">Rua Tiradentes, 123 - Centro</p>
-                                    <p data-field="config.cityStateCep">Sapucaia do Sul - RS - CEP 93222-010</p>
+                                    <p data-field="config.address">Avenida João Pereira De Vargas, 851</p>
+                                    <p data-field="config.cityStateCep">Sapucaia do Sul - RS - CEP 93220-190</p>
                                 </div>
                             </a>
 
                         </div>
 
-                        <!-- 👉 MAPA DO GOOGLE INCORPORADO (IFRAME)
-                             Para alterar o mapa para a sua localização:
-                             Substitua o CEP ou endereço no parâmetro 'q=' (ex: q=Sapucaia+do+Sul+RS) -->
+                        <!-- 👉 MAPA DO GOOGLE INCORPORADO (IFRAME) -->
                         <div class="map-container">
                             <iframe 
-                                src="https://maps.google.com/maps?q=93222-010&t=&z=15&ie=UTF8&iwloc=&output=embed" 
+                                src="https://maps.google.com/maps?q=Avenida+Jo%C3%A3o+Pereira+De+Vargas%2C+851%2C+Sapucaia+do+Sul+-+RS%2C+93220-190&t=&z=16&ie=UTF8&iwloc=&output=embed" 
                                 allowfullscreen="" 
                                 loading="lazy" 
                                 referrerpolicy="no-referrer-when-downgrade"
@@ -914,20 +912,20 @@
                             <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
                             <circle cx="12" cy="10" r="3"></circle>
                         </svg>
-                        <span data-field="config.address">Rua Tiradentes, 123 - Centro</span>
+                        <span data-field="config.address">Avenida João Pereira De Vargas, 851</span>
                     </div>
                     <div class="footer-contact-item">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
                         </svg>
-                        <span data-field="config.phone">(51) 3474-0000</span>
+                        <span data-field="config.phone">(51) 98601-2711</span>
                     </div>
                     <div class="footer-contact-item">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
                             <polyline points="22,6 12,13 2,6"></polyline>
                         </svg>
-                        <span data-field="config.email">contato@buffonassistencia.com.br</span>
+                        <span data-field="config.email">buffonassistencia@gmail.com</span>
                     </div>
                 </div>
 
@@ -955,9 +953,8 @@
 
     <!-- -----------------------------------------
          👉 BOTÃO DE WHATSAPP FLUTUANTE (CANTO INFERIOR DIREITO)
-         ⚠️ INSTRUÇÃO: Substitua "[NUMERO_DO_WHATSAPP]" pelo seu número completo com DDD
          ----------------------------------------- -->
-    <a href="https://wa.me/555134740000" class="whatsapp-floating" target="_blank" rel="noopener noreferrer" aria-label="Fale conosco no WhatsApp" id="floating-whatsapp-btn">
+    <a href="https://wa.me/5551986012711" class="whatsapp-floating" target="_blank" rel="noopener noreferrer" aria-label="Fale conosco no WhatsApp" id="floating-whatsapp-btn">
         <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
             <path d="M12.004 2C6.48 2 2 6.48 2 12.004c0 1.762.455 3.483 1.325 5.002L2 22l5.127-1.313c1.474.808 3.125 1.233 4.877 1.233 5.525 0 10.005-4.48 10.005-10.004C22.009 6.48 17.529 2 12.004 2zm5.405 14.502c-.262.738-1.528 1.34-2.102 1.408-.53.063-1.22.107-3.414-.783-2.8-1.139-4.576-3.99-4.717-4.178-.14-.187-1.134-1.507-1.134-2.875 0-1.368.718-2.039.974-2.3.256-.263.688-.328.895-.328.207 0 .414.004.595.013.19.01.442-.041.69.559.256.623.874 2.133.95 2.285.076.153.127.329.025.534-.102.206-.153.332-.303.508-.15.176-.316.39-.452.524-.15.15-.308.314-.133.615.175.301.782 1.286 1.677 2.083.896.797 1.652 1.042 1.953 1.192.302.15.479.127.659-.076.18-.204.78-.906.988-1.21.208-.305.417-.255.703-.15.287.106 1.82.859 2.134 1.015.314.156.524.229.6.357.076.128.076.738-.186 1.476z"/>
         </svg>

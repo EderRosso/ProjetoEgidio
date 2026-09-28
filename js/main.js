@@ -218,11 +218,32 @@ function renderSiteData() {
         }
     }
 
+    // Função auxiliar para formatar telefone brasileiro
+    function formatPhoneBR(phone) {
+        if (!phone) return '';
+        const digits = String(phone).replace(/\D/g, '');
+        if (digits.length === 11) {
+            return `(${digits.slice(0, 2)}) ${digits.slice(2, 7)}-${digits.slice(7)}`;
+        } else if (digits.length === 10) {
+            return `(${digits.slice(0, 2)}) ${digits.slice(2, 6)}-${digits.slice(6)}`;
+        } else if (digits.length === 13 && digits.startsWith('55')) {
+            return `(${digits.slice(2, 4)}) ${digits.slice(4, 9)}-${digits.slice(9)}`;
+        } else if (digits.length === 12 && digits.startsWith('55')) {
+            return `(${digits.slice(2, 4)}) ${digits.slice(4, 8)}-${digits.slice(8)}`;
+        }
+        return phone;
+    }
+
     // 1. Injetar textos e atributos simples (campos marcados com data-field)
     const textFields = document.querySelectorAll('[data-field]');
     textFields.forEach(el => {
         const fieldPath = el.getAttribute('data-field');
-        const value = getNestedValue(data, fieldPath);
+        let value = getNestedValue(data, fieldPath);
+        
+        // Formatar telefone automaticamente para exibição
+        if ((fieldPath === 'config.phone' || fieldPath === 'config.whatsapp') && value) {
+            value = formatPhoneBR(value);
+        }
         
         // Apenas substitui se o valor não for nulo, indefinido ou string vazia
         if (value !== undefined && value !== null && value !== '') {
@@ -278,15 +299,18 @@ function renderSiteData() {
     });
 
     // Phone Links (Card de Contato)
-    const rawPhone = (config.phone || config.whatsapp || '').replace(/\D/g, '');
+    const rawPhoneDigits = (config.phone || config.whatsapp || '').replace(/\D/g, '');
     const phoneCard = document.getElementById('contact-card-phone');
-    if (phoneCard && rawPhone) {
-        phoneCard.setAttribute('href', `tel:${rawPhone}`);
+    if (phoneCard && rawPhoneDigits) {
+        phoneCard.setAttribute('href', `tel:${rawPhoneDigits}`);
     }
 
     // WhatsApp Links (Botões flutuantes, links e CTAs)
     if (config.whatsapp) {
-        const rawWa = config.whatsapp.replace(/\D/g, '');
+        let rawWa = config.whatsapp.replace(/\D/g, '');
+        if (rawWa.length === 10 || rawWa.length === 11) {
+            rawWa = '55' + rawWa;
+        }
         const whatsappLinks = document.querySelectorAll('a[href*="wa.me"], .whatsapp-floating, #floating-whatsapp-btn');
         whatsappLinks.forEach(link => {
             link.setAttribute('href', `https://wa.me/${rawWa}`);
@@ -322,10 +346,26 @@ function renderSiteData() {
         if (igLink) igLink.setAttribute('href', config.instagramUrl);
     }
 
-    // Google Maps Iframe
-    if (config.mapsIframeSrc) {
+    // Google Maps Iframe (Sanitização e Fallback)
+    let mapUrl = config.mapsIframeSrc ? config.mapsIframeSrc.trim() : '';
+    // Limpar aspas se foram salvas acidentalmente (ex: "\"https:...\"")
+    mapUrl = mapUrl.replace(/^["']|["']$/g, '').trim();
+    // Se o usuário colou uma tag iframe inteira
+    if (mapUrl.includes('<iframe')) {
+        const srcMatch = mapUrl.match(/src=["']([^"']+)["']/i);
+        if (srcMatch && srcMatch[1]) {
+            mapUrl = srcMatch[1];
+        }
+    }
+    // Fallback com base no endereço caso a URL esteja vazia ou corrompida
+    if (!mapUrl && (config.address || config.cityStateCep)) {
+        const fullAddress = [config.address, config.cityStateCep].filter(Boolean).join(', ');
+        mapUrl = `https://maps.google.com/maps?q=${encodeURIComponent(fullAddress)}&t=&z=16&ie=UTF8&iwloc=&output=embed`;
+    }
+
+    if (mapUrl) {
         const mapIframe = document.querySelector('.map-container iframe');
-        if (mapIframe) mapIframe.setAttribute('src', config.mapsIframeSrc);
+        if (mapIframe) mapIframe.setAttribute('src', mapUrl);
     }
 
     // Formspree Action
@@ -490,8 +530,39 @@ function renderSiteData() {
                 pneumatic: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 0-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 0 7.94-7.94l-3.76 3.76z"></path></svg>`,
                 painting: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"></path><path d="M12 18C15.3137 18 18 15.3137 18 12C18 8.68629 15.3137 6 12 6C8.68629 6 6 8.68629 6 12C6 15.3137 8.68629 18 12 18Z"></path><path d="M12 14C13.1046 14 14 13.1046 14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14Z"></path></svg>`,
                 motor: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>`,
-                electric: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18.36 6.64a9 9 0 1 1-12.73 0"></path><line x1="12" y1="2" x2="12" y2="12"></line></svg>`
+                electric: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18.36 6.64a9 9 0 1 1-12.73 0"></path><line x1="12" y1="2" x2="12" y2="12"></line></svg>`,
+                wrench: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 0-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 0 7.94-7.94l-3.76 3.76z"></path></svg>`,
+                gear: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>`,
+                drill: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4l3 3-9 9-4-1 1-4 9-9z"></path><path d="M17 7l3-3"></path><path d="M5 19l-3 3"></path><path d="M18 10l-4-4"></path></svg>`,
+                bolt: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>`,
+                shield: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>`,
+                box: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>`,
+                settings: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>`
             };
+
+            function resolveIconSvg(iconKey) {
+                if (!iconKey) return svgs.pneumatic;
+                const clean = String(iconKey).trim();
+                if (clean.startsWith('<svg')) return clean;
+                
+                const lower = clean.toLowerCase();
+                if (svgs[lower]) return svgs[lower];
+
+                // Aliases em português e termos comuns
+                if (lower.includes('pneu') || lower.includes('ar') || lower.includes('comprimido')) return svgs.pneumatic;
+                if (lower.includes('pint') || lower.includes('airless') || lower.includes('pistola') || lower.includes('spray')) return svgs.painting;
+                if (lower.includes('mot') || lower.includes('bomb') || lower.includes('bobin')) return svgs.motor;
+                if (lower.includes('eletr') || lower.includes('martel') || lower.includes('bater')) return svgs.electric;
+                if (lower.includes('chave') || lower.includes('wrench') || lower.includes('manut')) return svgs.wrench;
+                if (lower.includes('engren') || lower.includes('mecan') || lower.includes('gear')) return svgs.gear;
+                if (lower.includes('fura') || lower.includes('lixa') || lower.includes('girafa') || lower.includes('serr') || lower.includes('drill')) return svgs.drill;
+                if (lower.includes('raio') || lower.includes('bolt') || lower.includes('potenc') || lower.includes('forca')) return svgs.bolt;
+                if (lower.includes('escudo') || lower.includes('shield') || lower.includes('garant') || lower.includes('segur')) return svgs.shield;
+                if (lower.includes('caixa') || lower.includes('peca') || lower.includes('box')) return svgs.box;
+                if (lower.includes('calibr') || lower.includes('ajust') || lower.includes('config')) return svgs.settings;
+
+                return svgs.pneumatic;
+            }
 
             servicesGrid.innerHTML = data.services.items.map(srv => `
                 <div class="service-card">
@@ -502,7 +573,7 @@ function renderSiteData() {
                     ` : ''}
                     <div class="service-card-body">
                         <div class="service-icon-box">
-                            ${svgs[srv.icon] || svgs.pneumatic}
+                            ${resolveIconSvg(srv.icon)}
                         </div>
                         <h3>${srv.title}</h3>
                         <p>${srv.description}</p>
@@ -523,9 +594,20 @@ function renderSiteData() {
     if (data.services && Array.isArray(data.services.brands) && data.services.brands.length > 0) {
         const carouselTrack = document.querySelector('.brands-carousel-track');
         if (carouselTrack) {
-            const brandsHtml = data.services.brands.map(brand => `
-                <div class="brand-logo-item">${brand}</div>
-            `).join('');
+            const brandsHtml = data.services.brands.map(brand => {
+                const isObj = typeof brand === 'object' && brand !== null;
+                const name = isObj ? (brand.name || '') : String(brand);
+                const logoUrl = isObj ? (brand.logoUrl || '') : '';
+                
+                if (logoUrl) {
+                    return `
+                    <div class="brand-logo-item" title="${name}">
+                        <img src="${logoUrl}" alt="${name || 'Logo Marca'}" class="brand-logo-img" loading="lazy">
+                    </div>`;
+                } else {
+                    return `<div class="brand-logo-item">${name}</div>`;
+                }
+            }).join('');
             // Duplicar marcas para manter o scroll contínuo
             carouselTrack.innerHTML = brandsHtml + brandsHtml;
         }

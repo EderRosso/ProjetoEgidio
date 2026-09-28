@@ -1137,10 +1137,15 @@ checkAuth();
                         <!-- Gerado dinamicamente -->
                     </div>
 
-                    <h3 style="font-family: var(--font-primary); font-size: 1.15rem; margin-top: 2rem; border-top: 1px solid var(--color-card-border); padding-top: 1.5rem;">Marcas Atendidas (Carrossel)</h3>
-                    <div class="form-group">
-                        <label for="services-brands">Escreva os nomes das marcas separados por vírgula (Ex: BOSCH, MAKITA, DEWALT)</label>
-                        <textarea id="services-brands" style="min-height: 80px;"></textarea>
+                    <h3 style="font-family: var(--font-primary); font-size: 1.15rem; margin-top: 2rem; border-top: 1px solid var(--color-card-border); padding-top: 1.5rem; display:flex; justify-content:space-between; align-items:center;">
+                        Marcas e Empresas Atendidas (Logos do Carrossel)
+                        <button type="button" class="btn-upload" onclick="addBrandItem()" style="padding: 0.35rem 0.75rem;">+ Nova Marca / Logo</button>
+                    </h3>
+                    <p style="font-size: 0.85rem; color: var(--color-text-muted); margin-bottom: 1rem;">
+                        Cadastre os logotipos das marcas e empresas parceiras. Se anexar uma imagem do logotipo, a logo será exibida no carrossel. Se deixar sem foto, o nome será exibido em texto estilizado.
+                    </p>
+                    <div id="brands-list" class="list-container">
+                        <!-- Gerado dinamicamente -->
                     </div>
                 </div>
 
@@ -1334,7 +1339,6 @@ checkAuth();
             document.getElementById('services-subtitle').value = srv.subtitle || '';
             document.getElementById('services-title').value = srv.title || '';
             document.getElementById('services-description').value = srv.description || '';
-            document.getElementById('services-brands').value = (srv.brands || []).join(', ');
 
             renderServicesList();
 
@@ -1346,7 +1350,7 @@ checkAuth();
 
             renderFaqList();
 
-            // 7. Depoimentos
+            // 7. Depoimentos & Marcas
             const test = localData.testimonials || {};
             document.getElementById('testimonials-subtitle').value = test.subtitle || '';
             document.getElementById('testimonials-title').value = test.title || '';
@@ -1356,6 +1360,7 @@ checkAuth();
             document.getElementById('testimonials-widgetHtml').value = test.widgetHtml || '';
 
             renderTestimonialsList();
+            renderBrandsList();
         }
 
         // Salva os valores dos inputs de volta para o objeto localData antes de gerar o arquivo
@@ -1379,7 +1384,13 @@ checkAuth();
             localData.config.address = document.getElementById('config-address').value;
             localData.config.cityStateCep = document.getElementById('config-cityStateCep').value;
             localData.config.formspreeAction = document.getElementById('config-formspreeAction').value;
-            localData.config.mapsIframeSrc = document.getElementById('config-mapsIframeSrc').value;
+            let rawMapUrl = document.getElementById('config-mapsIframeSrc').value.trim();
+            rawMapUrl = rawMapUrl.replace(/^["']|["']$/g, '').trim();
+            if (rawMapUrl.includes('<iframe')) {
+                const match = rawMapUrl.match(/src=["']([^"']+)["']/i);
+                if (match && match[1]) rawMapUrl = match[1];
+            }
+            localData.config.mapsIframeSrc = rawMapUrl;
             localData.config.facebookUrl = document.getElementById('config-facebookUrl').value;
             localData.config.companyName = document.getElementById('config-companyName').value || 'BUFFON';
             localData.config.logoText = localData.config.companyName;
@@ -1444,12 +1455,24 @@ checkAuth();
             localData.services.subtitle = document.getElementById('services-subtitle').value;
             localData.services.title = document.getElementById('services-title').value;
             localData.services.description = document.getElementById('services-description').value;
-            localData.services.brands = document.getElementById('services-brands').value.split(',').map(s => s.trim()).filter(s => s !== '');
+
+            // Coleta Marcas & Logos
+            const brandCards = document.querySelectorAll('.brand-item-form');
+            if (brandCards.length > 0) {
+                localData.services.brands = Array.from(brandCards).map((card, idx) => {
+                    const existing = localData.services.brands && localData.services.brands[idx];
+                    const existingLogo = (existing && typeof existing === 'object') ? existing.logoUrl : '';
+                    return {
+                        name: card.querySelector('.brand-name-input').value.trim(),
+                        logoUrl: existingLogo || ''
+                    };
+                }).filter(b => b.name !== '' || b.logoUrl !== '');
+            }
 
             // Coleta Equipamentos itens
             const srvCards = document.querySelectorAll('.srv-item-form');
             localData.services.items = Array.from(srvCards).map((card, idx) => ({
-                icon: card.querySelector('.srv-icon-select').value,
+                icon: (card.querySelector('.srv-icon-input') || card.querySelector('.srv-icon-select'))?.value.trim() || 'pneumatic',
                 title: card.querySelector('.srv-title-input').value,
                 description: card.querySelector('.srv-desc-input').value,
                 imageUrl: (localData.services.items[idx] && localData.services.items[idx].imageUrl) ? localData.services.items[idx].imageUrl : ''
@@ -1817,13 +1840,10 @@ checkAuth();
                             <input type="text" class="srv-title-input" value="${srv.title || ''}">
                         </div>
                         <div class="form-group">
-                            <label>Tipo de Ícone</label>
-                            <select class="srv-icon-select">
-                                <option value="pneumatic" ${srv.icon === 'pneumatic' ? 'selected' : ''}>Ferramenta Pneumática</option>
-                                <option value="painting" ${srv.icon === 'painting' ? 'selected' : ''}>Equipamento de Pintura / Airless</option>
-                                <option value="motor" ${srv.icon === 'motor' ? 'selected' : ''}>Motor Elétrico & Bomba</option>
-                                <option value="electric" ${srv.icon === 'electric' ? 'selected' : ''}>Ferramenta Elétrica Profissional</option>
-                            </select>
+                            <label>Tipo de Ícone <span style="font-weight:normal; font-size:0.8rem; color:var(--color-text-muted);">(Preencha ou selecione uma opção)</span></label>
+                            <div style="display:flex; align-items:center; gap:8px;">
+                                <input type="text" list="srv-icon-suggestions" class="srv-icon-input" value="${srv.icon || 'pneumatic'}" placeholder="Ex: pneumatic, pintura, motor, chave, furadeira..." style="flex:1;">
+                            </div>
                         </div>
                     </div>
                     
@@ -1847,6 +1867,26 @@ checkAuth();
                     </div>
                 </div>
             `).join('');
+
+            // Injeta datalist compartilhado se não existir
+            if (!document.getElementById('srv-icon-suggestions')) {
+                const datalist = document.createElement('datalist');
+                datalist.id = 'srv-icon-suggestions';
+                datalist.innerHTML = `
+                    <option value="pneumatic">Ferramenta Pneumática / Ar Comprimido</option>
+                    <option value="painting">Equipamento de Pintura / Airless</option>
+                    <option value="motor">Motor Elétrico & Bomba</option>
+                    <option value="electric">Ferramenta Elétrica Profissional</option>
+                    <option value="wrench">Chave de Manutenção / Ferramenta Mecânica</option>
+                    <option value="gear">Engrenagem / Maquinário Industrial</option>
+                    <option value="drill">Furadeira / Lixadeira Girafa / Serras</option>
+                    <option value="bolt">Energia / Alta Tensão / Raio</option>
+                    <option value="shield">Garantia / Proteção Técnica</option>
+                    <option value="box">Peças / Componentes de Reposição</option>
+                    <option value="settings">Ajustes / Calibração Técnica</option>
+                `;
+                document.body.appendChild(datalist);
+            }
 
             list.forEach((srv, idx) => {
                 updateImagePreview(`preview-srv-img-${idx}`, srv.imageUrl || '');
@@ -2002,6 +2042,121 @@ checkAuth();
             localData.testimonials.items = localData.testimonials.items || [];
             localData.testimonials.items.push({ initials: 'NC', name: 'Nome do Cliente', company: 'Cargo / Metalúrgica', rating: 5, text: '"Avaliação sobre a qualidade dos consertos da Buffon..."', date: 'Há 1 semana' });
             renderTestimonialsList();
+        }
+
+        // 8. Marcas & Logos
+        function renderBrandsList() {
+            const container = document.getElementById('brands-list');
+            if (!container) return;
+            const list = localData.services.brands || [];
+            container.innerHTML = list.map((brand, idx) => {
+                const isObj = typeof brand === 'object' && brand !== null;
+                const name = isObj ? (brand.name || '') : String(brand);
+                const logoUrl = isObj ? (brand.logoUrl || '') : '';
+                return `
+                <div class="list-item-card brand-item-form">
+                    <div class="list-item-header">
+                        <span>Marca / Empresa #${idx + 1}</span>
+                        <button type="button" class="btn-remove" onclick="removeItem('services.brands', ${idx}, 'renderBrandsList')">
+                            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                        </button>
+                    </div>
+                    <div class="form-row" style="align-items:center;">
+                        <div class="form-group" style="flex:1;">
+                            <label>Nome da Marca / Empresa</label>
+                            <input type="text" class="brand-name-input" value="${name}" placeholder="Ex: BOSCH, MAKITA, WBR...">
+                        </div>
+                        <div class="form-group" style="flex:1;">
+                            <label>Logotipo da Empresa (Imagem / Foto)</label>
+                            <div class="image-upload-wrapper">
+                                <div class="image-preview" id="preview-brand-logo-${idx}" style="width: 120px; height: 50px; background: #0f172a; border-radius: 6px; display:flex; align-items:center; justify-content:center;">
+                                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="width:24px; height:24px;"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                </div>
+                                <div class="image-upload-info">
+                                    <input type="file" id="file-brand-logo-${idx}" accept="image/*" style="display:none" onchange="handleBrandLogoUpload(this, ${idx})">
+                                    <button type="button" class="btn-upload" onclick="document.getElementById('file-brand-logo-${idx}').click()">Escolher Foto</button>
+                                    <button type="button" class="btn-upload" onclick="clearBrandLogo(${idx})" style="margin-top:0.25rem; font-size:0.75rem; border:1px solid var(--color-card-border); padding: 0.2rem 0.5rem; justify-content:center; color: var(--color-danger); background-color: rgba(239, 68, 68, 0.05);">Remover</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                `;
+            }).join('');
+
+            list.forEach((brand, idx) => {
+                const isObj = typeof brand === 'object' && brand !== null;
+                const logoUrl = isObj ? (brand.logoUrl || '') : '';
+                updateImagePreview(`preview-brand-logo-${idx}`, logoUrl);
+            });
+        }
+
+        function addBrandItem() {
+            collectFormValues();
+            localData.services = localData.services || {};
+            localData.services.brands = localData.services.brands || [];
+            localData.services.brands.push({ name: 'NOVA MARCA', logoUrl: '' });
+            renderBrandsList();
+        }
+
+        function handleBrandLogoUpload(inputEl, index) {
+            const file = inputEl.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = new Image();
+                img.onload = function() {
+                    const canvas = document.createElement('canvas');
+                    const MAX_WIDTH = 400;
+                    const MAX_HEIGHT = 200;
+                    let width = img.width;
+                    let height = img.height;
+
+                    if (width > height) {
+                        if (width > MAX_WIDTH) {
+                            height = Math.round((height * MAX_WIDTH) / width);
+                            width = MAX_WIDTH;
+                        }
+                    } else {
+                        if (height > MAX_HEIGHT) {
+                            width = Math.round((width * MAX_HEIGHT) / height);
+                            height = MAX_HEIGHT;
+                        }
+                    }
+
+                    canvas.width = width;
+                    canvas.height = height;
+
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, width, height);
+
+                    const compressedBase64 = canvas.toDataURL('image/png');
+                    
+                    localData.services = localData.services || {};
+                    localData.services.brands = localData.services.brands || [];
+                    
+                    if (!localData.services.brands[index] || typeof localData.services.brands[index] !== 'object') {
+                        localData.services.brands[index] = { name: localData.services.brands[index] || '', logoUrl: '' };
+                    }
+                    localData.services.brands[index].logoUrl = compressedBase64;
+                    updateImagePreview(`preview-brand-logo-${index}`, compressedBase64);
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function clearBrandLogo(index) {
+            localData.services = localData.services || {};
+            localData.services.brands = localData.services.brands || [];
+            
+            if (localData.services.brands[index]) {
+                if (typeof localData.services.brands[index] === 'object') {
+                    localData.services.brands[index].logoUrl = '';
+                }
+            }
+            updateImagePreview(`preview-brand-logo-${index}`, '');
         }
 
         // Remove item de uma lista dinâmica
